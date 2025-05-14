@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@import "@styles/variables.scss";
 
 //px→vw変換
 @function ppx($num_pc, $width_pc: $viewport_pc) {
