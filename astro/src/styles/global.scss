@@ -20,5 +20,19 @@ html {
     body {
         @include zen-kaku-gothic-new-regular;
         background-color: #e7f3f9;
+        color: #054965;
+        letter-spacing: 0.02em;
+    }
+}
+.sp {
+    display: block;
+    @include tablet-up {
+        display: none;
+    }
+}
+.pc {
+    display: none;
+    @include tablet-up {
+        display: block;
     }
 }

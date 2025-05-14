@@ -1,0 +1,49 @@
+---
+interface Props {
+  href?: string;
+  className?: string;
+  title?: string;
+}
+const { href = '#', className = '', title = '' }: Props = Astro.props;
+---
+
+<a href={href} class={`primary-btn ${className}`}>
+  <span>{title}</span>
+</a>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .primary-btn {
+    display: grid;
+    place-items: center;
+    width: max-content;
+    height: max-content;
+    padding: spx(16);
+    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+
+    @include tablet-up {
+      padding: spx(16) * 0.75;
+    }
+
+    @include desktop-up {
+      padding: ppx(16);
+    }
+    span {
+      display: block;
+      color: #fff;
+      font-size: spx(16);
+      font-weight: 500;
+      line-height: 100%;
+
+      @include tablet-up {
+        font-size: spx(16) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(16);
+      }
+    }
+  }
+</style>

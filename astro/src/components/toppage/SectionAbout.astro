@@ -1,0 +1,97 @@
+---
+import WaveDecoration from '@components/common/WaveDecoration.astro';
+import PrimaryButton from '@components/common/PrimaryButton.astro';
+---
+
+<section id="about">
+  <div class="inner">
+    <p>
+      私たちの使命は、富士西湖の豊かな自然と共生しながら、訪れるすべての人にとって生涯記憶に残る"特別な瞬間"を創造することです。
+    </p>
+    <p>
+      この美しい場所での経験は、ただの訪問を超え、心に深く刻まれる思い出となります。そして、この場所が次の100年も、自然と人をつなぐかけがえのない拠点であり続けることを目指しています。
+    </p>
+    <p>
+      私たちは、スタッフ一人ひとりの個性を尊重し、チームで力を合わせることで、HAMAYOUリゾートならではのおもてなしを生み出しています。お客様にとっての特別な瞬間を創り出すために、私たちは日々努力を重ねています。
+    </p>
+    <p>
+      あなたも私たちと一緒に、この美しい場所で、誰かの「特別」を創り上げる喜びを分かち合いませんか。
+    </p>
+    <p>
+      共に、心温まる体験を提供し、訪れる人々の笑顔を引き出すことができるのです。私たちのチームに加わり、未来の思い出を一緒に作りましょう。
+    </p>
+  </div>
+
+  <div class="btn-wrapper">
+    <PrimaryButton href="#" title="会社概要を見る" />
+  </div>
+
+  <WaveDecoration fillColor="#E7F3F9" />
+</section>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .btn-wrapper {
+    margin-inline: auto;
+    width: max-content;
+  }
+
+  section#about {
+    position: relative;
+    padding: spx(60) 0 spx(140);
+    display: flex;
+    flex-flow: column;
+    gap: spx(100);
+    background-image: url('/top-about-bg-mobile.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #e7f3f9;
+    background-blend-mode: soft-light;
+
+    @include tablet-up {
+      padding: spx(60) * 0.75 0 spx(140) * 0.75;
+      gap: spx(100) * 0.75;
+      background-image: url('/top-about-bg-tablet.webp');
+    }
+
+    @include desktop-up {
+      padding: ppx(60) 0 ppx(184);
+      gap: ppx(80);
+      background-image: url('/top-about-bg-desktop.webp');
+    }
+    .inner {
+      padding: spx(20);
+      display: flex;
+      flex-flow: column;
+      gap: 3em;
+      @include tablet-up {
+        padding: spx(20) * 0.75;
+        gap: 3em;
+      }
+      @include desktop-up {
+        padding: 0 ppx(320);
+        gap: 3em;
+        text-align: center;
+      }
+      p {
+        font-size: spx(16);
+        font-weight: 500;
+        line-height: 180%;
+        letter-spacing: spx(1.92);
+
+        @include tablet-up {
+          font-size: spx(16) * 0.75;
+          letter-spacing: spx(1.92) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(18);
+          letter-spacing: ppx(2.16);
+        }
+      }
+    }
+  }
+</style>

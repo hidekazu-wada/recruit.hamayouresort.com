@@ -1,0 +1,101 @@
+---
+interface Props {
+  largeTitle: string;
+  title: string;
+  enTitle: string;
+}
+
+const { largeTitle, title, enTitle }: Props = Astro.props;
+---
+
+<h2>
+  <p class="jp">
+    <span class="large">{largeTitle}</span><span class="text">{title}</span>
+  </p>
+  <span class="line"></span>
+  <p class="en">{enTitle}</p>
+</h2>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  h2 {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: spx(12);
+    @include tablet-up {
+      gap: spx(12) * 0.75;
+    }
+    @include desktop-up {
+      gap: spx(3);
+    }
+    .jp {
+      font-size: spx(30);
+      font-weight: 700;
+      line-height: 100%;
+      background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      @include tablet-up {
+        font-size: spx(30) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(40);
+      }
+
+      .large {
+        font-size: spx(60);
+        font-weight: 700;
+        line-height: 100%;
+        background: inherit;
+        background-clip: inherit;
+        -webkit-background-clip: inherit;
+        -webkit-text-fill-color: inherit;
+
+        @include tablet-up {
+          font-size: spx(60) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(80);
+        }
+      }
+
+      .text {
+        background: inherit;
+        background-clip: inherit;
+        -webkit-background-clip: inherit;
+        -webkit-text-fill-color: inherit;
+      }
+    }
+    .line {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+    }
+    .en {
+      font-weight: 900;
+      font-size: spx(20);
+      line-height: spx(20);
+      letter-spacing: spx(1.4);
+
+      @include tablet-up {
+        font-size: spx(20) * 0.75;
+        line-height: spx(20) * 0.75;
+        letter-spacing: spx(1.4) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(20);
+        line-height: ppx(34);
+        letter-spacing: ppx(1.4);
+      }
+    }
+  }
+</style>

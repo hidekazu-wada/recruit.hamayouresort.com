@@ -1,0 +1,109 @@
+---
+import SectionInTitle from '@components/toppage/SectionInTitle.astro';
+import SectionInLead from '@components/toppage/SectionInLead.astro';
+import StaffCard from '@components/people/StaffCard.astro';
+import { featuredStaff } from '@data/staffData';
+import PrimaryButton from '@components/common/PrimaryButton.astro';
+---
+
+<section id="people">
+  <div class="section-title-wrapper">
+    <SectionInTitle largeTitle="人" title="を知る" enTitle="PEOPLE" />
+  </div>
+
+  <div class="section-lead-wrapper">
+    <SectionInLead
+      subTitle="働く仲間のストーリー"
+      title="現場の先輩たちのリアルな声。<br>仕事のやりがいも、苦労も、そのままお届け。"
+      description="受付、調理、運営、マーケ…<br>多彩なバックグラウンドを持つスタッフが、<br class='pc'>ゲストと同じくらい“ここで働く楽しさ”を語ります。"
+    />
+  </div>
+
+  <div class="staff-card-wrapper">
+    <div class="staff-cards">
+      {
+        featuredStaff.map((staff) => (
+          <StaffCard
+            image={staff.image}
+            name={staff.name}
+            message={staff.message}
+            tags={staff.tags}
+            id={staff.id}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="btn-wrapper">
+    <PrimaryButton href="#" title="HAMAYOUリゾートで働く人たちを見る" />
+  </div>
+</section>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  section#people {
+    padding: spx(60) 0;
+    @include tablet-up {
+      padding: spx(60) * 0.75 0;
+    }
+    @include desktop-up {
+      padding: ppx(100) 0;
+    }
+  }
+
+  .section-title-wrapper {
+    padding: 0 spx(20) 0;
+    @include tablet-up {
+      padding: 0 spx(20) * 0.75 0;
+    }
+    @include desktop-up {
+      padding: 0 ppx(160) 0;
+    }
+  }
+  .section-lead-wrapper {
+    padding: spx(40) spx(40) 0;
+    @include tablet-up {
+      padding: spx(40) * 0.75 spx(40) * 0.75 0;
+    }
+    @include desktop-up {
+      padding: ppx(40) ppx(260) 0;
+    }
+  }
+  .staff-card-wrapper {
+    padding: spx(60) spx(20) 0;
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(80) * 0.75 0;
+    }
+    @include desktop-up {
+      padding: ppx(80) ppx(180) 0;
+    }
+    .staff-cards {
+      display: grid;
+      gap: spx(20) 0;
+      justify-content: space-between;
+      grid-template-columns: max-content max-content;
+      @include tablet-up {
+        grid-template-columns: max-content max-content;
+        gap: spx(20) * 0.75 0;
+      }
+      @include desktop-up {
+        grid-template-columns: max-content max-content max-content max-content;
+        gap: 0;
+      }
+    }
+  }
+  .btn-wrapper {
+    margin-top: spx(60);
+    margin-inline: auto;
+    width: max-content;
+    @include tablet-up {
+      margin-top: spx(60) * 0.75;
+    }
+    @include desktop-up {
+      margin-top: ppx(80);
+    }
+  }
+</style>
