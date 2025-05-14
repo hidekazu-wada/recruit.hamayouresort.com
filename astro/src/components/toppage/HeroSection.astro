@@ -3,6 +3,7 @@ import HeroDesktop from '@assets/images/top-hero-desktop.png';
 import HeroTablet from '@assets/images/top-hero-tablet.png';
 import HeroMobil from '@assets/images/top-hero-mobile.png';
 import { Image } from 'astro:assets';
+import WaveDecoration from '@components/common/WaveDecoration.astro';
 ---
 
 <section id="hero">
@@ -35,47 +36,18 @@ import { Image } from 'astro:assets';
   </picture>
 
   <div class="btn-wrapper">
-    <div class="item">
-      <a href="#" class="btn"> 新卒で挑戦 </a>
-    </div>
-    <div class="item">
-      <a href="#" class="btn"> 中途で経験を活かす </a>
-    </div>
-    <div class="item">
-      <a href="#" class="btn"> 空いてる日にバイト </a>
-    </div>
+    <a href="#" class="item">
+      <span class="btn-text">新卒で挑戦</span>
+    </a>
+    <a href="#" class="item">
+      <span class="btn-text">中途で経験を活かす</span>
+    </a>
+    <a href="#" class="item">
+      <span class="btn-text">空いてる日にバイト</span>
+    </a>
   </div>
 
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 402 60"
-    fill="none"
-    class="mobile"
-  >
-    <path
-      d="M0 15.0561C0 15.0561 109.5 48.9323 201 15.0561C292.5 -18.8201 402 15.0561 402 15.0561V60H0V15.0561Z"
-      fill="#E7F3F9"></path>
-  </svg>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 834 106"
-    fill="none"
-    class="tablet"
-  >
-    <path
-      d="M0 31.7468C0 31.7468 207 102.994 417 31.7468C627 -39.5 834 31.7468 834 31.7468V109H0V31.7468Z"
-      fill="#E7F3F9"></path>
-  </svg>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 1440 107"
-    fill="none"
-    class="desktop"
-  >
-    <path
-      d="M0 37.9523C0 37.9523 205.92 123.345 720 37.9523C1234.08 -47.4404 1440 37.9523 1440 37.9523V107H0V37.9523Z"
-      fill="#E7F3F9"></path>
-  </svg>
+  <WaveDecoration fillColor="#E7F3F9" />
 </section>
 
 <style lang="scss">
@@ -153,6 +125,7 @@ import { Image } from 'astro:assets';
         gap: ppx(20);
       }
       .item {
+        display: block; // a要素をブロック要素に
         width: spx(220);
         height: spx(47);
         display: grid;
@@ -165,53 +138,33 @@ import { Image } from 'astro:assets';
         );
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
         backdrop-filter: blur(35px);
+        text-decoration: none; // リンクの下線を削除
+
         @include tablet-up {
           width: spx(220) * 0.75;
           height: spx(47) * 0.75;
         }
+
         @include desktop-up {
           width: ppx(220);
           height: ppx(47);
         }
-        .btn {
-          display: block;
-          color: #054965;
+
+        .btn-text {
           font-size: spx(16);
           font-weight: 500;
           line-height: 100%;
+          letter-spacing: spx(1.92);
 
           @include tablet-up {
             font-size: spx(16) * 0.75;
+            letter-spacing: spx(1.92) * 0.75;
           }
 
           @include desktop-up {
             font-size: ppx(18);
+            letter-spacing: ppx(2.16);
           }
-        }
-      }
-    }
-    svg {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      &.mobile {
-        @include tablet-up {
-          display: none;
-        }
-      }
-      &.tablet {
-        display: none;
-        @include tablet-up {
-          display: block;
-        }
-        @include desktop-up {
-          display: none;
-        }
-      }
-      &.desktop {
-        display: none;
-        @include desktop-up {
-          display: block;
         }
       }
     }

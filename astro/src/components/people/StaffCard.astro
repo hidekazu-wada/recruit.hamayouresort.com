@@ -1,0 +1,134 @@
+---
+// astro/src/components/people/StaffCard.astro
+import { Image } from 'astro:assets';
+
+interface Props {
+  image: ImageMetadata;
+  name: string;
+  message: string;
+  tags: string[];
+  id: string;
+  alt?: string;
+}
+
+const { image, name, message, tags, id, alt = name } = Astro.props;
+---
+
+<div class="staff-card" data-staff-id={id}>
+  <Image src={image} alt={alt} format="webp" class="staff-image" />
+  <p class="message">{message}</p>
+  <span class="line"></span>
+  <p class="name">{name}</p>
+  <div class="tag">
+    {tags.map((tag) => <span class="tag-text">{tag}</span>)}
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .staff-card {
+    width: spx(170);
+    padding: spx(10);
+    background-color: #fff;
+    box-shadow: 2px 2px 0px 0px #59a1c0;
+    @include tablet-up {
+      width: spx(170) * 0.75;
+      padding: spx(10) * 0.75;
+    }
+    @include desktop-up {
+      width: ppx(236);
+      padding: 0 0 ppx(20);
+    }
+    .staff-image {
+      display: block;
+      width: spx(150);
+      height: spx(150);
+      object-fit: cover;
+      @include tablet-up {
+        width: spx(150) * 0.75;
+        height: spx(150) * 0.75;
+      }
+      @include desktop-up {
+        width: ppx(236);
+        height: ppx(236);
+      }
+    }
+    .message {
+      font-size: spx(14);
+      font-weight: 500;
+      line-height: 140%;
+      margin-top: spx(16);
+      margin-bottom: spx(12);
+
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+        margin-top: spx(12) * 0.75;
+        margin-bottom: spx(12) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(18);
+        width: ppx(216);
+        margin-inline: auto;
+        margin-top: ppx(20);
+        margin-bottom: ppx(20);
+      }
+    }
+    .line {
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: #054965;
+      @include desktop-up {
+        width: 14vw;
+        margin-inline: auto;
+      }
+    }
+    .name {
+      color: #054965;
+      font-size: spx(14);
+      font-weight: 700;
+      line-height: 100%;
+      margin: spx(12) 0;
+
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+        margin: spx(12) * 0.75 0;
+      }
+
+      @include desktop-up {
+        font-size: ppx(18);
+        margin: ppx(20) 0 ppx(10);
+        padding: 0 ppx(10);
+      }
+    }
+    .tag {
+      display: flex;
+      flex-flow: column;
+      gap: spx(10);
+      @include tablet-up {
+        gap: spx(10) * 0.75;
+      }
+      @include desktop-up {
+        padding: 0 ppx(10);
+        gap: ppx(10);
+      }
+      .tag-text {
+        display: block;
+        font-size: spx(12);
+        font-weight: 500;
+        line-height: 100%;
+
+        @include tablet-up {
+          font-size: spx(12) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(12);
+        }
+      }
+    }
+  }
+</style>

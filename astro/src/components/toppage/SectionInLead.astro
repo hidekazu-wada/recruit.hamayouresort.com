@@ -1,0 +1,75 @@
+---
+interface Props {
+  subTitle: string;
+  title: string;
+  description: string;
+}
+
+const { subTitle, title, description }: Props = Astro.props;
+---
+
+<div class="section-lead">
+  <p class="sub-title">{subTitle}</p>
+  <h3 set:html={title} />
+  <p class="description" set:html={description} />
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .section-lead {
+    .sub-title {
+      font-size: spx(14);
+      font-weight: 500;
+      line-height: 100%;
+
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+      }
+
+      @include desktop-up {
+        color: #054965;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%; /* 20px */
+      }
+    }
+    h3 {
+      font-size: spx(20);
+      font-weight: 700;
+      line-height: 140%;
+      margin-top: spx(12);
+      margin-bottom: spx(20);
+
+      @include tablet-up {
+        font-size: spx(20) * 0.75;
+        margin-top: spx(12) * 0.75;
+        margin-bottom: spx(20) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(32);
+        margin-top: ppx(6);
+        margin-bottom: ppx(20);
+      }
+    }
+    .description {
+      color: #054965;
+      font-size: spx(14);
+      font-weight: 500;
+      line-height: 140%;
+      word-break: auto-phrase;
+
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(18);
+      }
+    }
+  }
+</style>

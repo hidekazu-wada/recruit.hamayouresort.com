@@ -1,10 +1,29 @@
 ---
 import MySiteLayout from '@layouts/MySiteLayout.astro';
 import HeroSection from '@components/toppage/HeroSection.astro';
+import SectionAbout from '@components/toppage/SectionAbout.astro';
+import SectionPeople from '@components/toppage/SectionPeople.astro';
+import SectionInTitle from '@components/toppage/SectionInTitle.astro';
+import SectionInLead from '@components/toppage/SectionInLead.astro';
 ---
 
 <MySiteLayout>
   <HeroSection />
+  <SectionAbout />
+  <SectionPeople />
+  <section id="culture">
+    <div class="section-title-wrapper">
+      <SectionInTitle largeTitle="働" title="く環境" enTitle="CULTURE" />
+    </div>
+    <div class="culture-wrapper"></div>
+    <div class="section-lead-wrapper">
+      <SectionInLead
+        subTitle="働く環境と福利厚生"
+        title="安心と挑戦を両立させる<br class='sp'>制度・サポート"
+        description="平均残業 8.2h／月<br>有休取得率 99%<br>社員寮 個室／Wi-Fi完備"
+      />
+    </div>
+  </section>
 </MySiteLayout>
 
 <style lang="scss">
