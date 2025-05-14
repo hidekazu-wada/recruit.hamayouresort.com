@@ -35,15 +35,15 @@ import { Image } from 'astro:assets';
   </picture>
 
   <div class="btn-wrapper">
-    <div class="item">
-      <a href="#" class="btn"> 新卒で挑戦 </a>
-    </div>
-    <div class="item">
-      <a href="#" class="btn"> 中途で経験を活かす </a>
-    </div>
-    <div class="item">
-      <a href="#" class="btn"> 空いてる日にバイト </a>
-    </div>
+    <a href="#" class="item">
+      <span class="btn-text">新卒で挑戦</span>
+    </a>
+    <a href="#" class="item">
+      <span class="btn-text">中途で経験を活かす</span>
+    </a>
+    <a href="#" class="item">
+      <span class="btn-text">空いてる日にバイト</span>
+    </a>
   </div>
 
   <svg
@@ -153,6 +153,7 @@ import { Image } from 'astro:assets';
         gap: ppx(20);
       }
       .item {
+        display: block; // a要素をブロック要素に
         width: spx(220);
         height: spx(47);
         display: grid;
@@ -165,16 +166,19 @@ import { Image } from 'astro:assets';
         );
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
         backdrop-filter: blur(35px);
+        text-decoration: none; // リンクの下線を削除
+
         @include tablet-up {
           width: spx(220) * 0.75;
           height: spx(47) * 0.75;
         }
+
         @include desktop-up {
           width: ppx(220);
           height: ppx(47);
         }
-        .btn {
-          display: block;
+
+        .btn-text {
           color: #054965;
           font-size: spx(16);
           font-weight: 500;
