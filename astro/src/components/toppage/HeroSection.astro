@@ -1,0 +1,219 @@
+---
+import HeroDesktop from '../../assets/images/top-hero-desktop.png';
+import HeroTablet from '../../assets/images/top-hero-tablet.png';
+import HeroMobil from '../../assets/images/top-hero-mobile.png';
+import { Image } from 'astro:assets';
+---
+
+<section id="hero">
+  <h1>
+    本気<span>で</span>遊べ<span>ば、</span><br />仕事<span>になる</span>
+  </h1>
+
+  <picture>
+    <!-- デスクトップ用（1024px以上） -->
+    <source
+      srcset={HeroDesktop.src}
+      media="(min-width: 1024px)"
+      width={HeroDesktop.width}
+      height={HeroDesktop.height}
+    />
+    <!-- タブレット用（744px以上1024px未満） -->
+    <source
+      srcset={HeroTablet.src}
+      media="(min-width: 744px)"
+      width={HeroTablet.width}
+      height={HeroTablet.height}
+    />
+    <!-- モバイル用（デフォルト） -->
+    <Image
+      src={HeroMobil}
+      alt="トップページのヒーロー画像"
+      format="webp"
+      class="hero-image"
+    />
+  </picture>
+
+  <div class="btn-wrapper">
+    <div class="item">
+      <a href="#" class="btn"> 新卒で挑戦 </a>
+    </div>
+    <div class="item">
+      <a href="#" class="btn"> 中途で経験を活かす </a>
+    </div>
+    <div class="item">
+      <a href="#" class="btn"> 空いてる日にバイト </a>
+    </div>
+  </div>
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 402 60"
+    fill="none"
+    class="mobile"
+  >
+    <path
+      d="M0 15.0561C0 15.0561 109.5 48.9323 201 15.0561C292.5 -18.8201 402 15.0561 402 15.0561V60H0V15.0561Z"
+      fill="#E7F3F9"></path>
+  </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 834 106"
+    fill="none"
+    class="tablet"
+  >
+    <path
+      d="M0 31.7468C0 31.7468 207 102.994 417 31.7468C627 -39.5 834 31.7468 834 31.7468V109H0V31.7468Z"
+      fill="#E7F3F9"></path>
+  </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1440 107"
+    fill="none"
+    class="desktop"
+  >
+    <path
+      d="M0 37.9523C0 37.9523 205.92 123.345 720 37.9523C1234.08 -47.4404 1440 37.9523 1440 37.9523V107H0V37.9523Z"
+      fill="#E7F3F9"></path>
+  </svg>
+</section>
+
+<style lang="scss">
+  @import '../../styles/functions.scss';
+  @import '../../styles/mixins.scss';
+
+  section#hero {
+    position: relative;
+
+    h1 {
+      color: #fff;
+      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      font-size: spx(60);
+      font-weight: 900;
+      line-height: spx(84);
+      letter-spacing: spx(3);
+      position: absolute;
+      top: spx(90);
+      left: spx(30);
+
+      @include tablet-up {
+        font-size: spx(60) * 0.75;
+        line-height: spx(84) * 0.75;
+        letter-spacing: spx(3) * 0.75;
+        top: spx(90) * 0.75;
+        left: spx(30) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(120);
+        line-height: ppx(168);
+        top: ppx(107);
+        left: ppx(21);
+      }
+      span {
+        color: #fff;
+        font-size: spx(34);
+        font-weight: 900;
+        line-height: 140%;
+        letter-spacing: spx(1.7);
+
+        @include tablet-up {
+          font-size: spx(34) * 0.75;
+          letter-spacing: spx(1.7) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(50);
+        }
+      }
+    }
+
+    picture {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .btn-wrapper {
+      position: absolute;
+      left: 0;
+      bottom: spx(88);
+      display: flex;
+      flex-flow: column;
+      gap: spx(20);
+      @include tablet-up {
+        bottom: spx(88) * 0.75;
+        gap: spx(20) * 0.75;
+      }
+      @include desktop-up {
+        left: unset;
+        right: 0;
+        bottom: ppx(112);
+        gap: ppx(20);
+      }
+      .item {
+        width: spx(220);
+        height: spx(47);
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        background: linear-gradient(
+          93deg,
+          rgba(255, 255, 255, 0.8) 0.01%,
+          rgba(255, 255, 255, 0.6) 99.99%
+        );
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
+        backdrop-filter: blur(35px);
+        @include tablet-up {
+          width: spx(220) * 0.75;
+          height: spx(47) * 0.75;
+        }
+        @include desktop-up {
+          width: ppx(220);
+          height: ppx(47);
+        }
+        .btn {
+          display: block;
+          color: #054965;
+          font-size: spx(16);
+          font-weight: 500;
+          line-height: 100%;
+
+          @include tablet-up {
+            font-size: spx(16) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(18);
+          }
+        }
+      }
+    }
+    svg {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      &.mobile {
+        @include tablet-up {
+          display: none;
+        }
+      }
+      &.tablet {
+        display: none;
+        @include tablet-up {
+          display: block;
+        }
+        @include desktop-up {
+          display: none;
+        }
+      }
+      &.desktop {
+        display: none;
+        @include desktop-up {
+          display: block;
+        }
+      }
+    }
+  }
+</style>
