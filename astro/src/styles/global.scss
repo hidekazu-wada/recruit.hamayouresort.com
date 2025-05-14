@@ -1,6 +1,6 @@
 @import "destyle.css";
-@import "./functions.scss";
-@import "./mixins.scss";
+@import "@styles/functions.scss";
+@import "@styles/mixins.scss";
 // フォント
 $font-didot: "Didot", serif;
 $font-noto-serif-jp: "Noto Serif JP", serif;
