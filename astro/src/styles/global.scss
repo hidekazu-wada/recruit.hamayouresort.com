@@ -6,12 +6,12 @@ $font-didot: "Didot", serif;
 $font-noto-serif-jp: "Noto Serif JP", serif;
 
 html {
+    // スクロールのスムーズな動き
+    scroll-behavior: smooth;
     // Flash Of Unstyled Text
     // visibility: hidden;
     // opacity: 0;
 
-    // スクロールのスムーズな動き
-    scroll-behavior: smooth;
     // &.wf-active,
     // &.loading-delay {
     //     visibility: visible;
