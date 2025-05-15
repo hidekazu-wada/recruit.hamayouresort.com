@@ -43,10 +43,14 @@ import '@styles/global.scss';
             const closeIcon = menuToggle.querySelector('.menu-close');
 
             if (hamburger && closeIcon) {
-              hamburger.style.display =
-                hamburger.style.display === 'none' ? 'block' : 'none';
-              closeIcon.style.display =
-                closeIcon.style.display === 'block' ? 'none' : 'block';
+              (hamburger as HTMLElement).style.display =
+                (hamburger as HTMLElement).style.display === 'none'
+                  ? 'block'
+                  : 'none';
+              (closeIcon as HTMLElement).style.display =
+                (closeIcon as HTMLElement).style.display === 'block'
+                  ? 'none'
+                  : 'block';
             }
 
             // アクセシビリティ属性の更新
@@ -64,7 +68,7 @@ import '@styles/global.scss';
               e.key === 'Escape' &&
               !mobileMenu.classList.contains('hidden')
             ) {
-              menuToggle.click();
+              (menuToggle as HTMLElement).click();
             }
           });
         }
