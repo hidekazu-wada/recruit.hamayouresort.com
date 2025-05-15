@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+interface Props {
+  className?: string;
+}
+const { className = '' } = Astro.props;
+---
+
+<div class={`social-icons ${className}`}>
+  <a href="#">
+    <Image
+      src="/facebook.svg"
+      alt="facebook"
+      width={50}
+      height={50}
+      class="social-icon"
+    />
+  </a>
+  <a href="#">
+    <Image
+      src="/instagram.svg"
+      alt="instagram"
+      width={50}
+      height={50}
+      class="social-icon"
+    />
+  </a>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: spx(24);
+    @include tablet-up {
+      gap: spx(24) * 0.75;
+    }
+    @include desktop-up {
+      gap: ppx(24);
+    }
+    a {
+      display: block;
+      .social-icon {
+        width: spx(40);
+        height: spx(40);
+        @include tablet-up {
+          width: spx(40) * 0.75;
+          height: spx(40) * 0.75;
+        }
+        @include desktop-up {
+          width: ppx(40);
+          height: ppx(40);
+        }
+      }
+    }
+    &.mobile-menu-social {
+      margin-top: spx(60);
+      @include tablet-up {
+        margin-top: spx(100) * 0.75;
+      }
+    }
+  }
+</style>

@@ -1,6 +1,9 @@
 ---
-import WaveDecoration from '@components/common/WaveDecoration.astro';
+import Contact from '@components/common/Contact.astro';
 import Footer from '@components/common/Footer.astro';
+import Header from '@components/common/Header.astro';
+import Navigation from '@components/common/Navigation.astro';
+import Social from '@components/common/Social.astro';
 import '@styles/global.scss';
 ---
 
@@ -19,11 +22,111 @@ import '@styles/global.scss';
       href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
       rel="stylesheet"
     />
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const body = document.body;
+
+        if (menuToggle && mobileMenu) {
+          // 初期状態は非表示
+          mobileMenu.classList.add('hidden');
+
+          menuToggle.addEventListener('click', () => {
+            // メニューの開閉状態を切り替え
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('visible');
+
+            // ハンバーガーアイコンの切り替え
+            const hamburger = menuToggle.querySelector('.hamburger');
+            const closeIcon = menuToggle.querySelector('.menu-close');
+
+            if (hamburger && closeIcon) {
+              hamburger.style.display =
+                hamburger.style.display === 'none' ? 'block' : 'none';
+              closeIcon.style.display =
+                closeIcon.style.display === 'block' ? 'none' : 'block';
+            }
+
+            // アクセシビリティ属性の更新
+            const isExpanded =
+              menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+
+            // スクロール防止
+            body.classList.toggle('no-scroll');
+          });
+
+          // ESCキーでメニューを閉じる
+          document.addEventListener('keydown', (e) => {
+            if (
+              e.key === 'Escape' &&
+              !mobileMenu.classList.contains('hidden')
+            ) {
+              menuToggle.click();
+            }
+          });
+        }
+      });
+    </script>
   </head>
   <body>
+    <Header />
+    <div class="mobile-menu">
+      <div class="mobile-menu-inner">
+        <Navigation type="mobile" />
+        <Social className="mobile-menu-social" />
+        <Contact className="mobile-menu-contact" />
+      </div>
+    </div>
     <main>
       <slot />
     </main>
     <Footer />
   </body>
 </html>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 90;
+    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%), #fff;
+    height: 100%;
+    overflow-y: auto;
+    padding-top: spx(124);
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+
+    @include tablet-up {
+      padding-top: spx(124) * 0.75;
+    }
+    @include desktop-up {
+      display: none;
+    }
+    &.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .mobile-menu-inner {
+      padding-bottom: spx(40);
+      @include tablet-up {
+        padding-bottom: spx(40) * 0.75;
+      }
+    }
+  }
+</style>

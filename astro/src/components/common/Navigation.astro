@@ -1,0 +1,97 @@
+---
+import { mainNavigation } from '@data/navigation';
+
+interface Props {
+  type?: 'header' | 'mobile';
+  className?: string;
+}
+
+const { type = 'header', className = '' } = Astro.props;
+---
+
+<nav class={`navigation ${type} ${className}`}>
+  <ul class="menu-list">
+    {
+      mainNavigation.map((item) => (
+        <li class="menu-item">
+          <a href={item.url}>{item.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  nav {
+    ul {
+      li {
+        a {
+          display: block;
+          color: #fff;
+          font-size: spx(16);
+          font-weight: 500;
+          line-height: 140%;
+
+          @include tablet-up {
+            font-size: spx(16) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(16);
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: ppx(0.32);
+          }
+        }
+      }
+    }
+    /* タイプ別のスタイル */
+    &.header {
+      display: none;
+      @include desktop-up {
+        display: block;
+      }
+      ul {
+        @include desktop-up {
+          display: flex;
+          gap: ppx(20);
+        }
+        li {
+          a {
+            color: #054965;
+          }
+        }
+      }
+    }
+
+    &.mobile {
+      display: block;
+      @include desktop-up {
+        display: none;
+      }
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: spx(20);
+        width: max-content;
+        margin-inline: auto;
+        @include tablet-up {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: spx(20 * 0.75) 15vw;
+        }
+        li {
+          text-align: center;
+          @include tablet-up {
+            text-align: left;
+          }
+          a {
+          }
+        }
+      }
+    }
+  }
+</style>

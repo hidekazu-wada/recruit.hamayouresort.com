@@ -22,6 +22,9 @@ html {
         background-color: #e7f3f9;
         color: #054965;
         letter-spacing: 0.02em;
+        &.no-scroll {
+            overflow: hidden;
+        }
     }
 }
 .sp {
