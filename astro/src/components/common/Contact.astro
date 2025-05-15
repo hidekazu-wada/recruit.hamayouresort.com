@@ -1,0 +1,71 @@
+---
+interface Props {
+  className?: string;
+}
+
+// デフォルト値を設定
+const { className = '' } = Astro.props;
+---
+
+<div class={`contact-info ${className}`}>
+  <p class="">お問い合わせ</p>
+  <a href="tel:0555-82-2922">tel:0555-82-2922</a>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .contact-info {
+    color: #fff;
+    p {
+      font-size: spx(16);
+      font-weight: 500;
+      line-height: 120%;
+      text-align: center;
+      margin-top: spx(16);
+
+      @include tablet-up {
+        font-size: spx(16) * 0.75;
+        margin-top: spx(16) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(16);
+        margin-top: ppx(16);
+      }
+    }
+    a {
+      display: block;
+      font-size: spx(20);
+      font-weight: 500;
+      line-height: 120%;
+      text-align: center;
+      margin-top: spx(10);
+
+      @include tablet-up {
+        font-size: spx(20) * 0.75;
+        margin-top: spx(10) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(20);
+        margin-top: ppx(10);
+      }
+    }
+    &.mobile-menu-contact {
+      p {
+        margin-top: spx(40);
+        @include tablet-up {
+          margin-top: spx(40) * 0.75;
+        }
+      }
+      a {
+        margin-top: spx(16);
+        @include tablet-up {
+          margin-top: spx(16) * 0.75;
+        }
+      }
+    }
+  }
+</style>

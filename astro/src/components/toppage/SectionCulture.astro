@@ -136,6 +136,8 @@ import { featuredCulture } from '@data/cultureData';
   .btn-wrapper {
     margin-top: spx(60);
     padding: 0 spx(20);
+    width: max-content;
+    margin-inline: auto;
     @include tablet-up {
       margin-top: spx(60) * 0.75;
       padding: 0 spx(20) * 0.75;
@@ -143,6 +145,7 @@ import { featuredCulture } from '@data/cultureData';
     @include desktop-up {
       margin-top: ppx(25);
       padding: 0 ppx(100);
+      width: 100%;
     }
   }
 </style>
