@@ -4,9 +4,9 @@ import HeroSection from '@components/toppage/HeroSection.astro';
 import SectionAbout from '@components/toppage/SectionAbout.astro';
 import SectionPeople from '@components/toppage/SectionPeople.astro';
 import SectionCulture from '@components/toppage/SectionCulture.astro';
-import SectionInTitle from '@components/toppage/SectionInTitle.astro';
-import SectionInLead from '@components/toppage/SectionInLead.astro';
-import PrimaryButton from '@components/common/PrimaryButton.astro';
+import SectionJobs from '@components/toppage/SectionJobs.astro';
+import SectionFlow from '@components/toppage/SectionFlow.astro';
+import SectionNews from '@components/toppage/SectionNews.astro';
 ---
 
 <MySiteLayout>
@@ -14,65 +14,12 @@ import PrimaryButton from '@components/common/PrimaryButton.astro';
   <SectionAbout />
   <SectionPeople />
   <SectionCulture />
-  <section id="jobs">
-    <div class="title-wrapper">
-      <SectionInTitle
-        largeTitle="仕"
-        title="事を探す"
-        enTitle="JOBS"
-        variant="white"
-      />
-    </div>
-    <div class="lead-wrapper">
-      <SectionInLead
-        subTitle="募集職種を探す"
-        title="あなたの強みを活かせる<br class='sp'>ポジションが、<br class='tab'>きっと見つかる。"
-        description="新卒採用：未来のコアメンバー募集<br>キャリア採用：経験を武器に新たな挑戦を<br>アルバイト：週2日〜OK。まずは体験から"
-        variant="white"
-      />
-    </div>
-    <div class="button-wrapper">
-      <PrimaryButton href="/jobs" title="募集中の職種を見る" variant="white" />
-    </div>
-  </section>
+  <SectionJobs />
+  <SectionFlow />
+  <SectionNews limit={3} />
 </MySiteLayout>
 
 <style lang="scss">
   @import '@styles/functions.scss';
   @import '@styles/mixins.scss';
-  section#jobs {
-    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%), #59a1c0;
-    padding: spx(60) spx(20);
-    @include tablet-up {
-      padding: spx(60) * 0.75 spx(20) * 0.75;
-    }
-    @include desktop-up {
-      padding: ppx(100) ppx(160);
-    }
-  }
-  .title-wrapper {
-  }
-  .lead-wrapper {
-    margin-top: spx(40);
-    padding-left: spx(20);
-    @include tablet-up {
-      margin-top: spx(40) * 0.75;
-      padding-left: spx(20) * 0.75;
-    }
-    @include desktop-up {
-      margin-top: ppx(40);
-      padding-left: ppx(100);
-    }
-  }
-  .button-wrapper {
-    margin-top: spx(60);
-    width: max-content;
-    margin-inline: auto;
-    @include tablet-up {
-      margin-top: spx(60) * 0.75;
-    }
-    @include desktop-up {
-      margin-top: ppx(80);
-    }
-  }
 </style>

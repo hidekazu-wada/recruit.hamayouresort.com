@@ -1,0 +1,102 @@
+---
+import SectionInTitle from '@components/toppage/SectionInTitle.astro';
+import SectionInLead from '@components/toppage/SectionInLead.astro';
+import PrimaryButton from '@components/common/PrimaryButton.astro';
+---
+
+<section id="frow">
+  <SectionInTitle largeTitle="選" title="考＆質問" enTitle="FLOW&FAQ" />
+  <div class="content-wrapper">
+    <div class="flow-wrapper">
+      <SectionInLead
+        subTitle="応募から入社まで"
+        title="シンプル & 迅速な選考で<br>お迎えします。"
+        description="1. 書類エントリー（Web）<br>2. 一次面接（オンライン）<br>3. 最終面接（来社）<br>4. 内定通知（最短2週間）"
+      />
+      <div class="btn-wrapper">
+        <PrimaryButton href="#" title="選考フローを見る" />
+      </div>
+    </div>
+    <span class="line"></span>
+    <div class="faq-wrapper">
+      <SectionInLead
+        subTitle="疑問や不安はここで"
+        title="よくある質問を通じて<br class='sp'>問題を<br class='pc'>解決しましょう。"
+        description="1. 書類エントリー（Web）<br>2. 一次面接（オンライン）<br>3. 最終面接（来社）<br>4. 内定通知（最短2週間）"
+      />
+      <div class="btn-wrapper">
+        <PrimaryButton href="#" title="よくある質問を見る" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  section#frow {
+    background-color: #f5fafc;
+    padding: spx(60) spx(20);
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+  }
+  .content-wrapper {
+    margin-top: spx(40);
+    padding: 0 spx(20);
+    display: flex;
+    flex-direction: column;
+    gap: spx(60);
+
+    @include tablet-up {
+      margin-top: spx(40) * 0.75;
+      padding: 0 15vw;
+      gap: spx(60) * 0.75;
+    }
+    @include desktop-up {
+      margin-top: ppx(80);
+      padding: 0;
+      flex-direction: row;
+      gap: unset;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  .flow-wrapper,
+  .faq-wrapper {
+    width: 100%;
+    @include desktop-up {
+      width: 31vw;
+    }
+
+    .btn-wrapper {
+      width: max-content;
+      margin-top: spx(60);
+      margin-left: auto;
+      margin-right: auto;
+
+      @include tablet-up {
+        margin-top: spx(60) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(28);
+        margin-right: 0;
+      }
+    }
+  }
+  .line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #054965;
+    @include desktop-up {
+      width: 1px;
+      height: ppx(250);
+    }
+  }
+</style>
