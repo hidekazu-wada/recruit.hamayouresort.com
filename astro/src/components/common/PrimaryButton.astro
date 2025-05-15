@@ -3,11 +3,37 @@ interface Props {
   href?: string;
   className?: string;
   title?: string;
+  variant?: 'default' | 'white'; // バリアントを追加
 }
-const { href = '#', className = '', title = '' }: Props = Astro.props;
+
+// デフォルトスタイル設定
+const defaultStyles = {
+  default: {
+    background: 'linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%)',
+    textColor: '#fff',
+  },
+  white: {
+    background: '#fff',
+    textColor: '#054965',
+  },
+};
+
+const {
+  href = '#',
+  className = '',
+  title = '',
+  variant = 'default',
+}: Props = Astro.props;
+
+// バリアントに基づいてスタイルを設定
+const buttonStyle = defaultStyles[variant] || defaultStyles.default;
 ---
 
-<a href={href} class={`primary-btn ${className}`}>
+<a
+  href={href}
+  class={`primary-btn ${variant} ${className}`}
+  style={`--button-bg: ${buttonStyle.background}; --text-color: ${buttonStyle.textColor};`}
+>
   <span>{title}</span>
 </a>
 
@@ -21,7 +47,11 @@ const { href = '#', className = '', title = '' }: Props = Astro.props;
     width: max-content;
     height: max-content;
     padding: spx(16);
-    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+    background: var(
+      --button-bg,
+      linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%)
+    );
+    text-decoration: none;
 
     @include tablet-up {
       padding: spx(16) * 0.75;
@@ -32,7 +62,7 @@ const { href = '#', className = '', title = '' }: Props = Astro.props;
     }
     span {
       display: block;
-      color: #fff;
+      color: var(--text-color, #fff);
       font-size: spx(16);
       font-weight: 500;
       line-height: 100%;

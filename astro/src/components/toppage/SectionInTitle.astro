@@ -3,17 +3,47 @@ interface Props {
   largeTitle: string;
   title: string;
   enTitle: string;
+  variant?: 'default' | 'white'; // バリエーションを追加
+  textColor?: string; // テキストカラーをカスタマイズ可能に
+  lineColor?: string; // ラインカラーをカスタマイズ可能に
 }
 
-const { largeTitle, title, enTitle }: Props = Astro.props;
+// デフォルトカラー設定
+const defaultColors = {
+  default: {
+    text: 'transparent',
+    line: 'linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%)',
+  },
+  white: {
+    text: '#fff',
+    line: '#fff',
+  },
+};
+
+const {
+  largeTitle,
+  title,
+  enTitle,
+  variant = 'default',
+  textColor,
+  lineColor,
+}: Props = Astro.props;
+
+// カスタムカラーがない場合はバリアント設定を使用
+const finalTextColor =
+  textColor || defaultColors[variant]?.text || 'transparent';
+const finalLineColor =
+  lineColor ||
+  defaultColors[variant]?.line ||
+  'linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%)';
 ---
 
-<h2>
-  <p class="jp">
+<h2 class={variant}>
+  <p class="jp" style={`--text-color: ${finalTextColor};`}>
     <span class="large">{largeTitle}</span><span class="text">{title}</span>
   </p>
-  <span class="line"></span>
-  <p class="en">{enTitle}</p>
+  <span class="line" style={`background-color: ${finalLineColor};`}></span>
+  <p class="en" style={`--text-color: ${finalTextColor};`}>{enTitle}</p>
 </h2>
 
 <style lang="scss">
@@ -31,14 +61,11 @@ const { largeTitle, title, enTitle }: Props = Astro.props;
     @include desktop-up {
       gap: spx(3);
     }
+
     .jp {
       font-size: spx(30);
       font-weight: 700;
       line-height: 100%;
-      background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
 
       @include tablet-up {
         font-size: spx(30) * 0.75;
@@ -52,10 +79,6 @@ const { largeTitle, title, enTitle }: Props = Astro.props;
         font-size: spx(60);
         font-weight: 700;
         line-height: 100%;
-        background: inherit;
-        background-clip: inherit;
-        -webkit-background-clip: inherit;
-        -webkit-text-fill-color: inherit;
 
         @include tablet-up {
           font-size: spx(60) * 0.75;
@@ -65,20 +88,14 @@ const { largeTitle, title, enTitle }: Props = Astro.props;
           font-size: ppx(80);
         }
       }
-
-      .text {
-        background: inherit;
-        background-clip: inherit;
-        -webkit-background-clip: inherit;
-        -webkit-text-fill-color: inherit;
-      }
     }
+
     .line {
       display: block;
       width: 100%;
       height: 2px;
-      background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
     }
+
     .en {
       font-weight: 900;
       font-size: spx(20);
@@ -95,6 +112,55 @@ const { largeTitle, title, enTitle }: Props = Astro.props;
         font-size: ppx(20);
         line-height: ppx(34);
         letter-spacing: ppx(1.4);
+      }
+    }
+
+    // デフォルトバリエーション
+    &.default {
+      .jp {
+        background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: var(--text-color, transparent);
+
+        .large,
+        .text {
+          background: inherit;
+          background-clip: inherit;
+          -webkit-background-clip: inherit;
+          -webkit-text-fill-color: inherit;
+        }
+      }
+
+      .line {
+        background: var(
+          --line-background,
+          linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%)
+        );
+      }
+
+      .en {
+        color: var(--text-color, #054965);
+      }
+    }
+
+    // whiteカラーバリエーション
+    &.white {
+      .jp {
+        color: var(--text-color, #fff);
+
+        .large,
+        .text {
+          color: inherit;
+        }
+      }
+
+      .line {
+        background: var(--line-background, #fff);
+      }
+
+      .en {
+        color: var(--text-color, #fff);
       }
     }
   }
