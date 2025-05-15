@@ -30,6 +30,15 @@ html {
         display: none;
     }
 }
+.tab {
+    display: none;
+    @include tablet-up {
+        display: block;
+    }
+    @include desktop-up {
+        display: none;
+    }
+}
 .pc {
     display: none;
     @include tablet-up {

@@ -3,12 +3,36 @@ interface Props {
   subTitle: string;
   title: string;
   description: string;
+  variant?: 'default' | 'white'; // バリアントを追加
+  textColor?: string; // テキストカラーをカスタマイズ可能に
 }
 
-const { subTitle, title, description }: Props = Astro.props;
+// デフォルトカラー設定
+const defaultColors = {
+  default: {
+    text: '#054965',
+  },
+  white: {
+    text: '#fff',
+  },
+};
+
+const {
+  subTitle,
+  title,
+  description,
+  variant = 'default',
+  textColor,
+}: Props = Astro.props;
+
+// バリアントに基づいてテキストカラーを設定
+const finalTextColor = textColor || defaultColors[variant]?.text || '#054965';
 ---
 
-<div class="section-lead">
+<div
+  class={`section-lead ${variant}`}
+  style={`--text-color: ${finalTextColor};`}
+>
   <p class="sub-title">{subTitle}</p>
   <h3 set:html={title} />
   <p class="description" set:html={description} />
@@ -19,6 +43,21 @@ const { subTitle, title, description }: Props = Astro.props;
   @import '@styles/mixins.scss';
 
   .section-lead {
+    &.default {
+      .sub-title,
+      h3,
+      .description {
+        color: var(--text-color, #054965);
+      }
+    }
+
+    &.white {
+      .sub-title,
+      h3,
+      .description {
+        color: var(--text-color, #fff);
+      }
+    }
     .sub-title {
       font-size: spx(14);
       font-weight: 500;
