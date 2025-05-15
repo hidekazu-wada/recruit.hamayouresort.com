@@ -1,11 +1,12 @@
 ---
 interface Props {
   fillColor?: string; // デフォルト値を指定可能に
+  position?: 'top' | 'bottom'; // 位置を指定するプロパティを追加
 }
-const { fillColor = '#E7F3F9' } = Astro.props;
+const { fillColor = '#E7F3F9', position = 'bottom' } = Astro.props;
 ---
 
-<div class="wave-decoration">
+<div class={`wave-decoration ${position}`}>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 402 60"
@@ -45,9 +46,17 @@ const { fillColor = '#E7F3F9' } = Astro.props;
   .wave-decoration {
     position: absolute;
     left: 0;
-    bottom: -1px; // 継ぎ目を滑らかにするために微調整
     width: 100%;
     z-index: 1;
+
+    &.bottom {
+      bottom: -1px; // 継ぎ目を滑らかにするために微調整
+    }
+
+    &.top {
+      top: -1px; // 上部に配置する場合
+      transform: rotate(180deg); // 波形を上向きにする
+    }
     svg {
       width: 100%;
       height: auto;
