@@ -1,0 +1,76 @@
+---
+interface Props {
+  title: string;
+  variant?: 'default' | 'white';
+  position?: 'left' | 'center';
+  class?: string;
+}
+const {
+  title,
+  variant = 'default',
+  position = 'left',
+  class: className,
+}: Props = Astro.props;
+---
+
+<h2 class={`${variant} ${className}`} data-position={position}>
+  <span class="title">{title}</span>
+  <span class="line"></span>
+</h2>
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+  h2 {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: spx(5);
+    @include tablet-up {
+      gap: spx(5) * 0.75;
+    }
+    @include desktop-up {
+      gap: ppx(5);
+    }
+    .title {
+      display: block;
+      font-size: spx(20);
+      font-weight: 700;
+      line-height: 100%;
+
+      @include tablet-up {
+        font-size: spx(20) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(24);
+      }
+    }
+    .line {
+      display: block;
+      width: 100%;
+      height: 2px;
+    }
+    &.white {
+      .title {
+        color: #fff;
+      }
+      .line {
+        background: #fff;
+      }
+    }
+    &.default {
+      .title {
+        color: #054965;
+      }
+      .line {
+        background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+      }
+    }
+    &[data-position='left'] {
+      margin-inline: 0;
+    }
+    &[data-position='center'] {
+      margin-inline: auto;
+    }
+  }
+</style>

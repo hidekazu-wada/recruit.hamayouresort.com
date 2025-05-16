@@ -1,0 +1,130 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+---
+
+<div class="about-wrapper">
+  <LowerPageH2
+    title="数字で見るHAMAYOUリゾート"
+    variant="white"
+    position="center"
+  />
+  <div class="about-content">
+    <h3>西湖から始まり、3施設で年間20万人のゲストを迎える地域密着リゾート。</h3>
+    <dl>
+      <div>
+        <dt class="title">売上高</dt>
+        <dd class="value">10億円</dd>
+      </div>
+      <div>
+        <dt class="title">従業員数</dt>
+        <dd class="value">54名（正社員30／PA24）</dd>
+      </div>
+      <div>
+        <dt class="title">年間ゲスト数</dt>
+        <dd class="value">200,000人</dd>
+      </div>
+      <div>
+        <dt class="title">施設数</dt>
+        <dd class="value">3施設 + 新規プロジェクト1件進行中</dd>
+      </div>
+      <div>
+        <dt class="title">平均年齢</dt>
+        <dd class="value">29.8歳</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .about-wrapper {
+    padding: spx(60) spx(20) spx(148);
+    background-image: url('/aboutpage-about-bg.webp');
+    background-size: cover;
+    background-position: top 30% left 30%;
+    background-repeat: no-repeat;
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(20) * 0.75 spx(148) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(120);
+    }
+    .about-content {
+      padding: spx(40) spx(20);
+      background: #fff;
+      box-shadow: 4px 4px 0px 0px #054965;
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      margin-top: spx(40);
+
+      @include tablet-up {
+        padding: spx(40) * 0.75 spx(20) * 0.75;
+        gap: spx(20) * 0.75;
+        margin-top: spx(40) * 0.75;
+      }
+      @include desktop-up {
+        padding: ppx(40);
+        gap: ppx(50);
+        margin-top: ppx(40);
+      }
+      h3 {
+        font-size: spx(18);
+        font-weight: 500;
+        line-height: 140%;
+        width: 100%;
+        @include tablet-up {
+          font-size: spx(18) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(20);
+          line-height: 100%;
+          width: max-content;
+          margin-inline: auto;
+        }
+      }
+      dl {
+        padding: 0 spx(10);
+        display: flex;
+        flex-direction: column;
+        gap: spx(8);
+        @include tablet-up {
+          padding: 0 spx(20) * 0.75;
+          gap: spx(8) * 0.75;
+        }
+        @include desktop-up {
+          padding: 0 ppx(300);
+          gap: ppx(12);
+        }
+        div {
+          color: #054965;
+          font-size: spx(14);
+          font-weight: 500;
+          line-height: 140%;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          @include tablet-up {
+            font-size: spx(14) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(18);
+            grid-template-columns: 0.5fr 1fr;
+          }
+          dt {
+            &.title {
+              font-weight: 400;
+            }
+          }
+          dd {
+            &.value {
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

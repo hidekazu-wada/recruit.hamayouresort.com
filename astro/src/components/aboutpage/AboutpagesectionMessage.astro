@@ -1,0 +1,157 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import ceoImage from '@assets/images/about/aboutpage-hideko_wada.png';
+import { Image } from 'astro:assets';
+---
+
+<div class="message-wrapper">
+  <LowerPageH2 title="代表メッセージ" variant="default" position="left" />
+  <div class="message-container">
+    <div class="message-inner">
+      <h3>“ここでしか味わえない感動” を、共に創ろう。</h3>
+      <div class="message-text">
+        <p>
+          私は幼い頃から西湖の四季に魅せられ、この地で人と自然が溶け合うリゾートを創りたいと願ってきた。2001年、わずか20室のロッジから始まったHAMAYOUは、仲間と挑戦を重ね、3施設・200名体制へと成長した。
+        </p>
+        <p>
+          次のステージは『地域共創リゾート』だ。豊かな自然を守りながら、ゲスト・スタッフ・地域住民が同じテーブルで未来を語り合う場をつくる。その中心に立つのは、あなたのアイデアと情熱である。
+        </p>
+        <p>
+          経験よりも、“人を喜ばせる仕事が好き”
+          という想いを歓迎する。私たちと一緒に、新しいリゾートの形を創造してほしい。
+        </p>
+      </div>
+      <p class="name">
+        代表取締役社長：<span>和田 秀子</span>
+      </p>
+    </div>
+    <Image
+      src={ceoImage}
+      class="ceo-image"
+      format="webp"
+      width={300}
+      height={300}
+      alt="和田秀子"
+    />
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .message-wrapper {
+    padding: spx(60) spx(20);
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    .message-container {
+      background: #fff;
+      box-shadow: 4px 4px 0px 0px #59a1c0;
+      padding: spx(40) spx(40) 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(40);
+      width: 100%;
+      margin-inline: auto;
+      margin-top: spx(40);
+      @include tablet-up {
+        padding: spx(40) * 0.75 spx(40) * 0.75 0;
+        gap: spx(40) * 0.75;
+        max-width: 80%;
+        margin-top: spx(40) * 0.75;
+      }
+      @include desktop-up {
+        padding: ppx(40) ppx(40) 0;
+        display: grid;
+        grid-template-columns: auto max-content;
+        align-items: flex-end;
+        gap: ppx(17);
+        max-width: 80%;
+        margin-top: ppx(40);
+      }
+      .message-inner {
+        h3 {
+          font-size: spx(16);
+          font-weight: 500;
+          line-height: 140%;
+          font-weight: 700;
+
+          @include tablet-up {
+            font-size: spx(16) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(20);
+            line-height: 100%;
+          }
+        }
+        .message-text {
+          display: flex;
+          flex-direction: column;
+          gap: 1em;
+          margin-top: spx(28);
+          @include tablet-up {
+            gap: 2em * 0.75;
+            margin-top: spx(28) * 0.75;
+          }
+          @include desktop-up {
+            gap: 1.5em;
+            margin-top: ppx(40);
+          }
+          p {
+            font-size: spx(14);
+            font-weight: 500;
+            line-height: 140%;
+
+            @include tablet-up {
+              font-size: spx(14) * 0.75;
+            }
+
+            @include desktop-up {
+              font-size: ppx(16);
+            }
+          }
+        }
+        .name {
+          font-size: spx(14);
+          font-weight: 500;
+          line-height: 140%;
+          text-align: right;
+          margin-top: spx(28);
+
+          @include tablet-up {
+            font-size: spx(14) * 0.75;
+            margin-top: spx(28) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(16);
+            margin-top: ppx(40);
+            margin-bottom: ppx(40);
+          }
+          span {
+          }
+        }
+      }
+      .ceo-image {
+        display: block;
+        width: spx(200);
+        height: spx(200);
+        object-fit: cover;
+        @include tablet-up {
+          width: spx(200) * 0.75;
+          height: spx(200) * 0.75;
+        }
+        @include desktop-up {
+          width: ppx(250);
+          height: ppx(250);
+        }
+      }
+    }
+  }
+</style>

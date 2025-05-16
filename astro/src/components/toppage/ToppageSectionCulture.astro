@@ -1,14 +1,14 @@
 ---
 import PrimaryButton from '@components/common/PrimaryButton.astro';
-import SectionInTitle from '@components/toppage/SectionInTitle.astro';
-import SectionInLead from '@components/toppage/SectionInLead.astro';
+import ToppageSectionInTitle from '@components/toppage/ToppageSectionInTitle.astro';
+import ToppageSectionInLead from '@components/toppage/ToppageSectionInLead.astro';
 import Image from 'astro/components/Image.astro';
 import { featuredCulture } from '@data/cultureData';
 ---
 
 <section id="culture">
   <div class="section-title-wrapper">
-    <SectionInTitle largeTitle="働" title="く環境" enTitle="CULTURE" />
+    <ToppageSectionInTitle largeTitle="働" title="く環境" enTitle="CULTURE" />
   </div>
   <div class="culture-wrapper">
     {
@@ -27,7 +27,7 @@ import { featuredCulture } from '@data/cultureData';
     }
   </div>
   <div class="section-lead-wrapper">
-    <SectionInLead
+    <ToppageSectionInLead
       subTitle="働く環境と福利厚生"
       title="安心と挑戦を両立させる<br class='sp'>制度・サポート"
       description="平均残業 8.2h／月<br>有休取得率 99%<br>社員寮 個室／Wi-Fi完備"
