@@ -1,0 +1,89 @@
+---
+import { getHomeUrl, getPageTitle } from '@utils/navigation';
+
+interface Props {
+  pageName?: string;
+  className?: string;
+  pagePath?: string[];
+}
+
+const { pageName, className = '', pagePath = [] } = Astro.props;
+
+// インターフェースを追加
+interface BreadcrumbItem {
+  label: string;
+  url: string;
+  current?: boolean;
+}
+
+// パンくずアイテムを生成
+const breadcrumbItems: BreadcrumbItem[] = [{ label: 'トップ', url: '/' }];
+
+// 現在のURLからパスを自動生成
+const currentPath = Astro.url.pathname;
+const segments = currentPath.split('/').filter(Boolean);
+
+// 手動指定パスがあればそれを使う、なければ自動生成
+const pathSegments = pagePath.length > 0 ? pagePath : segments;
+
+let currentUrl = '';
+pathSegments.forEach((segment, index) => {
+  currentUrl += `/${segment}`;
+  const isLast = index === pathSegments.length - 1;
+
+  breadcrumbItems.push({
+    label: pageName && isLast ? pageName : getPageTitle(segment),
+    url: currentUrl,
+    current: isLast,
+  });
+});
+---
+
+<nav aria-label="パンくずリスト" class={`breadcrumbs ${className}`}>
+  <ol>
+    {
+      breadcrumbItems.map((item, index) => (
+        <li>
+          {index > 0 && <span class="separator">/</span>}
+          {item.current ? (
+            <span aria-current="page">{item.label}</span>
+          ) : (
+            <a href={item.url}>{item.label}</a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .breadcrumbs {
+    width: 100%;
+    ol {
+      display: flex;
+      li {
+        font-size: spx(10);
+        font-weight: 500;
+        line-height: 100%;
+
+        @include tablet-up {
+          font-size: spx(10) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(12);
+        }
+        a {
+          color: #59a1c0;
+        }
+        .separator {
+        }
+        span {
+        }
+      }
+    }
+  }
+</style>

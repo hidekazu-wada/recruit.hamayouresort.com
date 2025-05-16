@@ -78,15 +78,25 @@ import { Image } from 'astro:assets';
       border: none;
       cursor: pointer;
       padding: 0;
+      width: spx(30);
+      height: spx(30);
+      @include tablet-up {
+        width: spx(30) * 0.75;
+        height: spx(30) * 0.75;
+      }
       @include desktop-up {
         display: none;
       }
       .hamburger {
         display: block;
+        width: 100%;
+        height: auto;
       }
 
       .menu-close {
         display: none;
+        width: 100%;
+        height: auto;
       }
     }
   }
