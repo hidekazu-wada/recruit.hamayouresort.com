@@ -1,0 +1,108 @@
+---
+import WaveDecoration from '@components/common/WaveDecoration.astro';
+import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+
+interface Props {
+  pageTitleEn: string;
+  pageTitleJa: string;
+}
+
+const { pageTitleEn, pageTitleJa }: Props = Astro.props;
+---
+
+<div class="lower-level-page-header-container">
+  <WaveDecoration
+    fillColor="#E7F3F9"
+    position="bottom"
+    reverseX={true}
+    reverseY={false}
+    className="lower-level-page-header"
+  />
+  <h1>
+    <p class="en">{pageTitleEn}</p>
+    <p class="ja">
+      <span class="text">{pageTitleJa}</span>
+    </p>
+  </h1>
+</div>
+<div class="breadcrumbs-container">
+  <Breadcrumbs />
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .lower-level-page-header-container {
+    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%), #59a1c0;
+    padding-top: spx(56);
+    padding-left: spx(20);
+    position: relative;
+    @include tablet-up {
+      padding-top: spx(56) * 0.75;
+      padding-left: spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding-top: ppx(70);
+      padding-left: ppx(50);
+    }
+    h1 {
+      position: relative;
+      z-index: 1;
+      .en {
+        color: #59a1c0;
+        font-size: spx(64);
+        font-weight: 900;
+        line-height: 100%;
+        @include tablet-up {
+          font-size: spx(64) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(200);
+        }
+      }
+      .ja {
+        background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: var(--text-color, transparent);
+
+        font-size: spx(20);
+        font-weight: 700;
+        line-height: 100%;
+        margin-top: spx(8);
+        @include tablet-up {
+          font-size: spx(20) * 0.75;
+          margin-top: spx(8) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(32);
+          margin-top: ppx(4);
+        }
+        .text {
+          background: inherit;
+          background-clip: inherit;
+          -webkit-background-clip: inherit;
+          -webkit-text-fill-color: inherit;
+        }
+      }
+    }
+  }
+  .breadcrumbs-container {
+    margin-top: spx(20);
+    margin-left: spx(20);
+    margin-bottom: spx(24);
+    @include tablet-up {
+      margin-top: spx(20) * 0.75;
+      margin-left: spx(20) * 0.75;
+      margin-bottom: spx(24) * 0.75;
+    }
+    @include desktop-up {
+      margin-top: ppx(18);
+      margin-left: ppx(50);
+      margin-bottom: ppx(40);
+    }
+  }
+</style>

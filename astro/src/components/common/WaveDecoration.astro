@@ -2,11 +2,22 @@
 interface Props {
   fillColor?: string; // デフォルト値を指定可能に
   position?: 'top' | 'bottom'; // 位置を指定するプロパティを追加
+  className?: string;
+  reverseX?: boolean;
+  reverseY?: boolean;
 }
-const { fillColor = '#E7F3F9', position = 'bottom' } = Astro.props;
+const {
+  fillColor = '#E7F3F9',
+  position = 'bottom',
+  reverseX = false,
+  reverseY = false,
+  className = '',
+} = Astro.props;
 ---
 
-<div class={`wave-decoration ${position}`}>
+<div
+  class={`wave-decoration ${position} ${reverseX ? 'reverse-x' : ''} ${reverseY ? 'reverse-y' : ''} ${className} `}
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 402 60"
@@ -48,15 +59,6 @@ const { fillColor = '#E7F3F9', position = 'bottom' } = Astro.props;
     left: 0;
     width: 100%;
     z-index: 1;
-
-    &.bottom {
-      bottom: -1px; // 継ぎ目を滑らかにするために微調整
-    }
-
-    &.top {
-      top: -1px; // 上部に配置する場合
-      transform: rotate(180deg); // 波形を上向きにする
-    }
     svg {
       width: 100%;
       height: auto;
@@ -81,6 +83,20 @@ const { fillColor = '#E7F3F9', position = 'bottom' } = Astro.props;
           display: block;
         }
       }
+    }
+    &.bottom {
+      bottom: -1px; // 継ぎ目を滑らかにするために微調整
+    }
+
+    &.top {
+      top: -1px; // 上部に配置する場合
+      transform: rotate(180deg); // 波形を上向きにする
+    }
+    &.reverse-x {
+      transform: scaleX(-1);
+    }
+    &.reverse-y {
+      transform: scaleY(-1);
     }
   }
 </style>
