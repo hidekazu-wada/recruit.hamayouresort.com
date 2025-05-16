@@ -1,0 +1,85 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import { Image } from 'astro:assets';
+import aboutpageBusinessImage from '@assets/images/about/aboutpage-business.png';
+---
+
+<div class="aboutpage-business-wrapper">
+  <LowerPageH2
+    title="運営事業"
+    variant="default"
+    position="left"
+    class="aboutpage-business-title"
+  />
+  <div class="aboutpage-business-text-wrapper">
+    <p>3つの施設【ホテル】【温泉】【キャンプ場】を運営しています。</p>
+  </div>
+  <Image
+    src={aboutpageBusinessImage}
+    format="webp"
+    alt="HAMAYOUリゾート"
+    width={1057}
+    height={491}
+    class="aboutpage-business-image"
+  />
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+  .aboutpage-business-wrapper {
+    padding: spx(60) spx(20);
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    h2 {
+      &.aboutpage-business-title {
+      }
+      .title {
+      }
+      .line {
+      }
+    }
+    .aboutpage-business-text-wrapper {
+      padding: 0 spx(20);
+      margin-top: spx(28);
+      @include tablet-up {
+        padding: 0 ppx(20) * 0.75;
+        margin-top: ppx(28) * 0.75;
+      }
+      @include desktop-up {
+        padding: 0;
+        margin-top: ppx(40);
+      }
+      p {
+        color: #054965;
+        font-size: spx(14);
+        font-weight: 500;
+        line-height: 140%;
+
+        @include tablet-up {
+          font-size: spx(14) * 0.75;
+          text-align: center;
+        }
+
+        @include desktop-up {
+          font-size: ppx(20);
+        }
+      }
+    }
+    .aboutpage-business-image {
+      width: 100%;
+      height: auto;
+      margin-top: spx(28);
+      @include tablet-up {
+        margin-top: ppx(28) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
+    }
+  }
+</style>

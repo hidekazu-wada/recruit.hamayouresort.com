@@ -1,0 +1,191 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import { getImage } from 'astro:assets';
+import historyBgImage from '@assets/images/about/aboutpage-history-bg.png';
+// 画像の最適化（WebP変換）
+const optimizedImage = await getImage({ src: historyBgImage, format: 'webp' });
+---
+
+<div class="aboutpage-history-wrapper">
+  <LowerPageH2 title="沿革" variant="default" position="left" />
+  <div class="aboutpage-history-content">
+    <ul>
+      <li>
+        <span class="year">昭和51年</span><span class="event"
+          >民宿桑留尾荘 設立</span
+        >
+      </li>
+      <li>
+        <span class="year">昭和55年</span><span class="event"
+          >桑留尾別館 設立</span
+        >
+      </li>
+      <li>
+        <span class="year">平成元年</span><span class="event"
+          >株式会社リゾートくわるび 株式会社化 リニューアルに伴い</span
+        >
+      </li>
+      <li>
+        <span class="year">平成12年</span><span class="event"
+          >日帰り温泉施設 いずみの湯 設立</span
+        >
+      </li>
+      <li>
+        <span class="year">平成17年</span><span class="event"
+          >株式会社レイクホテル西湖 社名変更 リニューアルに伴い</span
+        >
+      </li>
+      <li>
+        <span class="year">平成22年</span><span class="event"
+          >株式会社ＨAMAYOUリゾート 社名変更　事業拡大に伴い</span
+        >
+      </li>
+      <li>
+        <span class="year">平成23年</span><span class="event"
+          >西湖オートキャンプ場Gnome（ノーム）設立</span
+        >
+      </li>
+      <li>
+        <span class="year">平成24年</span><span class="event"
+          >光風閣くわるび グランドオープン</span
+        >
+      </li>
+      <li>
+        <span class="year">平成25年</span><span class="event"
+          >グレートアウトドアと業務提携</span
+        >
+      </li>
+      <li>
+        <span class="year">平成26年</span><span class="event">自家源泉掘削</span
+        >
+      </li>
+      <li>
+        <span class="year">平成27年</span><span class="event"
+          >富岳せのうみ温泉オープン</span
+        >
+      </li>
+      <li>
+        <span class="year">平成29年</span><span class="event"
+          >東京オフィス設立</span
+        >
+      </li>
+      <li>
+        <span class="year">平成30年</span><span class="event"
+          >グラウンドゴルフ場・認定コースオープン</span
+        >
+      </li>
+      <li>
+        <span class="year">令和3年</span><span class="event"
+          >SAIKOGER『Yurikago 』オープン</span
+        >
+      </li>
+      <li>
+        <span class="year">令和4年</span><span class="event"
+          >『ほどほどの森』オープン</span
+        >
+      </li>
+      <li>
+        <span class="year">令和5年</span><span class="event"
+          >BBQ施設『Kokko』オープン</span
+        >
+      </li>
+      <li>
+        <span class="year">令和5年</span><span class="event"
+          >自家源泉100%掛け流し『ゆのわ•創造の泉』オープン</span
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style lang="scss" define:vars={{ bgImage: `url(${optimizedImage.src})` }}>
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+  .aboutpage-history-wrapper {
+    background-color: #d9e2e8;
+    background-image: var(--bgImage);
+    background-size: 100%;
+    background-position: left bottom 0;
+    background-repeat: no-repeat;
+    background-blend-mode: soft-light;
+    padding: spx(60) spx(20);
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    .aboutpage-history-content {
+      position: relative;
+      width: 100%;
+      margin-inline: auto;
+      margin-top: spx(28);
+      height: max-content;
+      @include tablet-up {
+        width: max-content;
+        margin-top: spx(28) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: spx(40);
+        width: 2px;
+        height: 100%;
+        background-color: #054965;
+        z-index: 1;
+        @include tablet-up {
+          left: spx(40) * 0.75;
+        }
+        @include desktop-up {
+          left: ppx(80);
+        }
+      }
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: spx(20);
+        position: relative;
+        z-index: 2;
+
+        @include tablet-up {
+          gap: spx(20) * 0.75;
+        }
+        @include desktop-up {
+          gap: ppx(28);
+        }
+        li {
+          font-size: spx(14);
+          font-weight: 500;
+          line-height: 140%;
+          background: #fff;
+          box-shadow: 2px 2px 0px 0px #59a1c0;
+          display: grid;
+          grid-template-columns: 5em auto;
+          width: 100%;
+          padding: spx(12) spx(20);
+          @include tablet-up {
+            font-size: spx(14) * 0.75;
+            padding: spx(12) * 0.75 spx(20) * 0.75;
+            max-width: 80vw;
+          }
+
+          @include desktop-up {
+            font-size: ppx(18);
+            line-height: 100%;
+            max-width: ppx(680);
+            padding: ppx(16) ppx(50);
+          }
+          .year {
+          }
+          .event {
+          }
+        }
+      }
+    }
+  }
+</style>

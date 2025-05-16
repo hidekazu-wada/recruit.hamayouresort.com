@@ -1,6 +1,6 @@
 ---
-import SectionInTitle from '@components/toppage/SectionInTitle.astro';
-import SectionInLead from '@components/toppage/SectionInLead.astro';
+import ToppageSectionInTitle from '@components/toppage/ToppageSectionInTitle.astro';
+import ToppageSectionInLead from '@components/toppage/ToppageSectionInLead.astro';
 import StaffCard from '@components/people/StaffCard.astro';
 import { featuredStaff } from '@data/staffData';
 import PrimaryButton from '@components/common/PrimaryButton.astro';
@@ -8,11 +8,11 @@ import PrimaryButton from '@components/common/PrimaryButton.astro';
 
 <section id="people">
   <div class="section-title-wrapper">
-    <SectionInTitle largeTitle="人" title="を知る" enTitle="PEOPLE" />
+    <ToppageSectionInTitle largeTitle="人" title="を知る" enTitle="PEOPLE" />
   </div>
 
   <div class="section-lead-wrapper">
-    <SectionInLead
+    <ToppageSectionInLead
       subTitle="働く仲間のストーリー"
       title="現場の先輩たちのリアルな声。<br>仕事のやりがいも、苦労も、そのままお届け。"
       description="受付、調理、運営、マーケ…<br>多彩なバックグラウンドを持つスタッフが、<br class='pc'>ゲストと同じくらい“ここで働く楽しさ”を語ります。"

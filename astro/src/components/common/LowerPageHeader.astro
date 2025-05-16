@@ -19,10 +19,10 @@ const { pageTitleEn, pageTitleJa }: Props = Astro.props;
     className="lower-level-page-header"
   />
   <h1>
-    <p class="en">{pageTitleEn}</p>
-    <p class="ja">
+    <span class="en">{pageTitleEn}</span>
+    <span class="ja">
       <span class="text">{pageTitleJa}</span>
-    </p>
+    </span>
   </h1>
 </div>
 <div class="breadcrumbs-container">
@@ -50,6 +50,7 @@ const { pageTitleEn, pageTitleJa }: Props = Astro.props;
       position: relative;
       z-index: 1;
       .en {
+        display: block;
         color: #59a1c0;
         font-size: spx(64);
         font-weight: 900;
@@ -63,6 +64,7 @@ const { pageTitleEn, pageTitleJa }: Props = Astro.props;
         }
       }
       .ja {
+        display: block;
         background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
         background-clip: text;
         -webkit-background-clip: text;
@@ -93,16 +95,16 @@ const { pageTitleEn, pageTitleJa }: Props = Astro.props;
   .breadcrumbs-container {
     margin-top: spx(20);
     margin-left: spx(20);
-    margin-bottom: spx(24);
+    margin-bottom: spx(44);
     @include tablet-up {
       margin-top: spx(20) * 0.75;
       margin-left: spx(20) * 0.75;
-      margin-bottom: spx(24) * 0.75;
+      margin-bottom: spx(44) * 0.75;
     }
     @include desktop-up {
       margin-top: ppx(18);
       margin-left: ppx(50);
-      margin-bottom: ppx(40);
+      margin-bottom: ppx(60);
     }
   }
 </style>

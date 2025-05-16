@@ -1,13 +1,18 @@
 ---
 import MySiteLayout from '@layouts/MySiteLayout.astro';
 import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import AboutpageSectionAbout from '@components/aboutpage/AboutpageSectionAbout.astro';
+import AboutpageSectionBusiness from '@components/aboutpage/AboutpageSectionBusiness.astro';
+import AboutpageSectionMission from '@components/aboutpage/AboutpageSectionMission.astro';
+import AboutpageSectionHistory from '@components/aboutpage/AboutpageSectionHistory.astro';
+import AboutpageSectionMessage from '@components/aboutpage/AboutpageSectionMessage.astro';
 ---
 
 <MySiteLayout>
   <LowerPageHeader pageTitleEn="About" pageTitleJa="会社情報" />
+  <AboutpageSectionAbout />
+  <AboutpageSectionBusiness />
+  <AboutpageSectionHistory />
+  <AboutpageSectionMission />
+  <AboutpageSectionMessage />
 </MySiteLayout>
-
-<style lang="scss">
-  @import '@styles/functions.scss';
-  @import '@styles/mixins.scss';
-</style>

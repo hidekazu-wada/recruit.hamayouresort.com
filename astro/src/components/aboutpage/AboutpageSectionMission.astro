@@ -1,0 +1,140 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+---
+
+<div class="aboutpage-mission-wrapper">
+  <LowerPageH2 title="ミッション・ビジョン" variant="white" position="left" />
+  <h3>自然と人を、笑顔でつなぐ。</h3>
+
+  <dl class="mission-vision-values">
+    <div class="mission-item">
+      <dt>MISSION</dt>
+      <dd>
+        富士西湖にしかない体験を、世界中のゲストと分かち合い、
+        地域の未来をともに創造する。
+      </dd>
+    </div>
+    <div class="mission-item vision-item">
+      <dt>VISION</dt>
+      <dd>
+        2028年までに『湖と森の体験価値No.1リゾート』として
+        年間ゲスト数40万人、地域雇用300名を創出する。
+        旅と仕事の境界を溶かし、訪れる人・働く人すべてが
+        「帰ってきたい場所」と感じる環境を実現する。
+      </dd>
+    </div>
+    <div class="mission-item value-item">
+      <dt>VALUE</dt>
+      <dd>
+        <ol>
+          <li>
+            <span class="value-item-title">Care First</span><span
+              class="value-item-description">― 相手の期待を一歩超える</span
+            >
+          </li>
+          <li>
+            <span class="value-item-title">Team Adventure</span><span
+              class="value-item-description">―冒険を楽しみ、学び合う</span
+            >
+          </li>
+          <li>
+            <span class="value-item-title">Local Pride</span><span
+              class="value-item-description">― 西湖の自然と文化を誇りに</span
+            >
+          </li>
+        </ol>
+      </dd>
+    </div>
+  </dl>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+  .aboutpage-mission-wrapper {
+    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+    padding: spx(60) spx(20);
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    h3 {
+      font-size: spx(18);
+      font-weight: 700;
+      line-height: 100%;
+      color: white;
+      margin-top: spx(40);
+      text-align: center;
+      @include tablet-up {
+        font-size: spx(18) * 0.75;
+        margin-top: spx(40) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(20);
+        margin-top: ppx(40);
+      }
+    }
+    .mission-vision-values {
+      color: white;
+      font-size: spx(14);
+      font-weight: 500;
+      line-height: 140%;
+      display: flex;
+      flex-direction: column;
+      gap: spx(28);
+      margin-top: spx(40);
+      width: 100%;
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+        gap: spx(28) * 0.75;
+        margin-top: spx(40) * 0.75;
+        width: 80%;
+      }
+
+      @include desktop-up {
+        font-size: ppx(18);
+        gap: ppx(34);
+        margin-top: ppx(40);
+        width: 55%;
+      }
+      .mission-item {
+        display: grid;
+        grid-template-columns: auto;
+        gap: spx(10);
+        @include tablet-up {
+          gap: spx(10) * 0.75;
+        }
+        @include desktop-up {
+          grid-template-columns: ppx(74) auto;
+          gap: ppx(40);
+        }
+        dt {
+        }
+        dd {
+          ol {
+            li {
+              display: grid;
+              grid-template-columns: 28vw auto;
+              gap: spx(12);
+              @include tablet-up {
+                gap: spx(12) * 0.75;
+                grid-template-columns: 28vw auto;
+              }
+              @include desktop-up {
+                grid-template-columns: 11vw auto;
+              }
+              .value-item-title {
+              }
+              .value-item-description {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

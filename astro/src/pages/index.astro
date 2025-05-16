@@ -1,22 +1,22 @@
 ---
 import MySiteLayout from '@layouts/MySiteLayout.astro';
-import HeroSection from '@components/toppage/HeroSection.astro';
-import SectionAbout from '@components/toppage/SectionAbout.astro';
-import SectionPeople from '@components/toppage/SectionPeople.astro';
-import SectionCulture from '@components/toppage/SectionCulture.astro';
-import SectionJobs from '@components/toppage/SectionJobs.astro';
-import SectionFlow from '@components/toppage/SectionFlow.astro';
-import SectionNews from '@components/toppage/SectionNews.astro';
+import HeroSection from '@components/toppage/ToppageHeroSection.astro';
+import ToppageSectionAbout from '@components/toppage/ToppageSectionAbout.astro';
+import ToppageSectionPeople from '@components/toppage/ToppageSectionPeople.astro';
+import ToppageSectionCulture from '@components/toppage/ToppageSectionCulture.astro';
+import ToppageSectionJobs from '@components/toppage/ToppageSectionJobs.astro';
+import ToppageSectionFlow from '@components/toppage/ToppageSectionFlow.astro';
+import ToppageSectionNews from '@components/toppage/ToppageSectionNews.astro';
 ---
 
 <MySiteLayout>
   <HeroSection />
-  <SectionAbout />
-  <SectionPeople />
-  <SectionCulture />
-  <SectionJobs />
-  <SectionFlow />
-  <SectionNews limit={3} />
+  <ToppageSectionAbout />
+  <ToppageSectionPeople />
+  <ToppageSectionCulture />
+  <ToppageSectionJobs />
+  <ToppageSectionFlow />
+  <ToppageSectionNews limit={3} />
 </MySiteLayout>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
 ---
-import SectionInTitle from '@components/toppage/SectionInTitle.astro';
+import ToppageSectionInTitle from '@components/toppage/ToppageSectionInTitle.astro';
 import PrimaryButton from '@components/common/PrimaryButton.astro';
 import { getCollection } from 'astro:content';
 
@@ -25,7 +25,7 @@ const limitedPosts = sortedPosts.slice(0, limit);
 
 <section id="news">
   <div class="content-wrapper">
-    <SectionInTitle largeTitle="お" title="知らせ" enTitle="NEWS" />
+    <ToppageSectionInTitle largeTitle="お" title="知らせ" enTitle="NEWS" />
   </div>
 
   <div class="news-wrapper">
