@@ -72,69 +72,88 @@ import StaffModal from '@components/people/StaffModal.astro';
         // モーダルのコンテンツを更新
         const modalTitle = document.getElementById('modal-staff-title');
         const modalContent = document.getElementById('modal-staff-content');
+        const modalContainer = document.querySelector('.modal__container');
 
         if (modalTitle && modalContent) {
-          // 詳細情報を設定（staffImageMapの代わりにstaff.imageUrlを使用）
+          // 詳細情報を設定
           modalContent.innerHTML = `
             <div class="staff-modal-content">
-              <div class="staff-modal-image">
-                <img src="${staff.imageUrl || '/assets/images/staff/default.webp'}" alt="${staff.name}">
-              </div>
-              <p>${staff.name}</p>
-              <div class="staff-modal-tags">
-                ${staff.tags.map((tag) => `<span class="tag-item">${tag}</span>`).join('')}
+              <!-- ヘッダー部分：画像、名前、タグ -->
+              <div class="staff-modal-header">
+                <div class="staff-modal-img-wrapper">
+                  <img src="${staff.imageUrl || '/assets/images/staff/default.webp'}" class="staff-modal-img" alt="${staff.name}">
+                </div>
+                <div class="staff-modal-info">
+                  <p class="staff-modal-name">${staff.name}</p>
+                  <div class="staff-modal-tags">
+                    ${staff.tags.map((tag) => `<span class="tag-item">${tag}</span>`).join('')}
+                  </div>
+                </div>
+                <!-- 概要説明 -->
+                <div class="staff-modal-description-wrapper">
+                  <p class="staff-modal-description">${staff.message}</p>
+                </div>
               </div>
               
-              <div class="staff-modal-description">
-                <p>${staff.fullDescription || staff.description || staff.message}</p>
-              </div>
-              
-              <dl class="staff-modal-details">
-                <dt>役職</dt>
-                <dd>${staff.position || '未設定'}</dd>
-                
-                <dt>経歴</dt>
-                <dd>
-                  ${staff.career ? `<ul>${staff.career.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
-                </dd>
-                
-                <dt>趣味</dt>
-                <dd>
-                  ${staff.hobbies ? `<ul>${staff.hobbies.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
-                </dd>
-              </dl>
+              <!-- 基本情報セクション -->
+              <section class="staff-modal-section">
+                <dl class="staff-modal-details">
+                  <div class="staff-modal-details-item">
+                    <dt>役職</dt>
+                    <dd>${staff.position || '未設定'}</dd>
+                  </div>
+                  
+                  <div class="staff-modal-details-item">
+                    <dt>経歴</dt>
+                    <dd>
+                      ${staff.career ? `<ul>${staff.career.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
+                    </dd>
+                  </div>
+                  
+                  <div class="staff-modal-details-item">
+                    <dt>趣味</dt>
+                    <dd>
+                      ${staff.hobbies ? `<ul>${staff.hobbies.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
+                    </dd>
+                  </div>
+                </dl>
+              </section>
 
-              <dl class="staff-modal-details">
-                <dt>入社理由</dt>
-                <dd>${staff.joining || '未設定'}</dd>
-                
-                <dt>やりがい</dt>
-                <dd>
-                  ${staff.fulfillment || '未設定'}
-                </dd>
-                
-                <dt>成長エピソード</dt>
-                <dd>
-                  ${staff.episode || '未設定'}
-                </dd>
-              </dl>
-
-               <dl class="staff-modal-qa">
-                ${
-                  staff.qa && staff.qa.length > 0
-                    ? staff.qa
-                        .map(
-                          (item) => `
-                      <dt>${item.question}</dt>
-                      <dd>${item.answer}</dd>
-                    `
-                        )
-                        .join('')
-                    : '<dt>インタビュー</dt><dd>準備中です</dd>'
-                }
-              </dl>
+              <!-- インタビューセクション -->
+              <section class="staff-modal-section">
+                <dl class="staff-modal-details">
+                  ${
+                    staff.qa && staff.qa.length > 0
+                      ? staff.qa
+                          .map(
+                            (item) => `
+                            <div class="staff-modal-details-item">
+                              <dt>${item.question}</dt>
+                              <dd>${item.answer}</dd>
+                            </div>
+                            `
+                          )
+                          .join('')
+                      : '<div class="staff-modal-details-item"><dt>インタビュー</dt><dd>準備中です</dd></div>'
+                  }
+                </dl>
+              </section>
+              <a href="/company" class="staff-modal-link">
+                <span class="staff-modal-link-text">もっと詳しく（会社概要）</span>
+              </a>
             </div>
           `;
+
+          // スクロール位置をリセット（この位置に移動）
+          if (modalContainer) {
+            // 即時実行
+            modalContainer.scrollTop = 0;
+
+            // さらに確実にするために、setTimeout内でも実行
+            setTimeout(() => {
+              modalContainer.scrollTop = 0;
+            }, 0);
+          }
         }
 
         // モーダルを表示
