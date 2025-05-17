@@ -126,6 +126,25 @@
     flex-direction: column;
     gap: spx(16);
   }
+  :global(.staff-modal-image) {
+    text-align: center;
+    margin-bottom: spx(20);
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+      @include tablet-up {
+        max-width: 80%;
+      }
+
+      @include desktop-up {
+        max-width: 60%;
+      }
+    }
+  }
 
   :global(.staff-modal-tags) {
     display: flex;

@@ -2,7 +2,7 @@
 import MySiteLayout from '@layouts/MySiteLayout.astro';
 import LowerPageHeader from '@components/common/LowerPageHeader.astro';
 import StaffCard from '@components/people/StaffCard.astro';
-import { featuredStaff } from '@data/staffData';
+import { staffData } from '@data/staffData';
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import StaffModal from '@components/people/StaffModal.astro';
 ---
@@ -15,13 +15,13 @@ import StaffModal from '@components/people/StaffModal.astro';
     <div class="staff-card-wrapper">
       <div class="staff-cards">
         {
-          featuredStaff.map((staff) => (
+          staffData.map((staff) => (
             <StaffCard
-              image={staff.image}
               name={staff.name}
               message={staff.message}
               tags={staff.tags}
               id={staff.id}
+              imageUrl={staff.imageUrl || `/assets/images/staff/default.webp`}
             />
           ))
         }
@@ -49,6 +49,7 @@ import StaffModal from '@components/people/StaffModal.astro';
     tags: string[];
     career?: string[];
     hobbies?: string[];
+    imageUrl: string; // 画像URLを追加
   }
 
   const staffDataMap: { [key: string]: StaffInfo } = {};
@@ -63,6 +64,7 @@ import StaffModal from '@components/people/StaffModal.astro';
       tags: staff.tags,
       career: staff.career,
       hobbies: staff.hobbies,
+      imageUrl: staff.imageUrl || '/assets/images/staff/default.webp', // デフォルト値を設定
     };
   });
 
@@ -86,7 +88,6 @@ import StaffModal from '@components/people/StaffModal.astro';
         if (!staffId) return;
 
         const staff = staffDataMap[staffId];
-
         if (!staff) return;
 
         // モーダルのコンテンツを更新
@@ -94,9 +95,12 @@ import StaffModal from '@components/people/StaffModal.astro';
         const modalContent = document.getElementById('modal-staff-content');
 
         if (modalTitle && modalContent) {
-          // 詳細情報を設定
+          // 詳細情報を設定（staffImageMapの代わりにstaff.imageUrlを使用）
           modalContent.innerHTML = `
             <div class="staff-modal-content">
+              <div class="staff-modal-image">
+                <img src="${staff.imageUrl || '/assets/images/staff/default.webp'}" alt="${staff.name}">
+              </div>
               <p>${staff.name}</p>
               <div class="staff-modal-tags">
                 ${staff.tags.map((tag) => `<span class="tag-item">${tag}</span>`).join('')}

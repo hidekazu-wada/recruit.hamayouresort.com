@@ -1,14 +1,27 @@
-import Staff01 from '@assets/images/staff/img-staff-01.png';
-import Staff02 from '@assets/images/staff/img-staff-02.png';
-import Staff03 from '@assets/images/staff/img-staff-03.png';
-import Staff04 from '@assets/images/staff/img-staff-04.png';
-import Staff05 from '@assets/images/staff/img-staff-05.png';
-import Staff06 from '@assets/images/staff/img-staff-06.png';
-import Staff07 from '@assets/images/staff/img-staff-07.png';
-import Staff08 from '@assets/images/staff/img-staff-08.png';
+/**
+ * スタッフデータ管理ファイル
+ *
+ * === スタッフ追加手順 ===
+ * 1. staffDataArrayに新しいスタッフ情報を追加する
+ * 2. 画像ファイルをpublic/assets/images/staffディレクトリに配置する
+ *    - ファイル名: img-staff-XX.webp (XXは連番で01から始まる)
+ *    - 例: 9人目のスタッフなら img-staff-09.webp
+ *
+ * 注意:
+ * - スタッフの順番を変更すると画像の割り当ても変更されます
+ * - スタッフデータの配列の順番がそのまま画像ファイルの番号になります
+ * - スタッフIDはユニークである必要があります
+ * - 画像は自動的にインデックス（配列の位置）に基づいて割り当てられます
+ */
+
+// スタッフIDから画像パス（番号部分）を取得する関数
+const getImageNumber = (index: number): string => {
+  // 1から始まる2桁の数字にフォーマット
+  return (index + 1).toString().padStart(2, '0');
+};
+
 export interface StaffMember {
   id: string;
-  image: ImageMetadata;
   name: string;
   message: string;
   tags: string[];
@@ -17,12 +30,13 @@ export interface StaffMember {
   fullDescription?: string;
   career?: string[];
   hobbies?: string[];
+  // 自動生成される画像パス
+  imageUrl?: string;
 }
 
-export const staffData: StaffMember[] = [
+const staffDataArray: Omit<StaffMember, 'imageUrl'>[] = [
   {
     id: 'yamada-taro',
-    image: Staff01,
     name: '山田太郎',
     message: '新しい仲間として、共に成長しましょう',
     tags: ['フロント（ホテル）', '中途入社'],
@@ -40,7 +54,6 @@ export const staffData: StaffMember[] = [
   },
   {
     id: 'sato-hanako',
-    image: Staff02,
     name: '佐藤花子',
     message: '毎日がチャレンジの連続です',
     tags: ['レストラン', '新卒入社'],
@@ -53,7 +66,6 @@ export const staffData: StaffMember[] = [
   },
   {
     id: 'suzuki-ichiro',
-    image: Staff03,
     name: '鈴木一郎',
     message: '多様な経験ができる環境です',
     tags: ['マーケティング', '中途入社'],
@@ -71,7 +83,6 @@ export const staffData: StaffMember[] = [
   },
   {
     id: 'tanaka-misaki',
-    image: Staff04,
     name: '田中美咲',
     message: 'お客様の笑顔が私のやりがいです',
     tags: ['客室', 'アルバイト'],
@@ -86,7 +97,6 @@ export const staffData: StaffMember[] = [
 
   {
     id: 'takahashi-kenta',
-    image: Staff05,
     name: '高橋健太',
     message: '自然の中で働ける喜びを感じています',
     tags: ['アクティビティ', '中途入社'],
@@ -106,7 +116,6 @@ export const staffData: StaffMember[] = [
 
   {
     id: 'watanabe-kyoko',
-    image: Staff06,
     name: '渡辺京子',
     message: '料理を通じてゲストに感動を届けたい',
     tags: ['シェフ', '中途入社'],
@@ -126,7 +135,6 @@ export const staffData: StaffMember[] = [
 
   {
     id: 'nakamura-daisuke',
-    image: Staff07,
     name: '中村大輔',
     message: '施設の安全と快適さを守ることが使命です',
     tags: ['施設管理', '中途入社'],
@@ -146,7 +154,6 @@ export const staffData: StaffMember[] = [
 
   {
     id: 'kobayashi-sakura',
-    image: Staff08,
     name: '小林さくら',
     message: 'お客様の特別な日をより素敵に演出します',
     tags: ['ウェディングプランナー', '新卒入社'],
@@ -164,5 +171,21 @@ export const staffData: StaffMember[] = [
   },
 ];
 
-// トップページ用の厳選されたスタッフ
-export const featuredStaff = staffData.slice(0, 4);
+// 画像パスを自動的に追加したスタッフデータ
+export const staffData: StaffMember[] = staffDataArray.map((staff, index) => ({
+  ...staff,
+  imageUrl: `/assets/images/staff/img-staff-${getImageNumber(index)}.webp`,
+}));
+
+// トップページ用の厳選されたスタッフ（特定のIDを指定＆順序も制御）
+const featuredStaffIds = [
+  'suzuki-ichiro', // 最初に表示
+  'watanabe-kyoko', // 2番目に表示
+  'yamada-taro', // 3番目に表示
+  'kobayashi-sakura', // 4番目に表示
+];
+
+// 指定した順序でスタッフを並べる
+export const featuredStaff = featuredStaffIds
+  .map((id) => staffData.find((staff) => staff.id === id))
+  .filter((staff): staff is StaffMember => staff !== undefined);

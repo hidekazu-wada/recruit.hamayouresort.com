@@ -1,21 +1,43 @@
 ---
-// astro/src/components/people/StaffCard.astro
-import { Image } from 'astro:assets';
+/**
+ * スタッフカードコンポーネント
+ * 新しいスタッフを追加する場合は、staffData.tsファイルを変更してください。
+ * このコンポーネント自体は変更する必要はありません。
+ */
 
 interface Props {
-  image: ImageMetadata;
   name: string;
   message: string;
   tags: string[];
   id: string;
+  imageUrl: string;
   alt?: string;
 }
 
-const { image, name, message, tags, id, alt = name } = Astro.props;
+const { name, message, tags, id, imageUrl, alt = name } = Astro.props;
+
+// IDから画像パスを生成
+const getImagePath = (id: string) => {
+  const idMap: { [key: string]: string } = {
+    'yamada-taro': '01',
+    'sato-hanako': '02',
+    'suzuki-ichiro': '03',
+    'tanaka-misaki': '04',
+    'takahashi-kenta': '05',
+    'watanabe-kyoko': '06',
+    'nakamura-daisuke': '07',
+    'kobayashi-sakura': '08',
+  };
+
+  const imgNumber = idMap[id] || '01';
+  return `/assets/images/staff/img-staff-${imgNumber}.webp`;
+};
+
+const imagePath = getImagePath(id);
 ---
 
 <div class="staff-card" data-staff-id={id}>
-  <Image src={image} alt={alt} format="webp" class="staff-image" />
+  <img src={imageUrl} alt={alt} class="staff-image" />
   <p class="message">{message}</p>
   <span class="line"></span>
   <p class="name">{name}</p>
