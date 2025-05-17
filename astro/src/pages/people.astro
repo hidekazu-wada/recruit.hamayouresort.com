@@ -36,34 +36,13 @@ import StaffModal from '@components/people/StaffModal.astro';
   // MicroModalを読み込む
   // @ts-ignore
   import MicroModal from 'micromodal';
-  import { staffData } from '@data/staffData';
+  import { staffData, type StaffMember } from '@data/staffData';
 
   // クライアントサイドでスタッフデータを使用できるようにマッピング
-  interface StaffInfo {
-    id: string;
-    name: string;
-    message: string;
-    description?: string;
-    fullDescription?: string;
-    position?: string;
-    tags: string[];
-    career?: string[];
-    hobbies?: string[];
-    imageUrl: string; // 画像URLを追加
-  }
-
-  const staffDataMap: { [key: string]: StaffInfo } = {};
+  const staffDataMap: { [key: string]: StaffMember } = {};
   staffData.forEach((staff) => {
     staffDataMap[staff.id] = {
-      id: staff.id,
-      name: staff.name,
-      message: staff.message,
-      description: staff.description,
-      fullDescription: staff.fullDescription,
-      position: staff.position,
-      tags: staff.tags,
-      career: staff.career,
-      hobbies: staff.hobbies,
+      ...staff,
       imageUrl: staff.imageUrl || '/assets/images/staff/default.webp', // デフォルト値を設定
     };
   });
@@ -123,6 +102,36 @@ import StaffModal from '@components/people/StaffModal.astro';
                 <dd>
                   ${staff.hobbies ? `<ul>${staff.hobbies.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
                 </dd>
+              </dl>
+
+              <dl class="staff-modal-details">
+                <dt>入社理由</dt>
+                <dd>${staff.joining || '未設定'}</dd>
+                
+                <dt>やりがい</dt>
+                <dd>
+                  ${staff.fulfillment || '未設定'}
+                </dd>
+                
+                <dt>成長エピソード</dt>
+                <dd>
+                  ${staff.episode || '未設定'}
+                </dd>
+              </dl>
+
+               <dl class="staff-modal-qa">
+                ${
+                  staff.qa && staff.qa.length > 0
+                    ? staff.qa
+                        .map(
+                          (item) => `
+                      <dt>${item.question}</dt>
+                      <dd>${item.answer}</dd>
+                    `
+                        )
+                        .join('')
+                    : '<dt>インタビュー</dt><dd>準備中です</dd>'
+                }
               </dl>
             </div>
           `;
