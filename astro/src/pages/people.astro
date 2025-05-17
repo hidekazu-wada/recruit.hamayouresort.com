@@ -1,0 +1,21 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import PeoplepageSectionInterview from '@components/peoplepage/PeoplepageSectionInterview.astro';
+import PeoplepageSectionSchedule from '@components/peoplepage/PeoplepageSectionSchedule.astro';
+import PeoplepageSectionGallery from '@components/peoplepage/PeoplepageSectionGallery.astro';
+import PeoplepageSectionYoutube from '@components/peoplepage/PeoplepageSectionYoutube.astro';
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="People" pageTitleJa="社員紹介" />
+  <PeoplepageSectionInterview />
+  <PeoplepageSectionSchedule />
+  <PeoplepageSectionGallery />
+  <PeoplepageSectionYoutube />
+</MySiteLayout>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+</style>

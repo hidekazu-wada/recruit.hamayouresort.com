@@ -14,7 +14,7 @@ const {
 ---
 
 <h2 class={`${variant} ${className}`} data-position={position}>
-  <span class="title">{title}</span>
+  <span class="title" set:html={title} />
   <span class="line"></span>
 </h2>
 <style lang="scss">

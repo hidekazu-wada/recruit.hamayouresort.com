@@ -1,7 +1,7 @@
 ---
 import ToppageSectionInTitle from '@components/toppage/ToppageSectionInTitle.astro';
 import ToppageSectionInLead from '@components/toppage/ToppageSectionInLead.astro';
-import StaffCard from '@components/people/StaffCard.astro';
+import StaffCard from '@components/peoplepage/StaffCard.astro';
 import { featuredStaff } from '@data/staffData';
 import PrimaryButton from '@components/common/PrimaryButton.astro';
 ---
@@ -24,7 +24,7 @@ import PrimaryButton from '@components/common/PrimaryButton.astro';
       {
         featuredStaff.map((staff) => (
           <StaffCard
-            image={staff.image}
+            imageUrl={staff.imageUrl || `/assets/images/staff/default.webp`}
             name={staff.name}
             message={staff.message}
             tags={staff.tags}

@@ -1,21 +1,26 @@
 ---
-// astro/src/components/people/StaffCard.astro
-import { Image } from 'astro:assets';
+/**
+ * スタッフカードコンポーネント
+ * 新しいスタッフを追加する場合は、staffData.tsファイルを変更してください。
+ * このコンポーネント自体は変更する必要はありません。
+ */
 
 interface Props {
-  image: ImageMetadata;
   name: string;
   message: string;
   tags: string[];
   id: string;
+  imageUrl: string;
   alt?: string;
 }
 
-const { image, name, message, tags, id, alt = name } = Astro.props;
+const { name, message, tags, id, imageUrl, alt = name } = Astro.props;
+
+// IDから画像パスを生成する関数は削除（imageUrlをそのまま使用）
 ---
 
 <div class="staff-card" data-staff-id={id}>
-  <Image src={image} alt={alt} format="webp" class="staff-image" />
+  <img src={imageUrl} alt={alt} class="staff-image" />
   <p class="message">{message}</p>
   <span class="line"></span>
   <p class="name">{name}</p>
@@ -33,6 +38,7 @@ const { image, name, message, tags, id, alt = name } = Astro.props;
     padding: spx(10);
     background-color: #fff;
     box-shadow: 2px 2px 0px 0px #59a1c0;
+    cursor: pointer;
     @include tablet-up {
       width: spx(170) * 0.75;
       padding: spx(10) * 0.75;

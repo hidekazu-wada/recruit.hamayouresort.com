@@ -1,0 +1,356 @@
+---
+import { Image } from 'astro:assets';
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import slide1 from '@assets/images/people/peoplepage-slider-01.png';
+import slide2 from '@assets/images/people/peoplepage-slider-02.png';
+import slide3 from '@assets/images/people/peoplepage-slider-03.png';
+
+// スライドデータを一元管理
+const slides = [
+  {
+    image: slide1,
+    title: 'フロントの一日',
+    schedules: [
+      {
+        time: '8:00',
+        title: '出社・朝礼',
+        content:
+          '森の空気で深呼吸して一日がスタート。今日の予約状況を共有し役割を分担。',
+      },
+      {
+        time: '10:30',
+        title: 'チェックアウト対応',
+        content:
+          'ピークは10〜15組／h。感謝の言葉をいただくたびに、この仕事の意義を実感する。',
+      },
+      {
+        time: '12:00',
+        title: 'ランチ休憩',
+        content: '社員食堂の日替わりカレー。寮仲間と午後の作戦会議も兼ねて。',
+      },
+      {
+        time: '15:00',
+        title: 'チェックイン準備',
+        content:
+          '部屋割りやウェルカムドリンクの最終チェック。ゲストの「わぁ！」を想像しながら。',
+      },
+      {
+        time: '18:00',
+        title: 'キャンプ場へ応援',
+        content:
+          '繁忙日はフロントを抜けて焚き火イベントの司会へ。火を囲む笑顔は何度見ても飽きない。',
+      },
+      {
+        time: '21:00',
+        title: '終礼・退社',
+        content:
+          '歩数 7,856 歩。今日もゲストの"ただいま"と"ありがとう"で心が満たされた。',
+      },
+    ],
+  },
+  {
+    image: slide2,
+    title: 'レストランの一日',
+    schedules: [
+      {
+        time: '8:00',
+        title: '出社・朝礼',
+        content:
+          '森の空気で深呼吸して一日がスタート。今日の予約状況を共有し役割を分担。',
+      },
+      {
+        time: '10:30',
+        title: 'チェックアウト対応',
+        content:
+          'ピークは10〜15組／h。感謝の言葉をいただくたびに、この仕事の意義を実感する。',
+      },
+      {
+        time: '12:00',
+        title: 'ランチ休憩',
+        content: '社員食堂の日替わりカレー。寮仲間と午後の作戦会議も兼ねて。',
+      },
+      {
+        time: '15:00',
+        title: 'チェックイン準備',
+        content:
+          '部屋割りやウェルカムドリンクの最終チェック。ゲストの「わぁ！」を想像しながら。',
+      },
+      {
+        time: '18:00',
+        title: 'キャンプ場へ応援',
+        content:
+          '繁忙日はフロントを抜けて焚き火イベントの司会へ。火を囲む笑顔は何度見ても飽きない。',
+      },
+      {
+        time: '21:00',
+        title: '終礼・退社',
+        content:
+          '歩数 7,856 歩。今日もゲストの"ただいま"と"ありがとう"で心が満たされた。',
+      },
+    ],
+  },
+  {
+    image: slide3,
+    title: 'キャンプ場の一日',
+    schedules: [
+      {
+        time: '8:00',
+        title: '出社・朝礼',
+        content:
+          '森の空気で深呼吸して一日がスタート。今日の予約状況を共有し役割を分担。',
+      },
+      {
+        time: '10:30',
+        title: 'チェックアウト対応',
+        content:
+          'ピークは10〜15組／h。感謝の言葉をいただくたびに、この仕事の意義を実感する。',
+      },
+      {
+        time: '12:00',
+        title: 'ランチ休憩',
+        content: '社員食堂の日替わりカレー。寮仲間と午後の作戦会議も兼ねて。',
+      },
+      {
+        time: '15:00',
+        title: 'チェックイン準備',
+        content:
+          '部屋割りやウェルカムドリンクの最終チェック。ゲストの「わぁ！」を想像しながら。',
+      },
+      {
+        time: '18:00',
+        title: 'キャンプ場へ応援',
+        content:
+          '繁忙日はフロントを抜けて焚き火イベントの司会へ。火を囲む笑顔は何度見ても飽きない。',
+      },
+      {
+        time: '21:00',
+        title: '終礼・退社',
+        content:
+          '歩数 7,856 歩。今日もゲストの"ただいま"と"ありがとう"で心が満たされた。',
+      },
+    ],
+  },
+];
+---
+
+<div class="schedule-wrapper">
+  <LowerPageH2
+    title="1日のスケジュール紹介"
+    variant="default"
+    position="center"
+  />
+  <div class="swiper-container">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {
+          slides.map((slide) => (
+            <div class="swiper-slide">
+              <div class="image-wrapper">
+                <Image
+                  src={slide.image}
+                  format="webp"
+                  alt={slide.title}
+                  width={300}
+                  height={300}
+                />
+              </div>
+              <div class="timeline">
+                {slide.schedules.map((schedule) => (
+                  <article class="timeline__item">
+                    <header class="timeline__header">
+                      <time class="timeline__time">【{schedule.time}】</time>
+                      <h3 class="timeline__title">{schedule.title}</h3>
+                    </header>
+                    <div class="timeline__content">
+                      <p>{schedule.content}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<script>
+  // Swiperのインポートと初期化
+  import Swiper from 'swiper';
+  import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+
+  // CSSのインポート
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+  import 'swiper/css/pagination';
+
+  // DOMがロードされた後にSwiperを初期化
+  document.addEventListener('DOMContentLoaded', () => {
+    const swiper = new Swiper('.swiper', {
+      // モジュールの設定
+      modules: [Navigation, Pagination, Autoplay],
+
+      // スライドの設定
+      slidesPerView: 1,
+      spaceBetween: 30,
+      centeredSlides: true,
+      loop: true,
+
+      // 自動再生の設定
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+
+      // ページネーションの設定
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  });
+</script>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+  .schedule-wrapper {
+    background-color: #d8edf7;
+    padding: spx(60) 0;
+    @include tablet-up {
+      padding: spx(60) * 0.75 0;
+    }
+    @include desktop-up {
+      padding: ppx(100) 0;
+    }
+  }
+  .swiper-container {
+    width: 100%;
+    padding: 20px 0;
+    margin-top: spx(28);
+    @include tablet-up {
+      margin-top: spx(28) * 0.75;
+    }
+    @include desktop-up {
+      margin-top: ppx(40);
+    }
+    .swiper {
+      width: 100%;
+      padding: 0 spx(20);
+      @include tablet-up {
+        padding: 0 spx(80) * 0.75;
+      }
+      @include desktop-up {
+        padding: 0 ppx(100);
+      }
+      .swiper-wrapper {
+        .swiper-slide {
+          display: flex;
+          flex-flow: column;
+          gap: spx(20);
+          background-color: #fff;
+          padding: spx(20);
+          @include tablet-up {
+            gap: spx(20) * 0.75;
+            padding: spx(20) * 0.75;
+          }
+          @include desktop-up {
+            display: grid;
+            grid-template-columns: max-content auto;
+            gap: ppx(80);
+            padding: ppx(20);
+          }
+
+          .image-wrapper {
+            width: 100%;
+            height: auto;
+            margin-inline: auto;
+
+            @include desktop-up {
+              width: ppx(360);
+              height: ppx(360);
+              margin-inline: unset;
+            }
+
+            img {
+              display: block;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .timeline {
+            font-size: spx(14);
+            font-weight: 500;
+            line-height: 140%;
+            display: flex;
+            flex-flow: column;
+            gap: spx(12);
+
+            @include tablet-up {
+              font-size: spx(14) * 0.75;
+              gap: spx(12) * 0.75;
+            }
+
+            @include desktop-up {
+              font-size: ppx(18);
+              gap: ppx(12);
+            }
+            .timeline__item {
+              .timeline__header {
+                display: flex;
+                font-weight: 700;
+                .timeline__time {
+                }
+                .timeline__title {
+                }
+              }
+              .timeline__content {
+                p {
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  :global(.swiper-pagination) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: spx(23);
+    position: static !important;
+    margin-top: spx(28);
+
+    @include tablet-up {
+      gap: spx(23) * 0.75;
+      margin-top: spx(28) * 0.75;
+    }
+    @include desktop-up {
+      gap: ppx(23);
+      margin-top: ppx(40);
+    }
+    :global(.swiper-pagination-bullet) {
+      width: spx(16);
+      height: spx(16);
+      background-color: #d8edf7;
+      border: 2px solid #026995;
+      border-radius: 50%;
+      opacity: 1;
+      @include tablet-up {
+        width: spx(16) * 0.75;
+        height: spx(16) * 0.75;
+      }
+      @include desktop-up {
+        width: ppx(20);
+        height: ppx(20);
+      }
+      &:global(.swiper-pagination-bullet-active) {
+        background-color: #026995;
+      }
+    }
+  }
+</style>

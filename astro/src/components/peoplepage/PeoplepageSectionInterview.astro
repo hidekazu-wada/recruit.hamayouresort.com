@@ -1,0 +1,198 @@
+---
+import StaffCard from '@components/peoplepage/StaffCard.astro';
+import { staffData } from '@data/staffData';
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import StaffModal from '@components/peoplepage/StaffModal.astro';
+---
+
+<div class="interview-wrapper">
+  <LowerPageH2 title="社員インタビュー" variant="default" position="left" />
+  <div class="staff-card-wrapper">
+    <div class="staff-cards">
+      {
+        staffData.map((staff) => (
+          <StaffCard
+            name={staff.name}
+            message={staff.message}
+            tags={staff.tags}
+            id={staff.id}
+            imageUrl={staff.imageUrl || `/assets/images/staff/default.webp`}
+          />
+        ))
+      }
+    </div>
+  </div>
+</div>
+<StaffModal />
+
+<script>
+  // MicroModalを読み込む
+  // @ts-ignore
+  import MicroModal from 'micromodal';
+  import { staffData, type StaffMember } from '@data/staffData';
+
+  // クライアントサイドでスタッフデータを使用できるようにマッピング
+  const staffDataMap: { [key: string]: StaffMember } = {};
+  staffData.forEach((staff) => {
+    staffDataMap[staff.id] = {
+      ...staff,
+      imageUrl: staff.imageUrl || '/assets/images/staff/default.webp', // デフォルト値を設定
+    };
+  });
+
+  // MicroModalの初期化
+  MicroModal.init({
+    openTrigger: 'data-micromodal-trigger', // デフォルト: data-micromodal-trigger
+    closeTrigger: 'data-micromodal-close', // デフォルト: data-micromodal-close
+    disableFocus: false, // 最初の要素にフォーカスする
+    disableScroll: true, // モーダルオープン時にスクロールを無効化
+    awaitOpenAnimation: false, // アニメーション完了を待つ
+    awaitCloseAnimation: false, // 閉じるアニメーション完了を待つ
+  });
+
+  // スタッフカードにクリックイベントを追加
+  document.addEventListener('DOMContentLoaded', () => {
+    const staffCards = document.querySelectorAll('.staff-card');
+
+    staffCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const staffId = card.getAttribute('data-staff-id');
+        if (!staffId) return;
+
+        const staff = staffDataMap[staffId];
+        if (!staff) return;
+
+        // モーダルのコンテンツを更新
+        const modalTitle = document.getElementById('modal-staff-title');
+        const modalContent = document.getElementById('modal-staff-content');
+        const modalContainer = document.querySelector('.modal__container');
+
+        if (modalTitle && modalContent) {
+          // 詳細情報を設定
+          modalContent.innerHTML = `
+              <div class="staff-modal-content">
+                <!-- ヘッダー部分：画像、名前、タグ -->
+                <div class="staff-modal-header">
+                  <div class="staff-modal-img-wrapper">
+                    <img src="${staff.imageUrl || '/assets/images/staff/default.webp'}" class="staff-modal-img" alt="${staff.name}">
+                  </div>
+                  <div class="staff-modal-info">
+                    <p class="staff-modal-name">${staff.name}</p>
+                    <div class="staff-modal-tags">
+                      ${staff.tags.map((tag) => `<span class="tag-item">${tag}</span>`).join('')}
+                    </div>
+                  </div>
+                  <!-- 概要説明 -->
+                  <div class="staff-modal-description-wrapper">
+                    <p class="staff-modal-description">${staff.message}</p>
+                  </div>
+                </div>
+                
+                <!-- 基本情報セクション -->
+                <section class="staff-modal-section">
+                  <dl class="staff-modal-details">
+                    <div class="staff-modal-details-item">
+                      <dt>役職</dt>
+                      <dd>${staff.position || '未設定'}</dd>
+                    </div>
+                    
+                    <div class="staff-modal-details-item">
+                      <dt>経歴</dt>
+                      <dd>
+                        ${staff.career ? `<ul>${staff.career.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
+                      </dd>
+                    </div>
+                    
+                    <div class="staff-modal-details-item">
+                      <dt>趣味</dt>
+                      <dd>
+                        ${staff.hobbies ? `<ul>${staff.hobbies.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
+                      </dd>
+                    </div>
+                  </dl>
+                </section>
+  
+                <!-- インタビューセクション -->
+                <section class="staff-modal-section">
+                  <dl class="staff-modal-details">
+                    ${
+                      staff.qa && staff.qa.length > 0
+                        ? staff.qa
+                            .map(
+                              (item) => `
+                              <div class="staff-modal-details-item">
+                                <dt>${item.question}</dt>
+                                <dd>${item.answer}</dd>
+                              </div>
+                              `
+                            )
+                            .join('')
+                        : '<div class="staff-modal-details-item"><dt>インタビュー</dt><dd>準備中です</dd></div>'
+                    }
+                  </dl>
+                </section>
+                <a href="/company" class="staff-modal-link">
+                  <span class="staff-modal-link-text">もっと詳しく（会社概要）</span>
+                </a>
+              </div>
+            `;
+
+          // スクロール位置をリセット（この位置に移動）
+          if (modalContainer) {
+            // 即時実行
+            modalContainer.scrollTop = 0;
+
+            // さらに確実にするために、setTimeout内でも実行
+            setTimeout(() => {
+              modalContainer.scrollTop = 0;
+            }, 0);
+          }
+        }
+
+        // モーダルを表示
+        MicroModal.show('modal-staff');
+      });
+    });
+  });
+</script>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .interview-wrapper {
+    padding: 0 spx(20) spx(60);
+    @include tablet-up {
+      padding: 0 spx(20) * 0.75 spx(60) * 0.75;
+    }
+    @include desktop-up {
+      padding: 0 ppx(160) ppx(100);
+    }
+    .staff-card-wrapper {
+      margin-top: spx(28);
+      @include tablet-up {
+        margin-top: spx(28) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
+      .staff-cards {
+        display: grid;
+        gap: spx(20);
+        justify-content: space-between;
+        grid-template-columns: max-content max-content;
+        @include tablet-up {
+          grid-template-columns: max-content max-content;
+          gap: spx(20) * 0.75;
+          width: 74%;
+          margin-inline: auto;
+        }
+        @include desktop-up {
+          grid-template-columns: max-content max-content max-content max-content;
+          gap: ppx(40);
+          width: 100%;
+        }
+      }
+    }
+  }
+</style>

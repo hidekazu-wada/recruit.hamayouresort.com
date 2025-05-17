@@ -11,6 +11,8 @@
   "dependencies": {
     "astro": "^5.7.12",
     "destyle.css": "^4.0.1",
-    "sass": "^1.88.0"
+    "micromodal": "^0.6.1",
+    "sass": "^1.88.0",
+    "swiper": "^11.2.6"
   }
 }

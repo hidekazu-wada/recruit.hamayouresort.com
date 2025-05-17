@@ -1,0 +1,301 @@
+---
+
+---
+
+<div id="modal-staff" aria-hidden="true" class="modal">
+  <div tabindex="-1" data-micromodal-close class="modal__overlay">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-staff-title"
+      class="modal__container"
+    >
+      <header class="modal__header">
+        <h2 id="modal-staff-title">
+          <!-- タイトルは動的に設定 -->
+        </h2>
+        <button
+          aria-label="閉じる"
+          data-micromodal-close
+          class="modal__close-button"
+        >
+          <span class="modal__close-icon">×</span>
+        </button>
+      </header>
+      <div id="modal-staff-content" class="modal__content">
+        <!-- コンテンツは動的に設定 -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+  }
+
+  .modal.is-open {
+    display: block;
+  }
+
+  // モーダルのスタイル
+  .modal__title {
+    margin: 0;
+    font-weight: bold;
+  }
+  .modal {
+    display: none;
+
+    &.is-open {
+      display: block;
+    }
+    .modal__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+
+      .modal__container {
+        position: relative;
+        background-color: #fff;
+        padding: spx(20);
+        width: 90%;
+        max-width: spx(340);
+        max-height: 85vh; // ビューポート高さの85%を最大高さに設定
+        overflow-y: auto; // 縦方向のスクロールを有効化
+        border-radius: 4px;
+        -webkit-overflow-scrolling: touch; // iOSでのスムーズスクロール
+        scroll-behavior: auto; // スムーススクロールを無効化
+        overflow-anchor: none; // ブラウザのスクロールアンカー機能を無効化
+
+        @include tablet-up {
+          max-width: spx(500);
+          padding: spx(30);
+        }
+
+        @include desktop-up {
+          max-width: ppx(800);
+          padding: ppx(40);
+        }
+
+        .modal__header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: spx(20);
+
+          h2 {
+            margin: 0;
+          }
+        }
+
+        .modal__close-button {
+          position: absolute;
+          top: spx(10);
+          right: spx(10);
+          border: none;
+          cursor: pointer;
+          width: max-content;
+          height: max-content;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          @include tablet-up {
+            top: spx(15);
+            right: spx(15);
+          }
+
+          @include desktop-up {
+            top: ppx(20);
+            right: ppx(20);
+          }
+          .modal__close-icon {
+            font-size: spx(20);
+            font-weight: bold;
+            @include tablet-up {
+              font-size: spx(20) * 0.75;
+            }
+            @include desktop-up {
+              font-size: ppx(28);
+            }
+          }
+        }
+
+        .modal__content {
+          margin-top: spx(20);
+        }
+      }
+    }
+  }
+  // モーダルコンテンツ内のスタイル
+  :global(.staff-modal-content) {
+    display: flex;
+    flex-direction: column;
+    gap: spx(16);
+    min-height: 100%; // 最小高さを設定
+    font-size: spx(12);
+    font-weight: 500;
+    line-height: 100%;
+
+    @include tablet-up {
+      font-size: spx(12) * 0.75;
+      gap: spx(20) * 0.75;
+    }
+
+    @include desktop-up {
+      font-size: ppx(18);
+      gap: ppx(20);
+    }
+  }
+  :global(.staff-modal-img-wrapper) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  :global(.staff-modal-img) {
+    display: block;
+    width: spx(200);
+    height: spx(200);
+    object-fit: cover;
+
+    @include tablet-up {
+      width: spx(200) * 0.75;
+      height: spx(200) * 0.75;
+    }
+
+    @include desktop-up {
+      width: ppx(300);
+      height: ppx(300);
+    }
+  }
+  :global(.staff-modal-name) {
+    font-weight: 700;
+    text-align: center;
+    margin-top: spx(16);
+
+    @include tablet-up {
+      margin-top: spx(16) * 0.75;
+    }
+
+    @include desktop-up {
+      margin-top: ppx(16);
+    }
+  }
+
+  :global(.staff-modal-tags) {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: spx(4);
+    font-size: spx(10);
+    font-weight: 500;
+    line-height: 100%;
+    margin-top: spx(12);
+
+    @include tablet-up {
+      font-size: spx(10) * 0.75;
+      margin-top: spx(12) * 0.75;
+    }
+
+    @include desktop-up {
+      font-size: ppx(14);
+      margin-top: ppx(12);
+    }
+  }
+
+  :global(.tag-item) {
+    background-color: #f5fafc;
+    padding: spx(4) spx(8);
+    @include tablet-up {
+      padding: spx(4) * 0.75 spx(8) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(4) ppx(8);
+    }
+  }
+
+  :global(.staff-modal-description-wrapper) {
+    margin-top: spx(12);
+    text-align: center;
+
+    @include tablet-up {
+      margin-top: spx(12) * 0.75;
+    }
+
+    @include desktop-up {
+      margin-top: ppx(12);
+    }
+  }
+
+  :global(.staff-modal-details) {
+    display: flex;
+    flex-direction: column;
+    gap: spx(20);
+    @include tablet-up {
+      gap: spx(20) * 0.75;
+    }
+    @include desktop-up {
+      gap: ppx(20);
+    }
+
+    dt {
+      font-weight: 700;
+    }
+
+    dd {
+    }
+
+    ul {
+    }
+
+    li {
+    }
+  }
+  :global(.staff-modal-details-item) {
+    display: flex;
+    flex-direction: column;
+    gap: spx(8);
+    @include tablet-up {
+      gap: spx(8) * 0.75;
+    }
+    @include desktop-up {
+      gap: ppx(8);
+    }
+  }
+  :global(.staff-modal-link) {
+    display: block;
+    padding: spx(12) spx(20);
+    text-align: center;
+    margin-top: spx(12);
+    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+    width: max-content;
+    margin-inline: auto;
+    @include tablet-up {
+      margin-top: spx(12) * 0.75;
+      padding: spx(12) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      margin-top: ppx(12);
+      padding: ppx(12) ppx(20);
+    }
+  }
+  :global(.staff-modal-link-text) {
+    color: #fff;
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import { Image } from 'astro:assets';
+---
+
+<div class="youtube-wrapper">
+  <LowerPageH2
+    title="90秒でわかる<br class='sp'>HAMAYOUリゾートのリアル"
+    variant="default"
+    position="left"
+  />
+  <Image
+    src="/preparing-youtube.webp"
+    alt="90秒でわかるHAMAYOUリゾートのリアル"
+    width={740}
+    height={440}
+  />
+  <p>一歩先のおもてなしは、仲間との本気の対話から。</p>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .youtube-wrapper {
+    padding: spx(60) spx(20);
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(40) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(60) ppx(40);
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: spx(28);
+      @include tablet-up {
+        margin-top: spx(28) * 0.75;
+      }
+      @include desktop-up {
+        width: ppx(740);
+        margin-inline: auto;
+        margin-top: ppx(40);
+      }
+    }
+    p {
+      font-size: spx(14);
+      font-weight: 500;
+      line-height: 100%;
+      text-align: center;
+      margin-top: spx(20);
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+        margin-top: spx(20) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(18);
+        margin-top: ppx(36);
+      }
+    }
+  }
+</style>
