@@ -1,0 +1,142 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import gallery1 from '@assets/images/people/peoplepage-gallery-01.png';
+import gallery2 from '@assets/images/people/peoplepage-gallery-02.png';
+import gallery3 from '@assets/images/people/peoplepage-gallery-03.png';
+import gallery4 from '@assets/images/people/peoplepage-gallery-04.png';
+import gallery5 from '@assets/images/people/peoplepage-gallery-05.png';
+import gallery6 from '@assets/images/people/peoplepage-gallery-06.png';
+import { Image } from 'astro:assets';
+import galleryBg from '@assets/images/people/peoplepage-gallery-bg.jpg';
+import { getImage } from 'astro:assets';
+
+// ギャラリー画像データを一元管理
+const galleryImages = [
+  { src: gallery1, alt: 'ギャラリー画像1' },
+  { src: gallery2, alt: 'ギャラリー画像2' },
+  { src: gallery3, alt: 'ギャラリー画像3' },
+  { src: gallery4, alt: 'ギャラリー画像4' },
+  { src: gallery5, alt: 'ギャラリー画像5' },
+  { src: gallery6, alt: 'ギャラリー画像6' },
+];
+
+// 背景画像の最適化
+const optimizedImage = await getImage({
+  src: galleryBg,
+  format: 'webp',
+});
+---
+
+<div
+  class="gallery-wrapper"
+  style={`background-image: url('${optimizedImage.src}');`}
+>
+  <LowerPageH2 title="仕事風景" variant="default" position="center" />
+  <div class="gallery-scroll">
+    <div class="gallery-inner">
+      {/* 最初のセット */}
+      {
+        galleryImages.map((image) => (
+          <div class="gallery-item">
+            <Image
+              src={image.src}
+              format="webp"
+              alt={image.alt}
+              width={300}
+              height={300}
+            />
+          </div>
+        ))
+      }
+
+      {/* 同じ画像のセットを繰り返す（スムーズなループのため） */}
+      {
+        galleryImages.map((image) => (
+          <div class="gallery-item">
+            <Image
+              src={image.src}
+              format="webp"
+              alt={image.alt}
+              width={300}
+              height={300}
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .gallery-wrapper {
+    padding: spx(60) 0;
+    background-blend-mode: soft-light;
+    background-color: #d6d6d6;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    @include tablet-up {
+      padding: spx(60) * 0.75 0;
+    }
+    @include desktop-up {
+      padding: ppx(100) 0;
+    }
+  }
+  .gallery-scroll {
+    width: 100%;
+    overflow: hidden;
+    margin-top: spx(28);
+    @include tablet-up {
+      margin-top: spx(28) * 0.75;
+    }
+    @include desktop-up {
+      margin-top: ppx(40);
+    }
+
+    .gallery-inner {
+      display: flex;
+      width: fit-content; /* 画像の合計幅 */
+      animation: scroll 40s linear infinite; /* アニメーションの設定 */
+    }
+
+    .gallery-item {
+      flex-shrink: 0;
+      margin-right: spx(20);
+      @include tablet-up {
+        margin-right: spx(20) * 0.75;
+      }
+      @include desktop-up {
+        margin-right: ppx(20);
+      }
+
+      img {
+        width: spx(150);
+        height: spx(150);
+        object-fit: cover;
+        display: block;
+
+        @include tablet-up {
+          width: spx(150) * 0.75;
+          height: spx(150) * 0.75;
+        }
+
+        @include desktop-up {
+          width: ppx(240);
+          height: ppx(240);
+        }
+      }
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%); /* 最初のセットの幅分だけ移動 */
+    }
+  }
+</style>
