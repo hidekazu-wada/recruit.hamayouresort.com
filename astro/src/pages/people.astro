@@ -4,6 +4,7 @@ import LowerPageHeader from '@components/common/LowerPageHeader.astro';
 import StaffCard from '@components/people/StaffCard.astro';
 import { featuredStaff } from '@data/staffData';
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import StaffModal from '@components/people/StaffModal.astro';
 ---
 
 <MySiteLayout>
@@ -27,7 +28,108 @@ import LowerPageH2 from '@components/common/LowerPageH2.astro';
       </div>
     </div>
   </div>
+
+  <StaffModal />
 </MySiteLayout>
+
+<script>
+  // MicroModalを読み込む
+  // @ts-ignore
+  import MicroModal from 'micromodal';
+  import { staffData } from '@data/staffData';
+
+  // クライアントサイドでスタッフデータを使用できるようにマッピング
+  interface StaffInfo {
+    id: string;
+    name: string;
+    message: string;
+    description?: string;
+    fullDescription?: string;
+    position?: string;
+    tags: string[];
+    career?: string[];
+    hobbies?: string[];
+  }
+
+  const staffDataMap: { [key: string]: StaffInfo } = {};
+  staffData.forEach((staff) => {
+    staffDataMap[staff.id] = {
+      id: staff.id,
+      name: staff.name,
+      message: staff.message,
+      description: staff.description,
+      fullDescription: staff.fullDescription,
+      position: staff.position,
+      tags: staff.tags,
+      career: staff.career,
+      hobbies: staff.hobbies,
+    };
+  });
+
+  // MicroModalの初期化
+  MicroModal.init({
+    openTrigger: 'data-micromodal-trigger', // デフォルト: data-micromodal-trigger
+    closeTrigger: 'data-micromodal-close', // デフォルト: data-micromodal-close
+    disableFocus: false, // 最初の要素にフォーカスする
+    disableScroll: true, // モーダルオープン時にスクロールを無効化
+    awaitOpenAnimation: false, // アニメーション完了を待つ
+    awaitCloseAnimation: false, // 閉じるアニメーション完了を待つ
+  });
+
+  // スタッフカードにクリックイベントを追加
+  document.addEventListener('DOMContentLoaded', () => {
+    const staffCards = document.querySelectorAll('.staff-card');
+
+    staffCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const staffId = card.getAttribute('data-staff-id');
+        if (!staffId) return;
+
+        const staff = staffDataMap[staffId];
+
+        if (!staff) return;
+
+        // モーダルのコンテンツを更新
+        const modalTitle = document.getElementById('modal-staff-title');
+        const modalContent = document.getElementById('modal-staff-content');
+
+        if (modalTitle && modalContent) {
+          // 詳細情報を設定
+          modalContent.innerHTML = `
+            <div class="staff-modal-content">
+              <p>${staff.name}</p>
+              <div class="staff-modal-tags">
+                ${staff.tags.map((tag) => `<span class="tag-item">${tag}</span>`).join('')}
+              </div>
+              
+              <div class="staff-modal-description">
+                <p>${staff.fullDescription || staff.description || staff.message}</p>
+              </div>
+              
+              <dl class="staff-modal-details">
+                <dt>役職</dt>
+                <dd>${staff.position || '未設定'}</dd>
+                
+                <dt>経歴</dt>
+                <dd>
+                  ${staff.career ? `<ul>${staff.career.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
+                </dd>
+                
+                <dt>趣味</dt>
+                <dd>
+                  ${staff.hobbies ? `<ul>${staff.hobbies.map((item) => `<li>${item}</li>`).join('')}</ul>` : '未設定'}
+                </dd>
+              </dl>
+            </div>
+          `;
+        }
+
+        // モーダルを表示
+        MicroModal.show('modal-staff');
+      });
+    });
+  });
+</script>
 
 <style lang="scss">
   @import '@styles/functions.scss';

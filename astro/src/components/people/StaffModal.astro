@@ -1,0 +1,173 @@
+---
+
+---
+
+<div id="modal-staff" aria-hidden="true" class="modal">
+  <div tabindex="-1" data-micromodal-close class="modal__overlay">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-staff-title"
+      class="modal__container"
+    >
+      <header class="modal__header">
+        <h2 id="modal-staff-title">
+          <!-- タイトルは動的に設定 -->
+        </h2>
+        <button aria-label="閉じる" data-micromodal-close></button>
+      </header>
+      <div id="modal-staff-content" class="modal__content">
+        <!-- コンテンツは動的に設定 -->
+      </div>
+      <!-- 閉じるボタンを追加 -->
+      <div class="modal__footer">
+        <button class="modal__button" data-micromodal-close>閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .modal {
+    display: none;
+  }
+
+  .modal.is-open {
+    display: block;
+  }
+
+  // モーダルのスタイル
+  .modal__title {
+    margin: 0;
+    font-weight: bold;
+  }
+  .modal {
+    display: none;
+
+    &.is-open {
+      display: block;
+    }
+    .modal__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      .modal__container {
+        background-color: #fff;
+        padding: spx(20);
+        width: 90%;
+        max-width: spx(340);
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 4px;
+
+        @include tablet-up {
+          max-width: spx(500);
+          padding: spx(30);
+        }
+
+        @include desktop-up {
+          max-width: ppx(800);
+          padding: ppx(40);
+        }
+        .modal__header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: spx(20);
+          #modal-staff-title {
+          }
+          button {
+            background: transparent;
+            border: none;
+            font-size: spx(24);
+            cursor: pointer;
+            width: spx(24);
+            height: spx(24);
+            position: relative;
+            &::before,
+            &::after {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 2px;
+              background-color: #333;
+              top: 50%;
+              left: 0;
+            }
+
+            &::before {
+              transform: rotate(45deg);
+            }
+
+            &::after {
+              transform: rotate(-45deg);
+            }
+          }
+        }
+        .modal__content {
+          margin-top: spx(20);
+        }
+      }
+    }
+  }
+  // モーダルコンテンツ内のスタイル
+  :global(.staff-modal-content) {
+    display: flex;
+    flex-direction: column;
+    gap: spx(16);
+  }
+
+  :global(.staff-modal-tags) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: spx(8);
+    margin-bottom: spx(16);
+  }
+
+  :global(.tag-item) {
+    background-color: #f0f8ff;
+    color: #054965;
+    padding: spx(4) spx(8);
+    border-radius: 4px;
+  }
+
+  :global(.staff-modal-description) {
+    margin-bottom: spx(20);
+    line-height: 1.6;
+  }
+
+  :global(.staff-modal-details) {
+    dt {
+      font-weight: bold;
+      color: #054965;
+      margin-top: spx(16);
+      margin-bottom: spx(4);
+    }
+
+    dd {
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      margin-bottom: spx(16);
+    }
+
+    ul {
+      margin: 0;
+      padding-left: spx(20);
+    }
+
+    li {
+      margin-bottom: spx(4);
+    }
+  }
+</style>
