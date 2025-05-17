@@ -1,7 +1,9 @@
 // ページセグメントからタイトルを取得
 export function getPageTitle(segment: string): string {
   const pageTitles: Record<string, string> = {
-    about: '会社概要', // 他のページも必要に応じて追加
+    about: '会社概要',
+    people: '社員紹介',
+    // 他のページも必要に応じて追加
   };
 
   return pageTitles[segment] || segment;

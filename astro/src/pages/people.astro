@@ -1,0 +1,71 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import StaffCard from '@components/people/StaffCard.astro';
+import { featuredStaff } from '@data/staffData';
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="People" pageTitleJa="社員紹介" />
+
+  <div class="interview-wrapper">
+    <LowerPageH2 title="社員インタビュー" variant="default" position="left" />
+    <div class="staff-card-wrapper">
+      <div class="staff-cards">
+        {
+          featuredStaff.map((staff) => (
+            <StaffCard
+              image={staff.image}
+              name={staff.name}
+              message={staff.message}
+              tags={staff.tags}
+              id={staff.id}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</MySiteLayout>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .interview-wrapper {
+    padding: 0 spx(20) spx(60);
+    @include tablet-up {
+      padding: 0 spx(20) * 0.75 spx(60) * 0.75;
+    }
+    @include desktop-up {
+      padding: 0 ppx(160) ppx(100);
+    }
+    .staff-card-wrapper {
+      margin-top: spx(28);
+      @include tablet-up {
+        margin-top: spx(28) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
+      .staff-cards {
+        display: grid;
+        gap: spx(20) 0;
+        justify-content: space-between;
+        grid-template-columns: max-content max-content;
+        @include tablet-up {
+          grid-template-columns: max-content max-content;
+          gap: spx(20) * 0.75 0;
+          width: 74%;
+          margin-inline: auto;
+        }
+        @include desktop-up {
+          grid-template-columns: max-content max-content max-content max-content;
+          gap: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+</style>

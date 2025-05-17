@@ -2,7 +2,7 @@
 export const mainNavigation = [
   { label: 'トップ', url: '/' },
   { label: '会社情報', url: '/about' },
-  { label: '社員紹介', url: '/' },
+  { label: '社員紹介', url: '/people' },
   { label: '働く環境', url: '/' },
   { label: '採用プロセス', url: '/' },
   { label: 'お知らせ', url: '/' },
