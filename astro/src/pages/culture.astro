@@ -1,0 +1,19 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import CulturepageSectionEquipment from '@components/culturepage/CulturepageSectionEquipment.astro';
+import CulturepageSectionCulture from '@components/culturepage/CulturepageSectionCulture.astro';
+import CulturepageSectionWorkingStyle from '@components/culturepage/CulturepageSectionWorkingStyle.astro';
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="Culture" pageTitleJa="働く環境" />
+  <CulturepageSectionEquipment />
+  <CulturepageSectionCulture />
+  <CulturepageSectionWorkingStyle />
+</MySiteLayout>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+</style>

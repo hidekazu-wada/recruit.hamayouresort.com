@@ -1,0 +1,277 @@
+---
+//ローンチ時、本ページはチャートを画像で表示しています。時期を見てchart.jsなどでマークアップする予定です。
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import WorkingStyleImage01 from '@assets/images/culture/culturepage-working_style01.png';
+import WorkingStyleImage02 from '@assets/images/culture/culturepage-working_style02.png';
+import WorkingStyleImage03 from '@assets/images/culture/culturepage-working_style03.png';
+import EmploymentImage01 from '@assets/images/culture/culturepage-employment01.png';
+import EmploymentImage02 from '@assets/images/culture/culturepage-employment02.png';
+import EmploymentImage03 from '@assets/images/culture/culturepage-employment03.png';
+import EmploymentImage04 from '@assets/images/culture/culturepage-employment04.png';
+import InstitutionsBg from '@assets/images/culture/culturepage-institutions-bg.jpg';
+import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
+
+const optimizedImageInstitutionsBg = await getImage({
+  src: InstitutionsBg,
+  format: 'webp', // webpに変換
+  quality: 80, // 任意: 品質設定
+});
+---
+
+<div class="working-style-wrapper">
+  <LowerPageH2 title="勤務スタイル" variant="default" position="left" />
+  <div class="working-style-wrapper-inner">
+    <Image
+      src={WorkingStyleImage01}
+      format="webp"
+      width={570}
+      height={436}
+      alt="多様な働き方を選べるシフト & 制度。"
+    />
+    <Image
+      src={WorkingStyleImage02}
+      format="webp"
+      width={570}
+      height={382}
+      alt="制度ピックアップ"
+    />
+    <Image
+      src={WorkingStyleImage03}
+      format="webp"
+      width={570}
+      height={680}
+      alt="休日・休暇データ"
+    />
+  </div>
+</div>
+<div class="equipment-wrapper">
+  <LowerPageH2
+    title="福利厚生・待遇"
+    variant="default"
+    position="left"
+    class="culturepage-h2"
+  />
+  <section
+    class="institutions"
+    style={`background-image: url('${optimizedImageInstitutionsBg.src}');`}
+  >
+    <h3>"働くを楽しむ" を支える 10の制度。</h3>
+    <ul>
+      <li>資格取得支援手当</li>
+      <li>引越し手当</li>
+      <li>交通手当</li>
+      <li>服装自由</li>
+      <li>髪色自由</li>
+      <li>産休・育児休暇</li>
+      <li>温泉無料入浴</li>
+      <li>サウナ無料利用</li>
+      <li>SAP無料利用</li>
+      <li>コンテンツ割引・無料</li>
+    </ul>
+  </section>
+  <div class="equipment-wrapper-inner">
+    <Image
+      src={EmploymentImage01}
+      format="webp"
+      width={570}
+      height={298}
+      alt="数字でわかる働きやすさ"
+    />
+    <Image
+      src={EmploymentImage02}
+      format="webp"
+      width={641}
+      height={367}
+      alt="給与モデル（例）"
+    />
+    <div class="equipment-wrapper-inner-column">
+      <Image
+        src={EmploymentImage03}
+        format="webp"
+        width={450}
+        height={513}
+        alt="社員データ"
+        class="employee-data"
+      />
+      <Image
+        src={EmploymentImage04}
+        format="webp"
+        width={344}
+        height={513}
+        alt="顧客データ（2024年度）"
+      />
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .institutions {
+    margin-top: spx(28);
+    padding: spx(20) 0 spx(28);
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: soft-light;
+    background-color: rgba(255, 255, 255, 0.8);
+    @include tablet-up {
+      margin-top: spx(28) * 0.75;
+      padding: spx(20) * 0.75 0 spx(28) * 0.75;
+    }
+    @include desktop-up {
+      margin-top: ppx(40);
+      padding: ppx(40) 0 ppx(40);
+    }
+    h3 {
+      font-size: spx(18);
+      font-weight: 500;
+      line-height: 140%;
+      text-align: center;
+
+      @include tablet-up {
+        font-size: spx(18) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(20);
+        line-height: 100%;
+      }
+    }
+    ul {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: spx(25) spx(34);
+      margin-top: spx(28);
+      width: max-content;
+      margin-inline: auto;
+      @include tablet-up {
+        grid-template-columns: max-content max-content max-content;
+        gap: spx(25) * 0.75 2vw;
+        margin-top: spx(28) * 0.75;
+      }
+      @include desktop-up {
+        grid-template-columns: max-content max-content max-content max-content;
+        gap: ppx(25) ppx(20);
+        margin-top: ppx(36);
+      }
+      li {
+        color: #054965;
+        font-size: spx(14);
+        font-weight: 500;
+        line-height: 100%;
+        background-color: #fff;
+        padding: spx(14) 0;
+        text-align: center;
+        border-radius: 30px;
+        background: #fff;
+        box-shadow: 2px 2px 0px 0px #59a1c0;
+        width: spx(164);
+        @include tablet-up {
+          font-size: spx(14) * 0.75;
+          padding: spx(10) * 0.75 0;
+          width: spx(164) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(18);
+          padding: ppx(20) 0;
+          width: ppx(200);
+        }
+      }
+    }
+  }
+  .working-style-wrapper {
+    padding: spx(60) spx(20);
+    background-color: #d8edf7;
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    .working-style-wrapper-inner {
+      margin-top: spx(48);
+      display: flex;
+      flex-direction: column;
+      gap: spx(40);
+      width: 90%;
+      margin-inline: auto;
+      @include tablet-up {
+        margin-top: spx(48) * 0.75;
+        gap: spx(40) * 0.75;
+        width: 60%;
+      }
+      @include desktop-up {
+        margin-top: ppx(80);
+        gap: ppx(80);
+        width: ppx(570);
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  .equipment-wrapper {
+    padding: spx(60) 0;
+    @include tablet-up {
+      padding: spx(60) * 0.75 0;
+    }
+    @include desktop-up {
+      padding: ppx(100) 0;
+    }
+    .equipment-wrapper-inner {
+      padding: spx(40) spx(20);
+      display: flex;
+      flex-flow: column;
+      gap: spx(40);
+      width: 90%;
+      margin-inline: auto;
+      @include tablet-up {
+        padding: spx(40) * 0.75 spx(20) * 0.75;
+        gap: spx(40) * 0.75;
+        width: 60%;
+      }
+      @include desktop-up {
+        padding: ppx(40) ppx(303);
+        gap: ppx(80);
+        width: 100%;
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+      .equipment-wrapper-inner-column {
+        display: flex;
+        flex-direction: column;
+        gap: spx(40);
+        @include tablet-up {
+          gap: spx(40) * 0.75;
+        }
+        @include desktop-up {
+          display: grid;
+          grid-template-columns: auto auto;
+          justify-content: space-between;
+        }
+        .employee-data {
+          @include desktop-up {
+            width: auto;
+            height: 100%;
+          }
+        }
+      }
+    }
+    .default {
+      .title {
+      }
+      .line {
+      }
+    }
+    div {
+      img {
+      }
+    }
+  }
+</style>

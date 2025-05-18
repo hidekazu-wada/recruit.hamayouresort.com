@@ -1,0 +1,180 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import cultureBackgroundImage from '@assets/images/culture/culturepage-culture-bg.jpg';
+import { getImage } from 'astro:assets';
+
+const optimizedImageCulture = await getImage({
+  src: cultureBackgroundImage,
+  format: 'webp', // webpに変換
+  quality: 80, // 任意: 品質設定
+});
+---
+
+<section class="culture-wrapper">
+  <LowerPageH2
+    title="企業文化・風土"
+    variant="white"
+    position="left"
+    class="culturepage-h2"
+  />
+  <div
+    class="culture-content"
+    style={`background-image: url('${optimizedImageCulture.src}');`}
+  >
+    <h3 class="culture-heading">価値観は "Care・Adventure・Pride"。</h3>
+    <ul class="value-list">
+      <li class="value-item">
+        <span class="value-number">01</span>
+        <strong class="value-text"
+          >お客様へ一歩先の気配りを届ける<br />
+          <em>Care First</em></strong
+        >
+      </li>
+      <li class="value-item">
+        <span class="value-number">02</span>
+        <strong class="value-text"
+          >失敗を恐れず挑み合う<br />
+          <em>Team Adventure</em></strong
+        >
+      </li>
+      <li class="value-item">
+        <span class="value-number">03</span>
+        <strong class="value-text"
+          >西湖の自然と文化を守り抜く<br />
+          <em>Local Pride</em></strong
+        >
+      </li>
+    </ul>
+    <p class="culture-footer">3つのバリューが、日々の判断と行動の軸。</p>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .culture-wrapper {
+    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%), #d8edf7;
+    color: #fff;
+    padding: spx(60) 0 spx(120);
+    @include tablet-up {
+      padding: spx(60) * 0.75 0 spx(120) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) 0 ppx(100);
+    }
+    .culture-content {
+      margin-top: spx(28);
+      background-color: #f6f5f5;
+      color: #054965;
+      padding: spx(40) 0;
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: soft-light;
+      @include tablet-up {
+        margin-top: spx(28) * 0.75;
+        padding: spx(40) * 0.75 0;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+        padding: ppx(40) 0;
+      }
+      .culture-heading {
+        color: #054965;
+        font-size: spx(18);
+        font-weight: 700;
+        line-height: 100%;
+        text-align: center;
+
+        @include tablet-up {
+          font-size: spx(18) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(20);
+        }
+      }
+      .value-list {
+        margin: spx(28) 0 spx(28);
+        display: flex;
+        flex-direction: column;
+        gap: spx(20);
+        align-items: center;
+        @include tablet-up {
+          margin: spx(28) * 0.75 0 spx(28) * 0.75;
+          gap: spx(20) * 0.75;
+        }
+        @include desktop-up {
+          margin: ppx(40) 0 ppx(40);
+          flex-direction: row;
+          gap: unset;
+          justify-content: space-between;
+          padding: 0 ppx(160);
+        }
+        .value-item {
+          width: spx(282);
+          background: #fff;
+          box-shadow: 4px 4px 0px 0px #59a1c0;
+          display: flex;
+          flex-flow: column;
+          align-items: center;
+          gap: spx(4);
+          padding: spx(10);
+          @include tablet-up {
+            width: spx(282) * 0.75;
+            gap: spx(4) * 0.75;
+            padding: spx(10) * 0.75;
+          }
+          @include desktop-up {
+            width: ppx(345);
+            gap: ppx(4);
+            padding: ppx(10);
+          }
+          .value-number {
+            color: #d8edf7;
+            font-size: spx(32);
+            font-weight: 500;
+            line-height: 100%;
+
+            @include tablet-up {
+              font-size: spx(32) * 0.75;
+            }
+
+            @include desktop-up {
+              font-size: ppx(50);
+            }
+          }
+          .value-text {
+            color: #054965;
+            font-size: spx(14);
+            font-weight: 700;
+            line-height: 140%;
+            text-align: center;
+            @include tablet-up {
+              font-size: spx(14) * 0.75;
+            }
+
+            @include desktop-up {
+              font-size: ppx(20);
+            }
+            em {
+            }
+          }
+        }
+      }
+      .culture-footer {
+        font-size: spx(14);
+        font-weight: 500;
+        line-height: 100%;
+        text-align: center;
+        @include tablet-up {
+          font-size: spx(14) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(20);
+        }
+      }
+    }
+  }
+</style>
