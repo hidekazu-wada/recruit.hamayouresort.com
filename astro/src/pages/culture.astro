@@ -1,0 +1,34 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import CulturepageSectionEquipment from '@components/culturepage/CulturepageSectionEquipment.astro';
+import CulturepageSectionCulture from '@components/culturepage/CulturepageSectionCulture.astro';
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="Culture" pageTitleJa="働く環境" />
+  <CulturepageSectionEquipment />
+  <CulturepageSectionCulture />
+  <LowerPageH2 title="勤務スタイル" variant="default" position="left" />
+  <div>
+    <p>多様な働き方を選べるシフト & 制度。</p>
+    <p>シフト例（フロント）</p>
+    <div>
+      <div>
+        <!-- 画像が入る -->
+        <p>早番 07:00-16:00</p>
+      </div>
+      <div>
+        <!-- 画像が入る -->
+        <p>遅番 13:00-22:00</p>
+      </div>
+    </div>
+    <p>※月平均残業 8.2h</p>
+  </div>
+</MySiteLayout>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+</style>

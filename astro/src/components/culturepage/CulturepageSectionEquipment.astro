@@ -1,0 +1,155 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import { Image } from 'astro:assets';
+import culture1 from '@assets/images/culture/culturepage-equipment-01.png';
+import culture2 from '@assets/images/culture/culturepage-equipment-02.png';
+import culture3 from '@assets/images/culture/culturepage-equipment-03.png';
+
+// データを配列として定義
+const cultureItems = [
+  {
+    image: culture1,
+    title: 'ホテル外観',
+    description:
+      'このホテルは、モダンなデザインと自然が調和した美しい外観を持ち、夜には柔らかな照明で幻想的な雰囲気を演出します。',
+  },
+  {
+    image: culture2,
+    title: 'ホテル外観',
+    description:
+      'このホテルは、モダンなデザインと自然が調和した美しい外観を持ち、夜には柔らかな照明で幻想的な雰囲気を演出します。',
+  },
+  {
+    image: culture3,
+    title: 'ホテル外観',
+    description:
+      'このホテルは、モダンなデザインと自然が調和した美しい外観を持ち、夜には柔らかな照明で幻想的な雰囲気を演出します。',
+  },
+];
+---
+
+<div class="equipment-wrapper">
+  <LowerPageH2 title="職場設備・雰囲気" variant="default" position="left" />
+  <div class="culture-items">
+    {
+      cultureItems.map((item) => (
+        <article class="culture-item">
+          <figure>
+            <Image
+              src={item.image}
+              format="webp"
+              width={150}
+              height={117}
+              alt="職場設備・雰囲気"
+            />
+            <figcaption>{item.title}</figcaption>
+          </figure>
+          <hr class="line" aria-hidden="true" />
+          <div class="description">
+            <p>{item.description}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .equipment-wrapper {
+    padding: 0 spx(20);
+    @include tablet-up {
+      padding: 0 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: 0 ppx(160);
+    }
+    .culture-items {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      row-gap: spx(50);
+      justify-content: space-between;
+      padding: spx(28) 0 spx(60);
+      @include tablet-up {
+        grid-template-columns: max-content max-content;
+        row-gap: spx(50) * 0.75;
+        padding: spx(28) * 0.75 0 spx(60) * 0.75;
+        justify-content: space-around;
+      }
+      @include desktop-up {
+        grid-template-columns: max-content max-content max-content;
+        row-gap: spx(50) * 0.75;
+        padding: ppx(40) 0 ppx(100);
+        justify-content: space-between;
+      }
+      .culture-item {
+        width: spx(170);
+        background: #fff;
+        box-shadow: 4px 4px 0px 0px #59a1c0;
+        padding: spx(10);
+        @include tablet-up {
+          width: spx(170) * 0.75;
+          padding: spx(10) * 0.75;
+        }
+        @include desktop-up {
+          width: ppx(340);
+          padding: ppx(20) * 0.75;
+        }
+        figure {
+          img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 150/117;
+            object-fit: cover;
+          }
+          figcaption {
+            color: #054965;
+            font-size: spx(16);
+            font-weight: 500;
+            line-height: 140%;
+            text-align: center;
+
+            @include tablet-up {
+              font-size: spx(16) * 0.75;
+            }
+
+            @include desktop-up {
+              font-size: ppx(20);
+            }
+          }
+        }
+        .line {
+          display: block;
+          height: 1px;
+          width: 100%;
+          background: #054965;
+          margin: spx(12) auto;
+          @include tablet-up {
+            margin: spx(12) * 0.75 auto;
+          }
+          @include desktop-up {
+            margin: ppx(14) auto;
+          }
+        }
+        .description {
+          p {
+            color: #054965;
+            font-size: spx(14);
+            font-weight: 500;
+            line-height: 140%;
+
+            @include tablet-up {
+              font-size: spx(14) * 0.75;
+            }
+
+            @include desktop-up {
+              font-size: ppx(18);
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
