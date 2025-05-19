@@ -5,6 +5,7 @@ import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import JobModal from '@components/jobspage/JobModal.astro';
 import {
   jobsData,
+  type JobPosition,
   facilities,
   jobTypes,
   employmentTypes,
@@ -77,9 +78,11 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
             <span class="job-card__line" />
             <h3 class="job-card__title">{job.title}</h3>
             <div class="job-card__tags">
-              <span class="job-card__tag">［{job.facility}］</span>
-              <span class="job-card__tag">[{job.jobType}]</span>
-              <span class="job-card__tag">[{job.employmentType}]</span>
+              <span class="job-card__tag">［{facilities[job.facility]}］</span>
+              <span class="job-card__tag">[{jobTypes[job.jobType]}]</span>
+              <span class="job-card__tag">
+                [{employmentTypes[job.employmentType]}]
+              </span>
             </div>
             <p class="job-card__description">{job.description}</p>
             <button type="button" class="job-card__link">
@@ -169,9 +172,9 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
             <span class="job-card__line" />
             <h3 class="job-card__title">${job.title}</h3>
             <div class="job-card__tags">
-              <span class="job-card__tag">［${job.facility}］</span>
-              <span class="job-card__tag">[${job.jobType}]</span>
-              <span class="job-card__tag">[${job.employmentType}]</span>
+              <span class="job-card__tag">［${facilities[job.facility]}］</span>
+              <span class="job-card__tag">[${jobTypes[job.jobType]}]</span>
+              <span class="job-card__tag">[${employmentTypes[job.employmentType]}]</span>
             </div>
             <p class="job-card__description">${job.description}</p>
             <button type="button" class="job-card__link">
@@ -215,15 +218,15 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
           <dl class="job-modal__meta">
             <div class="job-modal__meta-item">
               <dt>施設</dt>
-              <dd>${job.facility}</dd>
+              <dd>${facilities[job.facility]}</dd>
             </div>
             <div class="job-modal__meta-item">
               <dt>職種</dt>
-              <dd>${job.jobType}</dd>
+              <dd>${jobTypes[job.jobType]}</dd>
             </div>
             <div class="job-modal__meta-item">
               <dt>形態</dt>
-              <dd>${job.employmentType}</dd>
+              <dd>${employmentTypes[job.employmentType]}</dd>
             </div>
           </dl>
         </header>
