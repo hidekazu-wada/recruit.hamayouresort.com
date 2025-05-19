@@ -101,7 +101,13 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
   // MicroModalを読み込む
   // @ts-ignore
   import MicroModal from 'micromodal';
-  import { jobsData, type JobPosition } from '@data/jobsData';
+  import {
+    jobsData,
+    facilities,
+    jobTypes,
+    employmentTypes,
+    type JobPosition,
+  } from '@data/jobsData';
 
   // クライアントサイドで求人データを使用できるようにマッピング
   const jobsDataMap: { [key: string]: JobPosition } = {};
