@@ -5,6 +5,7 @@ export function getPageTitle(segment: string): string {
     people: '社員紹介',
     culture: '働く環境',
     jobs: '求人',
+    flow: '選考フロー',
     // 他のページも必要に応じて追加
   };
 
