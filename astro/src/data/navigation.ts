@@ -10,5 +10,5 @@ export const mainNavigation = [
   { label: '新卒', url: '/' },
   { label: '中途', url: '/' },
   { label: 'アルバイト', url: '/' },
-  { label: 'よくある質問', url: '/' },
+  { label: 'よくある質問', url: '/faq' },
 ];
