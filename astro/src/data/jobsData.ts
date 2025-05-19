@@ -2,12 +2,39 @@
  * 求人データ管理ファイル
  */
 
+// 施設の定義
+export const facilities = {
+  kuwarubi: '光風閣くわるび',
+  izuminoyu: 'いずみの湯',
+  gnome: 'キャンプビレッジGNOME',
+} as const;
+
+// 職種の定義
+export const jobTypes = {
+  front: 'フロント',
+  service: 'サービス',
+  restaurant: 'レストラン',
+  kitchen: '調理',
+} as const;
+
+// 雇用形態の定義
+export const employmentTypes = {
+  fulltime: '正社員',
+  contract: '契約社員',
+  parttime: 'パート・アルバイト',
+} as const;
+
+// 型定義
+export type Facility = keyof typeof facilities;
+export type JobType = keyof typeof jobTypes;
+export type EmploymentType = keyof typeof employmentTypes;
+
 export interface JobPosition {
   id: string;
   title: string;
-  facility: string;
-  jobType: string;
-  employmentType: string;
+  facility: Facility;
+  jobType: JobType;
+  employmentType: EmploymentType;
   description: string;
   duties: string[];
   requirements: {
@@ -28,9 +55,9 @@ export const jobsData: JobPosition[] = [
   {
     id: 'front-staff-kuwarubi',
     title: 'フロントスタッフ',
-    facility: '光風閣くわるび',
-    jobType: 'フロント',
-    employmentType: '正社員',
+    facility: 'kuwarubi',
+    jobType: 'front',
+    employmentType: 'fulltime',
     description: 'ゲストの "ただいま" を演出するホテルの顔。',
     duties: [
       'チェックイン／アウト対応',
@@ -62,9 +89,9 @@ export const jobsData: JobPosition[] = [
   {
     id: 'chef-kuwarubi',
     title: '調理スタッフ',
-    facility: '光風閣くわるび',
-    jobType: '調理',
-    employmentType: '正社員',
+    facility: 'izuminoyu',
+    jobType: 'kitchen',
+    employmentType: 'contract',
     description: '地元の食材を活かした創作料理で感動を届ける。',
     duties: [
       '和食・洋食の調理全般',
@@ -96,9 +123,9 @@ export const jobsData: JobPosition[] = [
   {
     id: 'housekeeping-kuwarubi',
     title: 'ハウスキーピングスタッフ',
-    facility: '光風閣くわるび',
-    jobType: '客室管理',
-    employmentType: 'パート・アルバイト',
+    facility: 'gnome',
+    jobType: 'restaurant',
+    employmentType: 'parttime',
     description: '快適な空間づくりで、くつろぎの時間を支える。',
     duties: [
       '客室清掃',
@@ -127,9 +154,9 @@ export const jobsData: JobPosition[] = [
   {
     id: 'spa-therapist-kuwarubi',
     title: 'スパセラピスト',
-    facility: '光風閣くわるび',
-    jobType: 'エステ・セラピー',
-    employmentType: '正社員',
+    facility: 'kuwarubi',
+    jobType: 'kitchen',
+    employmentType: 'fulltime',
     description: '心身の癒しと美容で、特別な寛ぎを提供。',
     duties: [
       'ボディトリートメント',

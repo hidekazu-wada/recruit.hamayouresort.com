@@ -2,9 +2,26 @@
 import MySiteLayout from '@layouts/MySiteLayout.astro';
 import LowerPageHeader from '@components/common/LowerPageHeader.astro';
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
-import PrimaryButton from '@components/common/PrimaryButton.astro';
 import JobModal from '@components/jobspage/JobModal.astro';
-import { jobsData } from '@data/jobsData';
+import {
+  jobsData,
+  facilities,
+  jobTypes,
+  employmentTypes,
+} from '@data/jobsData';
+
+// ユニークな値を抽出する関数
+function getUniqueValues(
+  data: typeof jobsData,
+  key: 'facility' | 'jobType' | 'employmentType'
+) {
+  return [...new Set(data.map((item) => item[key]))] as string[];
+}
+
+// 各フィルターのユニークな値を取得
+const uniqueFacilities = getUniqueValues(jobsData, 'facility');
+const uniqueJobTypes = getUniqueValues(jobsData, 'jobType');
+const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
 ---
 
 <MySiteLayout>
@@ -16,26 +33,37 @@ import { jobsData } from '@data/jobsData';
         <li>
           <select name="facility" id="facility">
             <option value="">施設から選択</option>
-            <option value="kuwarubi">光風閣くわるび</option>
-            <option value="spa">スパ施設</option>
-            <option value="restaurant">レストラン</option>
+            {
+              uniqueFacilities.map((value) => (
+                <option value={value}>
+                  {facilities[value as keyof typeof facilities]}
+                </option>
+              ))
+            }
           </select>
         </li>
         <li>
           <select name="jobType" id="jobType">
             <option value="">職種から選択</option>
-            <option value="front">フロント</option>
-            <option value="service">サービス</option>
-            <option value="kitchen">調理</option>
-            <option value="spa">スパスタッフ</option>
+            {
+              uniqueJobTypes.map((value) => (
+                <option value={value}>
+                  {jobTypes[value as keyof typeof jobTypes]}
+                </option>
+              ))
+            }
           </select>
         </li>
         <li>
           <select name="employmentType" id="employmentType">
             <option value="">形態から選択</option>
-            <option value="fulltime">正社員</option>
-            <option value="contract">契約社員</option>
-            <option value="parttime">パート・アルバイト</option>
+            {
+              uniqueEmploymentTypes.map((value) => (
+                <option value={value}>
+                  {employmentTypes[value as keyof typeof employmentTypes]}
+                </option>
+              ))
+            }
           </select>
         </li>
       </ul>
@@ -88,8 +116,79 @@ import { jobsData } from '@data/jobsData';
     awaitCloseAnimation: false,
   });
 
-  // 求人カードにクリックイベントを追加
+  // フィルタリング関数の実装
+  function filterJobs(
+    jobs: JobPosition[],
+    filters: {
+      facility?: string;
+      jobType?: string;
+      employmentType?: string;
+    }
+  ) {
+    return jobs.filter((job) => {
+      if (filters.facility && job.facility !== filters.facility) return false;
+      if (filters.jobType && job.jobType !== filters.jobType) return false;
+      if (
+        filters.employmentType &&
+        job.employmentType !== filters.employmentType
+      )
+        return false;
+      return true;
+    });
+  }
+
+  // イベントリスナーの実装
   document.addEventListener('DOMContentLoaded', () => {
+    const facilitySelect = document.getElementById(
+      'facility'
+    ) as HTMLSelectElement;
+    const jobTypeSelect = document.getElementById(
+      'jobType'
+    ) as HTMLSelectElement;
+    const employmentTypeSelect = document.getElementById(
+      'employmentType'
+    ) as HTMLSelectElement;
+    const searchButton = document.querySelector('.job-search__filters button');
+    const jobList = document.querySelector('.job-list');
+
+    function updateJobList() {
+      const filters = {
+        facility: facilitySelect.value,
+        jobType: jobTypeSelect.value,
+        employmentType: employmentTypeSelect.value,
+      };
+
+      const filteredJobs = filterJobs(jobsData, filters);
+
+      // 求人リストの更新
+      if (jobList) {
+        jobList.innerHTML = filteredJobs
+          .map(
+            (job) => `
+          <article class="job-card" data-job-id="${job.id}">
+            <span class="job-card__line" />
+            <h3 class="job-card__title">${job.title}</h3>
+            <div class="job-card__tags">
+              <span class="job-card__tag">［${job.facility}］</span>
+              <span class="job-card__tag">[${job.jobType}]</span>
+              <span class="job-card__tag">[${job.employmentType}]</span>
+            </div>
+            <p class="job-card__description">${job.description}</p>
+            <button type="button" class="job-card__link">
+              詳しく見る
+            </button>
+            <span class="job-card__line" />
+          </article>
+        `
+          )
+          .join('');
+      }
+    }
+
+    // 検索ボタンのクリックイベント
+    searchButton?.addEventListener('click', updateJobList);
+
+    // 求人カードにクリックイベントを追加
     const jobCards = document.querySelectorAll('.job-card');
 
     jobCards.forEach((card) => {
