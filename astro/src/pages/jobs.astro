@@ -233,6 +233,13 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
 
           // モーダルのコンテンツを更新
           updateModalContent(job);
+          const modalContainer = document.querySelector('.modal__container');
+          if (modalContainer) {
+            modalContainer.scrollTop = 0;
+            setTimeout(() => {
+              modalContainer.scrollTop = 0;
+            }, 0);
+          }
           MicroModal.show('modal-job');
         });
       });
@@ -347,6 +354,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
     facilitySelect?.addEventListener('change', updateJobList);
     jobTypeSelect?.addEventListener('change', updateJobList);
     employmentTypeSelect?.addEventListener('change', updateJobList);
+    attachCardClickEvents();
   });
 </script>
 
