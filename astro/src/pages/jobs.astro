@@ -343,7 +343,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
   });
 </script>
 
-<style lang="scss">
+<style lang="scss" is:global>
   @import '@styles/functions.scss';
   @import '@styles/mixins.scss';
 
@@ -442,6 +442,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
       grid-template-columns: max-content;
       gap: spx(28);
       justify-content: center;
+      position: relative;
       @include tablet-up {
         grid-template-columns: max-content max-content;
         margin-top: spx(60) * 0.75;
@@ -563,6 +564,19 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
             margin-bottom: ppx(10);
           }
         }
+      }
+    }
+    .job-search__result-count {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -2em);
+      font-size: spx(14);
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+      }
+      @include desktop-up {
+        font-size: ppx(18);
       }
     }
   }
