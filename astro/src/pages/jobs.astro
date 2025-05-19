@@ -68,7 +68,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
           </select>
         </li>
       </ul>
-      <button type="button"><span>検索</span></button>
+      <button type="button"><span>リセット</span></button>
     </nav>
 
     <div class="job-list">
@@ -212,6 +212,14 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
       }
     }
 
+    // フィルターをリセットする関数
+    function resetFilters() {
+      facilitySelect.value = '';
+      jobTypeSelect.value = '';
+      employmentTypeSelect.value = '';
+      updateJobList();
+    }
+
     // カードのクリックイベントを設定する関数
     function attachCardClickEvents() {
       const jobCards = document.querySelectorAll('.job-card');
@@ -332,9 +340,8 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
         </article>
       `;
     }
-
-    // 検索ボタンのクリックイベント
-    searchButton?.addEventListener('click', updateJobList);
+    // リセットボタンのクリックイベント
+    searchButton?.addEventListener('click', resetFilters);
 
     // セレクトボックスの変更イベント（リアルタイムフィルタリング）
     facilitySelect?.addEventListener('change', updateJobList);
@@ -437,7 +444,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
       }
     }
     .job-list {
-      margin-top: spx(60);
+      margin-top: spx(70);
       display: grid;
       grid-template-columns: max-content;
       gap: spx(28);
@@ -445,11 +452,11 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
       position: relative;
       @include tablet-up {
         grid-template-columns: max-content max-content;
-        margin-top: spx(60) * 0.75;
+        margin-top: spx(70) * 0.75;
         gap: spx(28) * 0.75;
       }
       @include desktop-up {
-        margin-top: ppx(124);
+        margin-top: ppx(134);
         grid-template-columns: max-content max-content;
         gap: ppx(50);
       }
@@ -570,7 +577,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
       position: absolute;
       top: 0;
       left: 50%;
-      transform: translate(-50%, -2em);
+      transform: translate(-50%, -3em);
       font-size: spx(14);
       @include tablet-up {
         font-size: spx(14) * 0.75;
