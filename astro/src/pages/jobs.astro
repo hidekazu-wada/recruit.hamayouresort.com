@@ -193,7 +193,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
           article.className = 'job-card';
           article.setAttribute('data-job-id', job.id);
           article.innerHTML = `
-            <span class="job-card__line" />
+            <span class="job-card__line"></span>
             <h3 class="job-card__title">${job.title}</h3>
             <div class="job-card__tags">
               <span class="job-card__tag">［${facilities[job.facility]}］</span>
@@ -202,7 +202,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
             </div>
             <p class="job-card__description">${job.description}</p>
             <button type="button" class="job-card__link">詳しく見る</button>
-            <span class="job-card__line" />
+            <span class="job-card__line"></span>
           `;
           jobList.appendChild(article);
         });
