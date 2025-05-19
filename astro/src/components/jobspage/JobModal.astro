@@ -1,0 +1,272 @@
+<div id="modal-job" aria-hidden="true" class="modal">
+  <div tabindex="-1" data-micromodal-close class="modal__overlay">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-job-title"
+      class="modal__container"
+    >
+      <header class="modal__header">
+        <button
+          aria-label="閉じる"
+          data-micromodal-close
+          class="modal__close-button"
+        >
+          <span class="modal__close-icon">×</span>
+        </button>
+      </header>
+      <div id="modal-job-content" class="modal__content">
+        <!-- コンテンツは動的に設定 -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+
+    &.is-open {
+      display: block;
+    }
+
+    .modal__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+
+      .modal__container {
+        position: relative;
+        background-color: #fff;
+        width: 90%;
+        max-width: spx(350);
+        max-height: 85vh;
+        overflow-y: auto;
+        border-radius: 4px;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: auto;
+        overflow-anchor: none;
+
+        @include tablet-up {
+          max-width: spx(350) * 0.75;
+        }
+
+        @include desktop-up {
+          max-width: ppx(800);
+        }
+
+        .modal__header {
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 10;
+        }
+
+        .modal__close-button {
+          position: absolute;
+          top: spx(10);
+          right: spx(10);
+          border: none;
+          cursor: pointer;
+          width: spx(30);
+          height: spx(30);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.8);
+          border-radius: 50%;
+
+          @include tablet-up {
+            top: spx(15);
+            right: spx(15);
+            width: spx(30) * 0.75;
+            height: spx(30) * 0.75;
+          }
+
+          @include desktop-up {
+            top: ppx(20);
+            right: ppx(20);
+            width: ppx(30);
+            height: ppx(30);
+          }
+
+          .modal__close-icon {
+            font-size: spx(20);
+            font-weight: bold;
+            @include tablet-up {
+              font-size: spx(20) * 0.75;
+            }
+            @include desktop-up {
+              font-size: ppx(28);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // モーダルコンテンツ内のスタイル
+  :global(.job-modal-content) {
+    padding: spx(28) spx(24);
+    font-size: spx(12);
+    font-weight: 500;
+    line-height: 140%;
+
+    @include tablet-up {
+      padding: spx(28) * 0.75 spx(24) * 0.75;
+      font-size: spx(12) * 0.75;
+    }
+
+    @include desktop-up {
+      padding: ppx(28) ppx(24);
+      font-size: ppx(18);
+    }
+    :global(.job-modal__line) {
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: #31456a;
+    }
+    :global(.job-modal__content) {
+      margin: spx(20) 0;
+      display: flex;
+      flex-flow: column;
+      gap: 2em;
+      @include tablet-up {
+        margin: spx(20) * 0.75 0;
+      }
+      @include desktop-up {
+        margin: ppx(10) 0;
+      }
+
+      :global(.job-modal__header) {
+        :global(.job-modal__title) {
+          font-size: spx(14);
+          font-weight: 700;
+          line-height: 140%;
+          text-align: center;
+
+          @include tablet-up {
+            font-size: spx(14) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(18);
+          }
+        }
+        :global(.job-modal__meta) {
+          margin-top: spx(20);
+          display: flex;
+          flex-flow: column;
+          gap: 0.5em;
+          @include tablet-up {
+            margin-top: spx(20) * 0.75;
+          }
+          @include desktop-up {
+            margin-top: ppx(20);
+          }
+          :global(.job-modal__meta-item) {
+            display: flex;
+            gap: 1em;
+            :global(dt) {
+            }
+            :global(dd) {
+            }
+          }
+        }
+      }
+
+      :global(.job-modal__section) {
+        :global(.job-modal__section-title) {
+          font-weight: 700;
+          margin-bottom: 0.5em;
+        }
+        :global(.job-modal__list) {
+          padding-left: 1em;
+          :global(li) {
+          }
+        }
+        :global(.job-modal__requirements) {
+          padding-left: 1em;
+          display: flex;
+          flex-flow: column;
+          gap: 0.5em;
+          :global(.job-modal__requirements-group) {
+            :global(.job-modal__requirements-term) {
+            }
+            :global(.job-modal__requirements-description) {
+            }
+          }
+        }
+        :global(.job-modal__address) {
+          padding-left: 1em;
+        }
+        :global(.job-modal__work-info) {
+          display: flex;
+          flex-flow: column;
+          gap: 0.5em;
+          margin-top: 0.5em;
+          :global(.job-modal__work-info-group) {
+            padding-left: 1em;
+            :global(dt) {
+            }
+            :global(dd) {
+            }
+          }
+        }
+        :global(.job-modal__benefits) {
+          padding-left: 1em;
+          :global(li) {
+          }
+        }
+        :global(.job-modal__holidays) {
+          padding-left: 1em;
+          :global(li) {
+          }
+        }
+      }
+    }
+
+    :global(.job-modal__button-container) {
+      :global(.primary-btn) {
+        display: grid;
+        place-items: center;
+        background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+        width: max-content;
+        padding: spx(10);
+        margin-inline: auto;
+        margin-top: spx(40);
+        margin-bottom: spx(20);
+        @include tablet-up {
+          padding: spx(10) * 0.75;
+          margin-top: spx(40) * 0.75;
+          margin-bottom: spx(20) * 0.75;
+        }
+        @include desktop-up {
+          padding: ppx(12);
+          margin-top: ppx(40);
+          margin-bottom: ppx(20);
+        }
+        :global(span) {
+          color: #fff;
+        }
+      }
+    }
+  }
+</style>

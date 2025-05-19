@@ -3,6 +3,8 @@ import MySiteLayout from '@layouts/MySiteLayout.astro';
 import LowerPageHeader from '@components/common/LowerPageHeader.astro';
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import PrimaryButton from '@components/common/PrimaryButton.astro';
+import JobModal from '@components/jobspage/JobModal.astro';
+import { jobsData } from '@data/jobsData';
 ---
 
 <MySiteLayout>
@@ -41,165 +43,182 @@ import PrimaryButton from '@components/common/PrimaryButton.astro';
     </nav>
 
     <div class="job-list">
-      <article class="job-card">
-        <span class="job-card__line"></span>
-        <h3 class="job-card__title">フロントスタッフ</h3>
-        <div class="job-card__tags">
-          <span class="job-card__tag">［光風閣くわるび］</span>
-          <span class="job-card__tag">[フロント]</span>
-          <span class="job-card__tag">[正社員]</span>
-        </div>
-        <p class="job-card__description">
-          ゲストの "ただいま" を演出するホテルの顔。
-        </p>
-        <button type="button" class="job-card__link">詳しく見る</button>
-        <span class="job-card__line"></span>
-      </article>
-
-      <article class="job-card">
-        <span class="job-card__line"></span>
-        <h3 class="job-card__title">フロントスタッフ</h3>
-        <div class="job-card__tags">
-          <span class="job-card__tag">［光風閣くわるび］</span>
-          <span class="job-card__tag">[フロント]</span>
-          <span class="job-card__tag">[正社員]</span>
-        </div>
-        <p class="job-card__description">
-          ゲストの "ただいま" を演出するホテルの顔。
-        </p>
-        <button type="button" class="job-card__link">詳しく見る</button>
-        <span class="job-card__line"></span>
-      </article>
-
-      <article class="job-card">
-        <span class="job-card__line"></span>
-        <h3 class="job-card__title">フロントスタッフ</h3>
-        <div class="job-card__tags">
-          <span class="job-card__tag">［光風閣くわるび］</span>
-          <span class="job-card__tag">[フロント]</span>
-          <span class="job-card__tag">[正社員]</span>
-        </div>
-        <p class="job-card__description">
-          ゲストの "ただいま" を演出するホテルの顔。
-        </p>
-        <button type="button" class="job-card__link">詳しく見る</button>
-        <span class="job-card__line"></span>
-      </article>
-
-      <article class="job-card">
-        <span class="job-card__line"></span>
-        <h3 class="job-card__title">フロントスタッフ</h3>
-        <div class="job-card__tags">
-          <span class="job-card__tag">［光風閣くわるび］</span>
-          <span class="job-card__tag">[フロント]</span>
-          <span class="job-card__tag">[正社員]</span>
-        </div>
-        <p class="job-card__description">
-          ゲストの "ただいま" を演出するホテルの顔。
-        </p>
-        <button type="button" class="job-card__link">詳しく見る</button>
-        <span class="job-card__line"></span>
-      </article>
+      {
+        jobsData.map((job) => (
+          <article class="job-card" data-job-id={job.id}>
+            <span class="job-card__line" />
+            <h3 class="job-card__title">{job.title}</h3>
+            <div class="job-card__tags">
+              <span class="job-card__tag">［{job.facility}］</span>
+              <span class="job-card__tag">[{job.jobType}]</span>
+              <span class="job-card__tag">[{job.employmentType}]</span>
+            </div>
+            <p class="job-card__description">{job.description}</p>
+            <button type="button" class="job-card__link">
+              詳しく見る
+            </button>
+            <span class="job-card__line" />
+          </article>
+        ))
+      }
     </div>
   </section>
-  <article class="job-detail">
-    <span class="job-detail__line"></span>
-    <div class="job-detail__content">
-      <header class="job-detail__header">
-        <h2 class="job-detail__title">フロントスタッフ</h2>
-        <dl class="job-detail__meta">
-          <div class="job-detail__meta-item">
-            <dt>施設</dt>
-            <dd>光風閣くわるび</dd>
-          </div>
-          <div class="job-detail__meta-item">
-            <dt>職種</dt>
-            <dd>フロント</dd>
-          </div>
-          <div class="job-detail__meta-item">
-            <dt>形態</dt>
-            <dd>正社員</dd>
-          </div>
-        </dl>
-      </header>
-
-      <section class="job-detail__section">
-        <h3 class="job-detail__section-title">業務内容</h3>
-        <ul class="job-detail__list">
-          <li>チェックイン／アウト対応</li>
-          <li>予約管理（PMS入力）</li>
-          <li>観光案内、インフォメーション</li>
-          <li>館内イベント企画</li>
-          <li>など</li>
-        </ul>
-      </section>
-
-      <section class="job-detail__section">
-        <h3 class="job-detail__section-title">応募資格</h3>
-        <dl class="job-detail__requirements">
-          <div class="job-detail__requirements-group">
-            <dt class="job-detail__requirements-term">必須</dt>
-            <dd class="job-detail__requirements-description">
-              接客経験1年以上 または ホスピタリティ基礎知識
-            </dd>
-          </div>
-          <div class="job-detail__requirements-group">
-            <dt class="job-detail__requirements-term">歓迎</dt>
-            <dd class="job-detail__requirements-description">
-              英会話（TOEIC600目安）、普通自動車免許
-            </dd>
-          </div>
-        </dl>
-      </section>
-
-      <section class="job-detail__section">
-        <h3 class="job-detail__section-title">勤務地・時間</h3>
-        <address class="job-detail__address">
-          山梨県富士河口湖町西湖 1023
-        </address>
-        <dl class="job-detail__work-info">
-          <div class="job-detail__work-info-group">
-            <dt>シフト例</dt>
-            <dd>早番 07:00-16:00｜遅番 13:00-22:00</dd>
-          </div>
-          <div class="job-detail__work-info-group">
-            <dt>残業</dt>
-            <dd>月8.2h</dd>
-          </div>
-          <div class="job-detail__work-info-group">
-            <dt>勤務形態</dt>
-            <dd>リモート不可（対面接客のため）</dd>
-          </div>
-        </dl>
-      </section>
-
-      <section class="job-detail__section">
-        <h3 class="job-detail__section-title">待遇</h3>
-        <ul class="job-detail__benefits">
-          <li>月給 250,000〜280,000円＋各種手当</li>
-          <li>賞与 年2回／昇給 年1回</li>
-          <li>住宅・資格・温泉パスほか福利厚生充実</li>
-        </ul>
-      </section>
-
-      <section class="job-detail__section">
-        <h3 class="job-detail__section-title">休日・休暇</h3>
-        <ul class="job-detail__holidays">
-          <li>週休2日（シフト制）／年間112日</li>
-          <li>有休取得率99%／連休取得最大9日</li>
-        </ul>
-      </section>
-    </div>
-    <div class="job-detail__button-container">
-      <PrimaryButton
-        title="エントリーする（3分で完了）"
-        href="#"
-        position="center"
-      />
-    </div>
-    <span class="job-detail__line"></span>
-  </article>
+  <JobModal />
 </MySiteLayout>
+
+<script>
+  // MicroModalを読み込む
+  // @ts-ignore
+  import MicroModal from 'micromodal';
+  import { jobsData, type JobPosition } from '@data/jobsData';
+
+  // クライアントサイドで求人データを使用できるようにマッピング
+  const jobsDataMap: { [key: string]: JobPosition } = {};
+  jobsData.forEach((job) => {
+    jobsDataMap[job.id] = job;
+  });
+
+  // MicroModalの初期化
+  MicroModal.init({
+    openTrigger: 'data-micromodal-trigger',
+    closeTrigger: 'data-micromodal-close',
+    disableFocus: false,
+    disableScroll: true,
+    awaitOpenAnimation: false,
+    awaitCloseAnimation: false,
+  });
+
+  // 求人カードにクリックイベントを追加
+  document.addEventListener('DOMContentLoaded', () => {
+    const jobCards = document.querySelectorAll('.job-card');
+
+    jobCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const jobId = card.getAttribute('data-job-id');
+        if (!jobId) return;
+
+        const job = jobsDataMap[jobId];
+        if (!job) return;
+
+        // モーダルのコンテンツを更新
+        const modalTitle = document.getElementById('modal-job-title');
+        const modalContent = document.getElementById('modal-job-content');
+        const modalContainer = document.querySelector('.modal__container');
+
+        if (modalContent) {
+          // 詳細情報を設定
+          modalContent.innerHTML = `
+    <article class="job-modal-content">
+      <span class="job-modal__line"></span>
+      <div class="job-modal__content">
+        <header class="job-modal__header">
+          <h2 class="job-modal__title">${job.title}</h2>
+          <dl class="job-modal__meta">
+            <div class="job-modal__meta-item">
+              <dt>施設</dt>
+              <dd>${job.facility}</dd>
+            </div>
+            <div class="job-modal__meta-item">
+              <dt>職種</dt>
+              <dd>${job.jobType}</dd>
+            </div>
+            <div class="job-modal__meta-item">
+              <dt>形態</dt>
+              <dd>${job.employmentType}</dd>
+            </div>
+          </dl>
+        </header>
+        
+        <section class="job-modal__section">
+          <h3 class="job-modal__section-title">業務内容</h3>
+          <ul class="job-modal__list">
+            ${job.duties.map((duty) => `<li>${duty}</li>`).join('')}
+          </ul>
+        </section>
+
+        <section class="job-modal__section">
+          <h3 class="job-modal__section-title">応募資格</h3>
+          <dl class="job-modal__requirements">
+            <div class="job-modal__requirements-group">
+              <dt class="job-modal__requirements-term">必須</dt>
+              <dd class="job-modal__requirements-description">
+                ${job.requirements.required}
+              </dd>
+            </div>
+            <div class="job-modal__requirements-group">
+              <dt class="job-modal__requirements-term">歓迎</dt>
+              <dd class="job-modal__requirements-description">
+                ${job.requirements.preferred}
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="job-modal__section">
+          <h3 class="job-modal__section-title">勤務地・時間</h3>
+          <address class="job-modal__address">
+            ${job.location}
+          </address>
+          <dl class="job-modal__work-info">
+            <div class="job-modal__work-info-group">
+              <dt>シフト例</dt>
+              <dd>${job.workInfo.shifts}</dd>
+            </div>
+            <div class="job-modal__work-info-group">
+              <dt>残業</dt>
+              <dd>${job.workInfo.overtime}</dd>
+            </div>
+            <div class="job-modal__work-info-group">
+              <dt>勤務形態</dt>
+              <dd>${job.workInfo.workStyle}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="job-modal__section">
+          <h3 class="job-modal__section-title">待遇</h3>
+          <ul class="job-modal__benefits">
+            ${job.benefits.map((benefit) => `<li>${benefit}</li>`).join('')}
+          </ul>
+        </section>
+
+        <section class="job-modal__section">
+          <h3 class="job-modal__section-title">休日・休暇</h3>
+          <ul class="job-modal__holidays">
+            ${job.holidays.map((holiday) => `<li>${holiday}</li>`).join('')}
+          </ul>
+        </section>
+      </div>
+      
+      <div class="job-modal__button-container">
+        <a 
+          href="#" 
+          class="primary-btn default center"
+          style="--button-bg: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%); --text-color: #fff;"
+        >
+          <span>エントリーする（3分で完了）</span>
+        </a>
+      </div>
+      
+      <span class="job-modal__line"></span>
+    </article>
+  `;
+
+          // スクロール位置をリセット
+          if (modalContainer) {
+            modalContainer.scrollTop = 0;
+            setTimeout(() => {
+              modalContainer.scrollTop = 0;
+            }, 0);
+          }
+        }
+
+        // モーダルを表示
+        MicroModal.show('modal-job');
+      });
+    });
+  });
+</script>
 
 <style lang="scss">
   @import '@styles/functions.scss';
@@ -220,8 +239,10 @@ import PrimaryButton from '@components/common/PrimaryButton.astro';
       margin-top: spx(40);
       @include tablet-up {
         margin-top: spx(40) * 0.75;
+        justify-content: space-around;
       }
       @include desktop-up {
+        justify-content: space-between;
         align-items: center;
         margin-top: ppx(40);
       }
@@ -316,6 +337,16 @@ import PrimaryButton from '@components/common/PrimaryButton.astro';
         padding: spx(20);
         display: flex;
         flex-direction: column;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 6px 6px 0px 0px #59a1c0;
+        }
+
         @include tablet-up {
           width: 44vw;
           padding: spx(20) * 0.75;
@@ -375,7 +406,7 @@ import PrimaryButton from '@components/common/PrimaryButton.astro';
           font-weight: 500;
           line-height: 140%;
           margin-top: spx(14);
-          flex-grow: 1; /* 可変コンテンツ領域 */
+          flex-grow: 1;
 
           @include tablet-up {
             font-size: spx(14) * 0.75;
@@ -409,143 +440,6 @@ import PrimaryButton from '@components/common/PrimaryButton.astro';
             margin-bottom: ppx(10);
           }
         }
-      }
-    }
-  }
-  .job-detail {
-    background: white;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
-    backdrop-filter: blur(40px);
-    width: spx(350);
-    padding: spx(28) spx(24);
-    color: #054965;
-    font-size: spx(12);
-    font-weight: 500;
-    line-height: 140%;
-
-    @include tablet-up {
-      width: spx(350) * 0.75;
-      padding: spx(28) * 0.75 spx(24) * 0.75;
-      font-size: spx(12) * 0.75;
-    }
-
-    @include desktop-up {
-      width: ppx(800);
-      padding: ppx(28) ppx(24);
-      font-size: ppx(18);
-    }
-    &__line {
-      display: block;
-      width: 100%;
-      height: 1px;
-      background: #31456a;
-    }
-    &__content {
-      margin: spx(20) 0;
-      display: flex;
-      flex-direction: column;
-      gap: spx(20);
-      @include tablet-up {
-        margin: spx(20) * 0.75 0;
-        gap: spx(20) * 0.75;
-      }
-      @include desktop-up {
-        margin: ppx(10) 0;
-        gap: ppx(10);
-      }
-    }
-    &__header {
-    }
-    &__title {
-      font-size: spx(14);
-      font-weight: 700;
-      line-height: 140%;
-      text-align: center;
-
-      @include tablet-up {
-        font-size: spx(14) * 0.75;
-      }
-
-      @include desktop-up {
-        font-size: ppx(18);
-      }
-    }
-    &__meta {
-      margin-top: spx(20);
-      @include tablet-up {
-        margin-top: spx(20) * 0.75;
-      }
-      @include desktop-up {
-        margin-top: ppx(20);
-      }
-      &-item {
-        display: flex;
-        align-items: center;
-        gap: 1em;
-        font-size: spx(12);
-        font-weight: 500;
-        line-height: 140%;
-
-        @include tablet-up {
-          font-size: spx(12) * 0.75;
-        }
-
-        @include desktop-up {
-          font-size: ppx(14);
-        }
-      }
-    }
-    &__section {
-      &-title {
-        font-weight: 700;
-      }
-    }
-    &__list {
-      li {
-      }
-    }
-    &__requirements {
-      &-group {
-        display: grid;
-        grid-template-columns: max-content auto;
-        gap: 1em;
-        dt {
-        }
-        dd {
-        }
-      }
-    }
-    &__address {
-    }
-    &__work-info {
-      &-group {
-        display: grid;
-        grid-template-columns: 4.2em auto;
-        gap: 1em;
-        dt {
-        }
-        dd {
-        }
-      }
-    }
-    &__benefits {
-      li {
-      }
-    }
-    &__holidays {
-      li {
-      }
-    }
-    &__button-container {
-      margin-top: spx(40);
-      margin-bottom: spx(40);
-      @include tablet-up {
-        margin-top: spx(40) * 0.75;
-        margin-bottom: spx(40) * 0.75;
-      }
-      @include desktop-up {
-        margin-top: ppx(20);
-        margin-bottom: ppx(20);
       }
     }
   }
