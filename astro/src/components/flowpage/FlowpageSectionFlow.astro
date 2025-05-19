@@ -1,0 +1,77 @@
+---
+import FlowDesktop from '@assets/images/flow/flowpage-flow-desktop.png';
+import FlowMobile from '@assets/images/flow/flowpage-flow-mobile.png';
+import { Image } from 'astro:assets';
+import PrimaryButton from '@components/common/PrimaryButton.astro';
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+---
+
+<section class="flow-section">
+  <LowerPageH2
+    title="応募から内定までの流れ"
+    variant="default"
+    position="left"
+  />
+  <figure>
+    <picture>
+      <!-- デスクトップ用（1024px以上） -->
+      <source
+        srcset={FlowDesktop.src}
+        media="(min-width: 1024px)"
+        width={FlowDesktop.width}
+        height={FlowDesktop.height}
+      />
+      <!-- モバイル用（デフォルト） -->
+      <Image
+        src={FlowMobile}
+        alt="選考フローの図"
+        format="webp"
+        class="flow-image"
+      />
+    </picture>
+  </figure>
+  <div class="cta">
+    <PrimaryButton title="最短1週間で内定！今すぐエントリー" href="#" />
+  </div>
+</section>
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .flow-section {
+    padding: 0 spx(20) spx(60);
+    @include tablet-up {
+      padding: 0 spx(40) * 0.75 spx(80) * 0.75;
+    }
+    @include desktop-up {
+      padding: 0 ppx(160) ppx(100);
+    }
+    figure {
+      margin: spx(40) 0;
+      @include tablet-up {
+        margin: spx(40) * 0.75 0;
+      }
+      @include desktop-up {
+        margin: ppx(40) 0;
+      }
+      picture {
+        .flow-image {
+          display: block;
+          width: 100%;
+          height: auto;
+          @include tablet-up {
+            width: 80%;
+            margin-inline: auto;
+          }
+          @include desktop-up {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .cta {
+      width: max-content;
+      margin-inline: auto;
+    }
+  }
+</style>
