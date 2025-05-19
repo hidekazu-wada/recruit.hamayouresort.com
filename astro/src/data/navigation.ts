@@ -6,7 +6,7 @@ export const mainNavigation = [
   { label: '働く環境', url: '/culture' },
   { label: '採用プロセス', url: '/' },
   { label: 'お知らせ', url: '/' },
-  { label: '採用情報', url: '/' },
+  { label: '求人', url: '/jobs' },
   { label: '新卒', url: '/' },
   { label: '中途', url: '/' },
   { label: 'アルバイト', url: '/' },

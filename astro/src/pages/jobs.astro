@@ -1,0 +1,281 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import JobModal from '@components/jobspage/JobModal.astro';
+import JobspageSectionSearch from '@components/jobspage/JobspageSectionSearch.astro';
+import {
+  jobsData,
+  type JobPosition,
+  facilities,
+  jobTypes,
+  employmentTypes,
+} from '@data/jobsData';
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="Jobs" pageTitleJa="求人" />
+  <JobspageSectionSearch />
+  <JobModal />
+</MySiteLayout>
+
+<script>
+  // MicroModalを読み込む
+  // @ts-ignore
+  import MicroModal from 'micromodal';
+  import {
+    jobsData,
+    facilities,
+    jobTypes,
+    employmentTypes,
+    type JobPosition,
+  } from '@data/jobsData';
+
+  // クライアントサイドで求人データを使用できるようにマッピング
+  const jobsDataMap: { [key: string]: JobPosition } = {};
+  jobsData.forEach((job) => {
+    jobsDataMap[job.id] = job;
+  });
+
+  // MicroModalの初期化
+  MicroModal.init({
+    openTrigger: 'data-micromodal-trigger',
+    closeTrigger: 'data-micromodal-close',
+    disableFocus: false,
+    disableScroll: true,
+    awaitOpenAnimation: false,
+    awaitCloseAnimation: false,
+  });
+
+  // フィルタリング関数の実装
+  function filterJobs(
+    jobs: JobPosition[],
+    filters: {
+      facility?: string;
+      jobType?: string;
+      employmentType?: string;
+    }
+  ) {
+    return jobs.filter((job) => {
+      if (filters.facility && job.facility !== filters.facility) return false;
+      if (filters.jobType && job.jobType !== filters.jobType) return false;
+      if (
+        filters.employmentType &&
+        job.employmentType !== filters.employmentType
+      )
+        return false;
+      return true;
+    });
+  }
+
+  // イベントリスナーの実装
+  document.addEventListener('DOMContentLoaded', () => {
+    const facilitySelect = document.getElementById(
+      'facility'
+    ) as HTMLSelectElement;
+    const jobTypeSelect = document.getElementById(
+      'jobType'
+    ) as HTMLSelectElement;
+    const employmentTypeSelect = document.getElementById(
+      'employmentType'
+    ) as HTMLSelectElement;
+    const searchButton = document.querySelector('.job-search__filters button');
+    const jobList = document.querySelector('.job-list');
+
+    // フィルタリング結果を表示する関数
+    function updateJobList() {
+      const filters = {
+        facility: facilitySelect.value,
+        jobType: jobTypeSelect.value,
+        employmentType: employmentTypeSelect.value,
+      };
+
+      const filteredJobs = filterJobs(jobsData, filters);
+
+      // 検索結果の件数表示を追加
+      const resultCount = document.createElement('div');
+      resultCount.className = 'job-search__result-count';
+      resultCount.textContent = `${filteredJobs.length}件の求人があります`;
+
+      // 求人リストの更新
+      if (jobList) {
+        jobList.innerHTML = '';
+        jobList.appendChild(resultCount);
+
+        if (filteredJobs.length === 0) {
+          const noResults = document.createElement('p');
+          noResults.className = 'job-search__no-results';
+          noResults.textContent = '条件に一致する求人が見つかりませんでした';
+          jobList.appendChild(noResults);
+          return;
+        }
+
+        filteredJobs.forEach((job) => {
+          const article = document.createElement('article');
+          article.className = 'job-card';
+          article.setAttribute('data-job-id', job.id);
+          article.innerHTML = `
+            <span class="job-card__line"></span>
+            <h3 class="job-card__title">${job.title}</h3>
+            <div class="job-card__tags">
+              <span class="job-card__tag">［${facilities[job.facility]}］</span>
+              <span class="job-card__tag">[${jobTypes[job.jobType]}]</span>
+              <span class="job-card__tag">[${employmentTypes[job.employmentType]}]</span>
+            </div>
+            <p class="job-card__description">${job.description}</p>
+            <button type="button" class="job-card__link">詳しく見る</button>
+            <span class="job-card__line"></span>
+          `;
+          jobList.appendChild(article);
+        });
+
+        // クリックイベントの再設定
+        attachCardClickEvents();
+      }
+    }
+
+    // フィルターをリセットする関数
+    function resetFilters() {
+      facilitySelect.value = '';
+      jobTypeSelect.value = '';
+      employmentTypeSelect.value = '';
+      updateJobList();
+    }
+
+    // カードのクリックイベントを設定する関数
+    function attachCardClickEvents() {
+      const jobCards = document.querySelectorAll('.job-card');
+      jobCards.forEach((card) => {
+        card.addEventListener('click', () => {
+          const jobId = card.getAttribute('data-job-id');
+          if (!jobId) return;
+
+          const job = jobsDataMap[jobId];
+          if (!job) return;
+
+          // モーダルのコンテンツを更新
+          updateModalContent(job);
+          const modalContainer = document.querySelector('.modal__container');
+          if (modalContainer) {
+            modalContainer.scrollTop = 0;
+            setTimeout(() => {
+              modalContainer.scrollTop = 0;
+            }, 0);
+          }
+          MicroModal.show('modal-job');
+        });
+      });
+    }
+
+    // モーダルのコンテンツを更新する関数
+    function updateModalContent(job: JobPosition) {
+      const modalContent = document.getElementById('modal-job-content');
+      if (!modalContent) return;
+
+      modalContent.innerHTML = `
+        <article class="job-modal-content">
+          <span class="job-modal__line"></span>
+          <div class="job-modal__content">
+            <header class="job-modal__header">
+              <h2 class="job-modal__title">${job.title}</h2>
+              <dl class="job-modal__meta">
+                <div class="job-modal__meta-item">
+                  <dt>施設</dt>
+                  <dd>${facilities[job.facility]}</dd>
+                </div>
+                <div class="job-modal__meta-item">
+                  <dt>職種</dt>
+                  <dd>${jobTypes[job.jobType]}</dd>
+                </div>
+                <div class="job-modal__meta-item">
+                  <dt>形態</dt>
+                  <dd>${employmentTypes[job.employmentType]}</dd>
+                </div>
+              </dl>
+            </header>
+            
+            <section class="job-modal__section">
+              <h3 class="job-modal__section-title">業務内容</h3>
+              <ul class="job-modal__list">
+                ${job.duties.map((duty) => `<li>${duty}</li>`).join('')}
+              </ul>
+            </section>
+
+            <section class="job-modal__section">
+              <h3 class="job-modal__section-title">応募資格</h3>
+              <dl class="job-modal__requirements">
+                <div class="job-modal__requirements-group">
+                  <dt class="job-modal__requirements-term">必須</dt>
+                  <dd class="job-modal__requirements-description">
+                    ${job.requirements.required}
+                  </dd>
+                </div>
+                <div class="job-modal__requirements-group">
+                  <dt class="job-modal__requirements-term">歓迎</dt>
+                  <dd class="job-modal__requirements-description">
+                    ${job.requirements.preferred}
+                  </dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="job-modal__section">
+              <h3 class="job-modal__section-title">勤務地・時間</h3>
+              <address class="job-modal__address">
+                ${job.location}
+              </address>
+              <dl class="job-modal__work-info">
+                <div class="job-modal__work-info-group">
+                  <dt>シフト例</dt>
+                  <dd>${job.workInfo.shifts}</dd>
+                </div>
+                <div class="job-modal__work-info-group">
+                  <dt>残業</dt>
+                  <dd>${job.workInfo.overtime}</dd>
+                </div>
+                <div class="job-modal__work-info-group">
+                  <dt>勤務形態</dt>
+                  <dd>${job.workInfo.workStyle}</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="job-modal__section">
+              <h3 class="job-modal__section-title">待遇</h3>
+              <ul class="job-modal__benefits">
+                ${job.benefits.map((benefit) => `<li>${benefit}</li>`).join('')}
+              </ul>
+            </section>
+
+            <section class="job-modal__section">
+              <h3 class="job-modal__section-title">休日・休暇</h3>
+              <ul class="job-modal__holidays">
+                ${job.holidays.map((holiday) => `<li>${holiday}</li>`).join('')}
+              </ul>
+            </section>
+          </div>
+          
+          <div class="job-modal__button-container">
+            <a 
+              href="#" 
+              class="primary-btn default center"
+              style="--button-bg: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%); --text-color: #fff;"
+            >
+              <span>エントリーする（3分で完了）</span>
+            </a>
+          </div>
+          
+          <span class="job-modal__line"></span>
+        </article>
+      `;
+    }
+    // リセットボタンのクリックイベント
+    searchButton?.addEventListener('click', resetFilters);
+
+    // セレクトボックスの変更イベント（リアルタイムフィルタリング）
+    facilitySelect?.addEventListener('change', updateJobList);
+    jobTypeSelect?.addEventListener('change', updateJobList);
+    employmentTypeSelect?.addEventListener('change', updateJobList);
+    attachCardClickEvents();
+  });
+</script>
+

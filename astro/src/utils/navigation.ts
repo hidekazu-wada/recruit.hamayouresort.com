@@ -4,6 +4,7 @@ export function getPageTitle(segment: string): string {
     about: '会社概要',
     people: '社員紹介',
     culture: '働く環境',
+    jobs: '求人',
     // 他のページも必要に応じて追加
   };
 
