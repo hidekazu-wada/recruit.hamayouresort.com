@@ -6,6 +6,7 @@ export function getPageTitle(segment: string): string {
     culture: '働く環境',
     jobs: '求人',
     flow: '選考フロー',
+    faq: 'よくある質問',
     // 他のページも必要に応じて追加
   };
 
