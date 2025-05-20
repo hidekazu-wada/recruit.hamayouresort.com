@@ -1,0 +1,146 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+
+// インターン情報のデータ
+const internItems = [
+  {
+    type: '【1day 仕事体験】',
+    info: '7/15（月）10:00-17:00 @西湖ロッジ',
+    link: '#',
+  },
+  {
+    type: '【1day 仕事体験】',
+    info: '7/15（月）10:00-17:00 @西湖ロッジ',
+    link: '#',
+  },
+  {
+    type: '【1day 仕事体験】',
+    info: '7/15（月）10:00-17:00 @西湖ロッジ',
+    link: '#',
+  },
+];
+---
+
+<section class="section-intern">
+  <LowerPageH2
+    title="インターン・説明会情報"
+    variant="default"
+    position="left"
+  />
+  <ul class="intern-list">
+    {
+      internItems.map((item) => (
+        <li class="intern-item">
+          <article class="intern-content">
+            <header class="intern-header">
+              <h3 class="intern-type">{item.type}</h3>
+              <p class="intern-info">{item.info}</p>
+            </header>
+            <a href={item.link} class="btn-primary">
+              <span>予約する</span>
+            </a>
+          </article>
+          <span class="line" aria-hidden="true" />
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .section-intern {
+    padding: spx(60) spx(20);
+    @include tablet-up {
+      padding: spx(60) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    .intern-list {
+      margin-top: spx(40);
+      display: flex;
+      flex-flow: column;
+      gap: spx(28);
+      @include tablet-up {
+        margin-top: spx(40) * 0.75;
+        gap: spx(28) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+        gap: ppx(28);
+      }
+      .intern-item {
+        .intern-content {
+          display: grid;
+          grid-template-columns: auto;
+          gap: spx(8);
+          @include tablet-up {
+            gap: spx(8) * 0.75;
+          }
+          @include desktop-up {
+            grid-template-columns: auto max-content;
+            justify-content: space-between;
+            gap: spx(16);
+          }
+          .intern-header {
+            display: grid;
+            grid-template-columns: auto;
+            font-size: spx(18);
+            font-weight: 500;
+            line-height: 140%;
+            @include tablet-up {
+              font-size: spx(18) * 0.75;
+            }
+            @include desktop-up {
+              grid-template-columns: max-content auto;
+              font-size: ppx(18);
+            }
+          }
+          .btn-primary {
+            background: #fff;
+            width: spx(68);
+            height: spx(37);
+            display: grid;
+            place-content: center;
+            justify-self: flex-end;
+            @include tablet-up {
+              width: spx(68) * 0.75;
+              height: spx(37) * 0.75;
+            }
+            @include desktop-up {
+              width: ppx(72);
+              height: ppx(41);
+              justify-self: unset;
+            }
+            span {
+              font-size: spx(12);
+              font-weight: 500;
+              @include tablet-up {
+                font-size: spx(12) * 0.75;
+              }
+              @include desktop-up {
+                font-size: ppx(12);
+              }
+            }
+          }
+        }
+        .line {
+          display: block;
+          width: 100%;
+          height: 1px;
+          background-color: #054965;
+          margin: spx(8) 0;
+          @include tablet-up {
+            margin: spx(8) * 0.75 0;
+          }
+          @include desktop-up {
+            margin: ppx(8) 0;
+          }
+        }
+      }
+    }
+  }
+</style>
