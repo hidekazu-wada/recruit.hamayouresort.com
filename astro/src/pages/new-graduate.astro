@@ -5,34 +5,7 @@ import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro'
 import HeroImage from '@assets/images/new-graduate/new-graduatepage-hero.jpg';
 import SectionFlow from '@components/common/SectionFlow.astro';
 import NewGraduatepageSectionTraining from '@components/new-graduate/NewGraduatepageSectionTraining.astro';
-import LowerPageH2 from '@components/common/LowerPageH2.astro';
-import MessageCard from '@components/common/MessageCard.astro';
-
-const messages = [
-  {
-    image: {
-      src: 'assets/images/staff/img-staff-01.webp',
-      alt: '人事部スタッフの写真',
-      width: 400,
-      height: 400,
-    },
-    title: '「失敗できる環境で、思い切り挑む」',
-    description:
-      '西湖リゾートには、正解というものは存在しません。お客様に「また来たい」と思っていただけるようなアイデアは、どんな新人でも翌日から実践できるものです。それが私たちの文化であり、私たちが大切にしている価値観です。私たちは常に新しい発想を取り入れ、お客様の期待を超える体験を提供することを目指しています。（人事）',
-  },
-  {
-    image: {
-      src: 'assets/images/staff/img-staff-02.webp',
-      alt: '人事部スタッフの写真',
-      width: 400,
-      height: 400,
-    },
-    title: '「失敗できる環境で、思い切り挑む」',
-    description:
-      '西湖リゾートには、正解というものは存在しません。お客様に「また来たい」と思っていただけるようなアイデアは、どんな新人でも翌日から実践できるものです。それが私たちの文化であり、私たちが大切にしている価値観です。私たちは常に新しい発想を取り入れ、お客様の期待を超える体験を提供することを目指しています。（人事）',
-  },
-  // ...他のカード
-];
+import NewGraduatepageSectionMessage from '@components/new-graduate/NewGraduatepageSectionMessage.astro';
 ---
 
 <MySiteLayout>
@@ -45,35 +18,10 @@ const messages = [
   />
   <SectionFlow variant="lower-recruit" />
   <NewGraduatepageSectionTraining />
-  <section class="section-message">
-    <LowerPageH2 title="メッセージ" variant="white" position="left" />
-    <div class="message-card-wrapper">
-      <MessageCard messages={messages} />
-    </div>
-  </section>
+  <NewGraduatepageSectionMessage />
 </MySiteLayout>
 
 <style lang="scss">
   @import '@styles/functions.scss';
   @import '@styles/mixins.scss';
-
-  .section-message {
-    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%), #eaecee;
-    padding: spx(20);
-    @include tablet-up {
-      padding: spx(20) * 0.75;
-    }
-    @include desktop-up {
-      padding: ppx(100) ppx(160);
-    }
-    .message-card-wrapper {
-      margin-top: spx(28);
-      @include tablet-up {
-        margin-top: spx(28) * 0.75;
-      }
-      @include desktop-up {
-        margin-top: ppx(40);
-      }
-    }
-  }
 </style>
