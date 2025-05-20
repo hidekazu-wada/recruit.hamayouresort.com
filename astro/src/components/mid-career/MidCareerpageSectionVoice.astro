@@ -1,0 +1,75 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import MessageCard from '@components/common/MessageCard.astro';
+import VoiceBg from '@assets/images/mid-career/mid-careerpage-voice-bg.jpg';
+import { getImage } from 'astro:assets';
+const messages = [
+  {
+    image: {
+      src: 'assets/images/staff/img-staff-01.webp',
+      alt: '人事部スタッフの写真',
+      width: 400,
+      height: 400,
+    },
+    title: '「失敗できる環境で、思い切り挑む」',
+    description:
+      '西湖リゾートには、正解というものは存在しません。お客様に「また来たい」と思っていただけるようなアイデアは、どんな新人でも翌日から実践できるものです。それが私たちの文化であり、私たちが大切にしている価値観です。私たちは常に新しい発想を取り入れ、お客様の期待を超える体験を提供することを目指しています。（人事）',
+  },
+  {
+    image: {
+      src: 'assets/images/staff/img-staff-02.webp',
+      alt: '人事部スタッフの写真',
+      width: 400,
+      height: 400,
+    },
+    title: '「失敗できる環境で、思い切り挑む」',
+    description:
+      '西湖リゾートには、正解というものは存在しません。お客様に「また来たい」と思っていただけるようなアイデアは、どんな新人でも翌日から実践できるものです。それが私たちの文化であり、私たちが大切にしている価値観です。私たちは常に新しい発想を取り入れ、お客様の期待を超える体験を提供することを目指しています。（人事）',
+  },
+];
+
+const optimizedImageVoiceBg = await getImage({
+  src: VoiceBg,
+  format: 'webp', // webpに変換
+  quality: 80, // 任意: 品質設定
+});
+---
+
+<section
+  class="section-voice"
+  style={`background-image: url(${optimizedImageVoiceBg.src})`}
+>
+  <LowerPageH2 title="中途入社者の声" variant="default" position="left" />
+  <div class="voice-card-wrapper">
+    <MessageCard messages={messages} />
+  </div>
+</section>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .section-voice {
+    padding: spx(60) spx(20);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #e8e8e8;
+    background-blend-mode: soft-light;
+    @include tablet-up {
+      padding: spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    .voice-card-wrapper {
+      margin-top: spx(28);
+      @include tablet-up {
+        margin-top: spx(28) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
+    }
+  }
+</style>
