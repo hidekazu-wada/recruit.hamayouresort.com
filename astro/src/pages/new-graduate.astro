@@ -3,7 +3,7 @@ import MySiteLayout from '@layouts/MySiteLayout.astro';
 import LowerPageHeader from '@components/common/LowerPageHeader.astro';
 import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro';
 import HeroImage from '@assets/images/new-graduate/new-graduatepage-hero.jpg';
-import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import SectionFlow from '@components/common/SectionFlow.astro';
 ---
 
 <MySiteLayout>
@@ -14,7 +14,7 @@ import LowerPageH2 from '@components/common/LowerPageH2.astro';
     heroImage={HeroImage}
     variant="new-graduate"
   />
-  <LowerPageH2 title="募集一覧" variant="white" position="left" />
+  <SectionFlow variant="lower-recruit" />
 </MySiteLayout>
 
 <style lang="scss">

@@ -4,9 +4,15 @@ import FlowMobile from '@assets/images/flow/flowpage-flow-mobile.png';
 import { Image } from 'astro:assets';
 import PrimaryButton from '@components/common/PrimaryButton.astro';
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
+
+interface Props {
+  variant: 'default' | 'lower-recruit';
+}
+
+const { variant = 'default' }: Props = Astro.props;
 ---
 
-<section class="flow-section">
+<section class={`flow-section ${variant}`}>
   <LowerPageH2
     title="応募から内定までの流れ"
     variant="default"
@@ -72,6 +78,17 @@ import LowerPageH2 from '@components/common/LowerPageH2.astro';
     .cta {
       width: max-content;
       margin-inline: auto;
+    }
+
+    &.lower-recruit {
+      background-color: #d8edf7;
+      padding-top: spx(60);
+      @include tablet-up {
+        padding-top: spx(60) * 0.75;
+      }
+      @include desktop-up {
+        padding-top: ppx(100);
+      }
     }
   }
 </style>
