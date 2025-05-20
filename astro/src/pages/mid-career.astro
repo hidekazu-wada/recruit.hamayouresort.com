@@ -1,0 +1,40 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro';
+import HeroImage from '@assets/images/mid-career/mid-careerpage-hero.jpg';
+import SectionFlow from '@components/common/SectionFlow.astro';
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+
+const policyItems = [
+  {
+    number: '01',
+    title: '人物重視',
+    description:
+      '履歴書よりも、私たちが大切にしているのは"ゲストを喜ばせたい気持ち"です。この気持ちを持って、私たちは日々の業務に取り組んでいます。ゲスト一人一人の笑顔を見られることが、私たちの最大の喜びであり、そのために全力を尽くしています。',
+  },
+  {
+    number: '02',
+    title: 'リアルを伝える',
+    description:
+      '面接では、応募者にとってのメリットだけでなく、実際に経験した大変な点についても正直に話すことが重要です。これにより、企業側は応募者の本音を理解し、より良いマッチングができるでしょう。',
+  },
+  {
+    number: '03',
+    title: '相互理解',
+    description:
+      '入社後の職場環境をより具体的にイメージできるように、職場見学や社員座談会を用意しています。これにより、実際の業務やチームの雰囲気を体感し、先輩社員との交流を通じて、会社の文化や価値観を理解することができます。',
+  },
+];
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="Mid career" pageTitleJa="中途の方" />
+  <RecruitLowerPageHero
+    title="経験に、もっと自由を。"
+    description="新たな挑戦が待っています。あなたの才能を最大限に発揮し、自由な発想で未来を切り拓いていきましょう。困難を乗り越え、成長するチャンスをつかむために、一歩踏み出す勇気を持ちましょう。"
+    heroImage={HeroImage}
+    variant="mid-career"
+  />
+  <SectionFlow variant="lower-recruit" />
+</MySiteLayout>

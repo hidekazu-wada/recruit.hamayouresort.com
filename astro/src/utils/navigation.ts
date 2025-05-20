@@ -7,6 +7,9 @@ export function getPageTitle(segment: string): string {
     jobs: '求人',
     flow: '選考フロー',
     faq: 'よくある質問',
+    new_graduate: '新卒の方',
+    mid_career: '中途の方',
+    arbeit: 'アルバイト',
     // 他のページも必要に応じて追加
   };
 

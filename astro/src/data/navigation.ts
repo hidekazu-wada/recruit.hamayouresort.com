@@ -7,8 +7,8 @@ export const mainNavigation = [
   { label: '選考フロー', url: '/flow' },
   { label: 'お知らせ', url: '/' },
   { label: '求人', url: '/jobs' },
-  { label: '新卒', url: '/' },
-  { label: '中途', url: '/' },
-  { label: 'アルバイト', url: '/' },
+  { label: '新卒の方', url: '/new-graduate' },
+  { label: '中途の方', url: '/mid-career' },
+  { label: 'アルバイト', url: '/arbeit' },
   { label: 'よくある質問', url: '/faq' },
 ];

@@ -1,0 +1,151 @@
+---
+interface NumberItem {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  items: NumberItem[];
+  variant: 'default' | 'flow' | 'new-graduate' | 'arbeit';
+}
+
+const { items = [], variant = 'default' }: Props = Astro.props;
+---
+
+<div class="number-list" data-variant={variant}>
+  {
+    items.map((item) => (
+      <div class="number-list-item">
+        <p class="number">
+          <span>{item.number}</span>
+        </p>
+        <div class="content">
+          <p class="title">{item.title}</p>
+          <p class="description">{item.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .number-list {
+    display: flex;
+    flex-direction: column;
+    gap: spx(28);
+    @include tablet-up {
+      gap: spx(28) * 0.75;
+    }
+    @include desktop-up {
+      gap: ppx(32);
+      margin-inline: auto;
+    }
+
+    .number-list-item {
+      display: grid;
+      grid-template-columns: max-content auto;
+      gap: spx(30);
+      align-items: center;
+      @include tablet-up {
+        gap: spx(30) * 0.75;
+      }
+      @include desktop-up {
+        gap: ppx(30);
+      }
+      .number {
+        display: block;
+        width: spx(80);
+        height: spx(80);
+        background-color: white;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        @include tablet-up {
+          width: spx(80) * 0.75;
+          height: spx(80) * 0.75;
+        }
+        @include desktop-up {
+          width: ppx(80);
+          height: ppx(80);
+        }
+      }
+
+      span {
+        color: #59a1c0;
+        font-size: spx(38);
+        font-weight: 700;
+        line-height: 100%;
+
+        @include tablet-up {
+          font-size: spx(38) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(40);
+        }
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: spx(8);
+        @include tablet-up {
+          gap: spx(8) * 0.75;
+        }
+        @include desktop-up {
+          gap: ppx(8);
+        }
+        .title {
+          font-size: spx(16);
+          font-weight: 700;
+          line-height: 100%;
+
+          @include tablet-up {
+            font-size: spx(16) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(20);
+          }
+        }
+        .description {
+          font-size: spx(14);
+          font-weight: 500;
+
+          @include tablet-up {
+            font-size: spx(14) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(18);
+          }
+        }
+      }
+    }
+    &[data-variant='flow'] {
+      margin-top: spx(48);
+      @include tablet-up {
+        margin-top: spx(48) * 0.75;
+        width: 90%;
+        margin-inline: auto;
+      }
+      @include desktop-up {
+        margin-top: ppx(80);
+        width: 70%;
+      }
+    }
+    &[data-variant='new-graduate'] {
+      margin-top: spx(60);
+      @include tablet-up {
+        margin-top: spx(60) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
+    }
+  }
+</style>

@@ -1,39 +1,33 @@
 ---
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import { Image } from 'astro:assets';
+import NumberList from '@components/common/NummberList.astro';
+
+const numberItems = [
+  {
+    number: '01',
+    title: '人物重視',
+    description:
+      '履歴書よりも、私たちが大切にしているのは"ゲストを喜ばせたい気持ち"です。この気持ちを持って、私たちは日々の業務に取り組んでいます。ゲスト一人一人の笑顔を見られることが、私たちの最大の喜びであり、そのために全力を尽くしています。',
+  },
+  {
+    number: '02',
+    title: 'リアルを伝える',
+    description:
+      '面接では、応募者にとってのメリットだけでなく、実際に経験した大変な点についても正直に話すことが重要です。これにより、企業側は応募者の本音を理解し、より良いマッチングができるでしょう。',
+  },
+  {
+    number: '03',
+    title: '相互理解',
+    description:
+      '入社後の職場環境をより具体的にイメージできるように、職場見学や社員座談会を用意しています。これにより、実際の業務やチームの雰囲気を体感し、先輩社員との交流を通じて、会社の文化や価値観を理解することができます。',
+  },
+];
 ---
 
 <div class="policy-section">
   <LowerPageH2 title="私たちの選考ポリシー" variant="default" position="left" />
-  <div class="policy-wrapper">
-    <div class="policy-item">
-      <p class="number"><span>01</span></p>
-      <div class="content">
-        <p class="title">人物重視</p>
-        <p class="description">
-          履歴書よりも、私たちが大切にしているのは"ゲストを喜ばせたい気持ち"です。この気持ちを持って、私たちは日々の業務に取り組んでいます。ゲスト一人一人の笑顔を見られることが、私たちの最大の喜びであり、そのために全力を尽くしています。
-        </p>
-      </div>
-    </div>
-    <div class="policy-item">
-      <p class="number"><span>02</span></p>
-      <div class="content">
-        <p class="title">リアルを伝える</p>
-        <p class="description">
-          面接では、応募者にとってのメリットだけでなく、実際に経験した大変な点についても正直に話すことが重要です。これにより、企業側は応募者の本音を理解し、より良いマッチングができるでしょう。
-        </p>
-      </div>
-    </div>
-    <div class="policy-item">
-      <p class="number"><span>03</span></p>
-      <div class="content">
-        <p class="title">相互理解</p>
-        <p class="description">
-          入社後の職場環境をより具体的にイメージできるように、職場見学や社員座談会を用意しています。これにより、実際の業務やチームの雰囲気を体感し、先輩社員との交流を通じて、会社の文化や価値観を理解することができます。
-        </p>
-      </div>
-    </div>
-  </div>
+  <NumberList items={numberItems} variant="flow" />
   <h3 class="interview-points-title">面接で見るポイント</h3>
   <div class="interview-points">
     <div class="youtube-wrapper">
@@ -66,102 +60,6 @@ import { Image } from 'astro:assets';
     }
     @include desktop-up {
       padding: 0 ppx(100) ppx(100);
-    }
-    .policy-wrapper {
-      margin-top: spx(48);
-      display: flex;
-      flex-direction: column;
-      gap: spx(28);
-      @include tablet-up {
-        margin-top: spx(48) * 0.75;
-        gap: spx(28) * 0.75;
-      }
-      @include desktop-up {
-        margin-top: ppx(80);
-        gap: ppx(32);
-        width: 70%;
-        margin-inline: auto;
-      }
-      .policy-item {
-        display: grid;
-        grid-template-columns: max-content auto;
-        gap: spx(30);
-        align-items: center;
-        @include tablet-up {
-          gap: spx(30) * 0.75;
-        }
-        @include desktop-up {
-          gap: ppx(30);
-        }
-        .number {
-          display: block;
-          width: spx(80);
-          height: spx(80);
-          background-color: white;
-          border-radius: 50%;
-          display: grid;
-          place-items: center;
-          @include tablet-up {
-            width: spx(80) * 0.75;
-            height: spx(80) * 0.75;
-          }
-          @include desktop-up {
-            width: ppx(80);
-            height: ppx(80);
-          }
-        }
-
-        span {
-          color: #59a1c0;
-          font-size: spx(38);
-          font-weight: 700;
-          line-height: 100%;
-
-          @include tablet-up {
-            font-size: spx(38) * 0.75;
-          }
-
-          @include desktop-up {
-            font-size: ppx(40);
-          }
-        }
-      }
-      .content {
-        display: flex;
-        flex-direction: column;
-        gap: spx(8);
-        @include tablet-up {
-          gap: spx(8) * 0.75;
-        }
-        @include desktop-up {
-          gap: ppx(8);
-        }
-        .title {
-          font-size: spx(16);
-          font-weight: 700;
-          line-height: 100%;
-
-          @include tablet-up {
-            font-size: spx(16) * 0.75;
-          }
-
-          @include desktop-up {
-            font-size: ppx(20);
-          }
-        }
-        .description {
-          font-size: spx(14);
-          font-weight: 500;
-
-          @include tablet-up {
-            font-size: spx(14) * 0.75;
-          }
-
-          @include desktop-up {
-            font-size: ppx(18);
-          }
-        }
-      }
     }
     .interview-points-title {
       margin-top: spx(40);
