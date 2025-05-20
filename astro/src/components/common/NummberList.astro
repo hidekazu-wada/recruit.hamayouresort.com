@@ -139,6 +139,13 @@ const { items = [], variant = 'default' }: Props = Astro.props;
       }
     }
     &[data-variant='new-graduate'] {
+      margin-top: spx(60);
+      @include tablet-up {
+        margin-top: spx(60) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
     }
   }
 </style>

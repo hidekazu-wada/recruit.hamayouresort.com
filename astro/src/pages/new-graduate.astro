@@ -4,27 +4,34 @@ import LowerPageHeader from '@components/common/LowerPageHeader.astro';
 import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro';
 import HeroImage from '@assets/images/new-graduate/new-graduatepage-hero.jpg';
 import SectionFlow from '@components/common/SectionFlow.astro';
-import NumberList from '@components/common/NummberList.astro';
+import NewGraduatepageSectionTraining from '@components/new-graduate/NewGraduatepageSectionTraining.astro';
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
-const numberItems = [
+import MessageCard from '@components/common/MessageCard.astro';
+
+const messages = [
   {
-    number: '01',
-    title: 'BootCamp（3か月）',
+    image: {
+      src: 'assets/images/staff/img-staff-01.webp',
+      alt: '人事部スタッフの写真',
+      width: 400,
+      height: 400,
+    },
+    title: '「失敗できる環境で、思い切り挑む」',
     description:
-      'ビジネスマナーや英会話のスキルを磨くことは、特に接客業において非常に重要です。接客ロールプレイを通じて、実際のシチュエーションを想定しながら、効果的なコミュニケーション技術を身につけることができます。これにより、お客様との信頼関係を築き、より良いサービスを提供することが可能になります。',
+      '西湖リゾートには、正解というものは存在しません。お客様に「また来たい」と思っていただけるようなアイデアは、どんな新人でも翌日から実践できるものです。それが私たちの文化であり、私たちが大切にしている価値観です。私たちは常に新しい発想を取り入れ、お客様の期待を超える体験を提供することを目指しています。（人事）',
   },
   {
-    number: '02',
-    title: 'OJT + メンター制度（4～12か月） ',
+    image: {
+      src: 'assets/images/staff/img-staff-02.webp',
+      alt: '人事部スタッフの写真',
+      width: 400,
+      height: 400,
+    },
+    title: '「失敗できる環境で、思い切り挑む」',
     description:
-      '先輩とペアでフロント・温泉・キャンプ場をローテーション。月1回フィードバック面談',
+      '西湖リゾートには、正解というものは存在しません。お客様に「また来たい」と思っていただけるようなアイデアは、どんな新人でも翌日から実践できるものです。それが私たちの文化であり、私たちが大切にしている価値観です。私たちは常に新しい発想を取り入れ、お客様の期待を超える体験を提供することを目指しています。（人事）',
   },
-  {
-    number: '03',
-    title: 'キャリアラダー研修（2年目以降）',
-    description:
-      '提案プレゼンテーション研修は、管理者候補を育成するための重要なプログラムです。この研修では、効果的なプレゼンテーションスキルを身につけることができ、参加者は自信を持って提案を行うことができるようになります。また、海外提携リゾート視察も行い、国際的な視野を広げることができます。',
-  },
+  // ...他のカード
 ];
 ---
 
@@ -37,11 +44,36 @@ const numberItems = [
     variant="new-graduate"
   />
   <SectionFlow variant="lower-recruit" />
-  <LowerPageH2 title="研修・育成制度" variant="default" position="left" />
-  <NumberList items={numberItems} variant="new-graduate" />
+  <NewGraduatepageSectionTraining />
+  <section class="section-message">
+    <LowerPageH2 title="メッセージ" variant="white" position="left" />
+    <div class="message-card-wrapper">
+      <MessageCard messages={messages} />
+    </div>
+  </section>
 </MySiteLayout>
 
 <style lang="scss">
   @import '@styles/functions.scss';
   @import '@styles/mixins.scss';
+
+  .section-message {
+    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%), #eaecee;
+    padding: spx(20);
+    @include tablet-up {
+      padding: spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    .message-card-wrapper {
+      margin-top: spx(28);
+      @include tablet-up {
+        margin-top: spx(28) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
+    }
+  }
 </style>
