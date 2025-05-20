@@ -1,0 +1,21 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro';
+import HeroImage from '@assets/images/arbeit/arbeitpage-hero.jpg';
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="Arbeit" pageTitleJa="アルバイト" />
+  <RecruitLowerPageHero
+    title="週2日から、リゾートバイト。"
+    description="週2日からでも、ガッツリ働きたい方にもぴったりなリゾートバイト。美しい自然に囲まれた環境で、楽しい仲間と共に新しい経験をしながら、ワクワクする毎日を過ごしましょう。あなたの理想の働き方がここにあります！"
+    heroImage={HeroImage}
+    variant="arbeit"
+  />
+</MySiteLayout>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+</style>

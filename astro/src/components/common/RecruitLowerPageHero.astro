@@ -1,0 +1,157 @@
+---
+import { getImage } from 'astro:assets';
+
+interface Props {
+  title: string;
+  description: string;
+  heroImage: ImageMetadata;
+  variant: 'new-graduate' | 'mid-career' | 'arbeit';
+}
+
+const { title, description, heroImage, variant } = Astro.props;
+
+const optimizedHeroImage = await getImage({
+  src: heroImage,
+  format: 'webp',
+  quality: 80,
+});
+---
+
+<section
+  class={`hero ${variant}`}
+  style={`background-image: url(${optimizedHeroImage.src})`}
+  aria-labelledby="hero-title"
+>
+  <div class="hero__content">
+    <h2 id="hero-title" class="hero__title">
+      <span class="hero__title-text" set:html={title} />
+      <span class="hero__title-line" aria-hidden="true"></span>
+    </h2>
+    <p class="hero__description">{description}</p>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .hero {
+    width: 100%;
+    height: 80vh;
+    background-size: auto 100%;
+    background-position: top center;
+    background-repeat: no-repeat;
+    position: relative;
+    @include tablet-up {
+    }
+    @include desktop-up {
+      background-size: 100% auto;
+    }
+
+    &__content {
+      position: absolute;
+      bottom: spx(12);
+      right: spx(8);
+      background: #fff;
+      box-shadow:
+        4px 4px 0px 0px #59a1c0,
+        0px 4px 4px 0px rgba(0, 0, 0, 0.12);
+      width: spx(360);
+      padding: spx(20);
+      @include tablet-up {
+        width: spx(360) * 0.75;
+        padding: spx(20) * 0.75;
+        bottom: spx(12) * 0.75;
+        right: spx(8) * 0.75;
+      }
+      @include desktop-up {
+        width: ppx(620);
+        padding: ppx(40);
+        bottom: ppx(24);
+        right: ppx(16);
+      }
+    }
+
+    &__title {
+      font-weight: 700;
+      font-size: spx(20);
+      line-height: 140%;
+      @include tablet-up {
+        font-size: spx(20) * 0.75;
+      }
+      @include desktop-up {
+        font-size: ppx(30);
+        line-height: normal;
+      }
+      .br {
+        display: block;
+        @include tablet-up {
+          display: block;
+        }
+        @include desktop-up {
+          display: none;
+        }
+      }
+      &-text {
+        background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &-line {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%);
+        margin: spx(5) 0 spx(20);
+        @include tablet-up {
+          margin: spx(5) * 0.75 0 spx(20) * 0.75;
+        }
+        @include desktop-up {
+          margin: ppx(5) 0 ppx(20);
+        }
+      }
+    }
+
+    &__description {
+      font-size: spx(14);
+      font-weight: 500;
+
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(20);
+      }
+    }
+    &.new-graduate {
+      background-position: top 0 left -88vw;
+      @include tablet-up {
+        background-position: top 0 left -56vw;
+      }
+      @include desktop-up {
+        background-position: top center;
+      }
+    }
+    &.mid-career {
+      background-position: top 0 left -60vw;
+      @include tablet-up {
+        background-position: top 0 left -40vw;
+      }
+      @include desktop-up {
+        background-position: top center;
+      }
+    }
+    &.arbeit {
+      background-position: top 0 left -40vw;
+      @include tablet-up {
+        background-position: top 0 left -10vw;
+      }
+      @include desktop-up {
+        background-position: top center;
+      }
+    }
+  }
+</style>

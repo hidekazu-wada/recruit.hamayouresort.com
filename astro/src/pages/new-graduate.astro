@@ -1,0 +1,23 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro';
+import HeroImage from '@assets/images/new-graduate/new-graduatepage-hero.jpg';
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="New graduate" pageTitleJa="新卒の方" />
+  <RecruitLowerPageHero
+    title='初めての一歩が、<br class="br" />誰かの特別になる。'
+    description='富士西湖の美しい自然の中で、あなたの挑戦が始まります。ここでは、ゼロから"おもてなし"のプロフェッショナルへと成長するための舞台が整っています。新卒応募者の皆さん、勇気を持って一歩を踏み出し、未来を切り拓いていきましょう。'
+    heroImage={HeroImage}
+    variant="new-graduate"
+  />
+  <LowerPageH2 title="募集一覧" variant="white" position="left" />
+</MySiteLayout>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+</style>

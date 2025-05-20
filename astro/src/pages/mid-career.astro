@@ -1,0 +1,21 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro';
+import HeroImage from '@assets/images/mid-career/mid-careerpage-hero.jpg';
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="Mid career" pageTitleJa="中途の方" />
+  <RecruitLowerPageHero
+    title="経験に、もっと自由を。"
+    description="新たな挑戦が待っています。あなたの才能を最大限に発揮し、自由な発想で未来を切り拓いていきましょう。困難を乗り越え、成長するチャンスをつかむために、一歩踏み出す勇気を持ちましょう。"
+    heroImage={HeroImage}
+    variant="mid-career"
+  />
+</MySiteLayout>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+</style>
