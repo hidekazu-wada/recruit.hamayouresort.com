@@ -4,6 +4,28 @@ import LowerPageHeader from '@components/common/LowerPageHeader.astro';
 import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro';
 import HeroImage from '@assets/images/new-graduate/new-graduatepage-hero.jpg';
 import SectionFlow from '@components/common/SectionFlow.astro';
+import NumberList from '@components/common/NummberList.astro';
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+const numberItems = [
+  {
+    number: '01',
+    title: 'BootCamp（3か月）',
+    description:
+      'ビジネスマナーや英会話のスキルを磨くことは、特に接客業において非常に重要です。接客ロールプレイを通じて、実際のシチュエーションを想定しながら、効果的なコミュニケーション技術を身につけることができます。これにより、お客様との信頼関係を築き、より良いサービスを提供することが可能になります。',
+  },
+  {
+    number: '02',
+    title: 'OJT + メンター制度（4～12か月） ',
+    description:
+      '先輩とペアでフロント・温泉・キャンプ場をローテーション。月1回フィードバック面談',
+  },
+  {
+    number: '03',
+    title: 'キャリアラダー研修（2年目以降）',
+    description:
+      '提案プレゼンテーション研修は、管理者候補を育成するための重要なプログラムです。この研修では、効果的なプレゼンテーションスキルを身につけることができ、参加者は自信を持って提案を行うことができるようになります。また、海外提携リゾート視察も行い、国際的な視野を広げることができます。',
+  },
+];
 ---
 
 <MySiteLayout>
@@ -15,6 +37,8 @@ import SectionFlow from '@components/common/SectionFlow.astro';
     variant="new-graduate"
   />
   <SectionFlow variant="lower-recruit" />
+  <LowerPageH2 title="研修・育成制度" variant="default" position="left" />
+  <NumberList items={numberItems} variant="new-graduate" />
 </MySiteLayout>
 
 <style lang="scss">

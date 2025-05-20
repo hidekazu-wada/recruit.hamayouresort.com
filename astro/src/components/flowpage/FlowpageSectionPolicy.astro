@@ -1,9 +1,9 @@
 ---
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import { Image } from 'astro:assets';
-import PolicyList from '@components/common/PolicyList.astro';
+import NumberList from '@components/common/NummberList.astro';
 
-const policyItems = [
+const numberItems = [
   {
     number: '01',
     title: '人物重視',
@@ -27,7 +27,7 @@ const policyItems = [
 
 <div class="policy-section">
   <LowerPageH2 title="私たちの選考ポリシー" variant="default" position="left" />
-  <PolicyList items={policyItems} />
+  <NumberList items={numberItems} variant="flow" />
   <h3 class="interview-points-title">面接で見るポイント</h3>
   <div class="interview-points">
     <div class="youtube-wrapper">

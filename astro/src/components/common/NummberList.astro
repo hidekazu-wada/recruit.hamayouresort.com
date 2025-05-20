@@ -1,22 +1,25 @@
 ---
-interface PolicyItem {
+interface NumberItem {
   number: string;
   title: string;
   description: string;
 }
 
 interface Props {
-  items: PolicyItem[];
+  items: NumberItem[];
+  variant: 'default' | 'flow' | 'new-graduate' | 'arbeit';
 }
 
-const { items = [] }: Props = Astro.props;
+const { items = [], variant = 'default' }: Props = Astro.props;
 ---
 
-<div class="policy-list">
+<div class="number-list" data-variant={variant}>
   {
-    items.map(item => (
-      <div class="policy-list-item">
-        <p class="number"><span>{item.number}</span></p>
+    items.map((item) => (
+      <div class="number-list-item">
+        <p class="number">
+          <span>{item.number}</span>
+        </p>
         <div class="content">
           <p class="title">{item.title}</p>
           <p class="description">{item.description}</p>
@@ -30,23 +33,19 @@ const { items = [] }: Props = Astro.props;
   @import '@styles/functions.scss';
   @import '@styles/mixins.scss';
 
-  .policy-list {
-    margin-top: spx(48);
+  .number-list {
     display: flex;
     flex-direction: column;
     gap: spx(28);
     @include tablet-up {
-      margin-top: spx(48) * 0.75;
       gap: spx(28) * 0.75;
     }
     @include desktop-up {
-      margin-top: ppx(80);
       gap: ppx(32);
-      width: 70%;
       margin-inline: auto;
     }
 
-    .policy-list-item {
+    .number-list-item {
       display: grid;
       grid-template-columns: max-content auto;
       gap: spx(30);
@@ -126,6 +125,20 @@ const { items = [] }: Props = Astro.props;
           }
         }
       }
+    }
+    &[data-variant='flow'] {
+      margin-top: spx(48);
+      @include tablet-up {
+        margin-top: spx(48) * 0.75;
+        width: 90%;
+        margin-inline: auto;
+      }
+      @include desktop-up {
+        margin-top: ppx(80);
+        width: 70%;
+      }
+    }
+    &[data-variant='new-graduate'] {
     }
   }
 </style>
