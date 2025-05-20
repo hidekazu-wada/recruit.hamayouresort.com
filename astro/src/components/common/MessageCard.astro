@@ -11,11 +11,12 @@ interface Message {
 }
 interface Props {
   messages: Message[];
+  variant: 'double' | 'single';
 }
-const { messages } = Astro.props;
+const { messages, variant = 'double' } = Astro.props;
 ---
 
-<div class="messages">
+<div class={`messages ${variant}`}>
   {
     messages.map((message) => (
       <article class="message">
@@ -126,6 +127,9 @@ const { messages } = Astro.props;
           }
         }
       }
+    }
+    &.single {
+      display: block;
     }
   }
 </style>

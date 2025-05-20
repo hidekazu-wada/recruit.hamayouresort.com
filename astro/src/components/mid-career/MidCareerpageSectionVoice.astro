@@ -1,7 +1,8 @@
 ---
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import MessageCard from '@components/common/MessageCard.astro';
-
+import VoiceBg from '@assets/images/mid-career/mid-careerpage-voice-bg.jpg';
+import { getImage } from 'astro:assets';
 const messages = [
   {
     image: {
@@ -26,11 +27,20 @@ const messages = [
       '西湖リゾートには、正解というものは存在しません。お客様に「また来たい」と思っていただけるようなアイデアは、どんな新人でも翌日から実践できるものです。それが私たちの文化であり、私たちが大切にしている価値観です。私たちは常に新しい発想を取り入れ、お客様の期待を超える体験を提供することを目指しています。（人事）',
   },
 ];
+
+const optimizedImageVoiceBg = await getImage({
+  src: VoiceBg,
+  format: 'webp', // webpに変換
+  quality: 80, // 任意: 品質設定
+});
 ---
 
-<section class="section-message">
-  <LowerPageH2 title="メッセージ" variant="white" position="left" />
-  <div class="message-card-wrapper">
+<section
+  class="section-voice"
+  style={`background-image: url(${optimizedImageVoiceBg.src})`}
+>
+  <LowerPageH2 title="中途入社者の声" variant="default" position="left" />
+  <div class="voice-card-wrapper">
     <MessageCard messages={messages} variant="double" />
   </div>
 </section>
@@ -39,16 +49,20 @@ const messages = [
   @import '@styles/functions.scss';
   @import '@styles/mixins.scss';
 
-  .section-message {
-    background: linear-gradient(96deg, #054965 0.03%, #59a1c0 99.97%), #eaecee;
-    padding: spx(20);
+  .section-voice {
+    padding: spx(60) spx(20);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #e8e8e8;
+    background-blend-mode: soft-light;
     @include tablet-up {
       padding: spx(20) * 0.75;
     }
     @include desktop-up {
       padding: ppx(100) ppx(160);
     }
-    .message-card-wrapper {
+    .voice-card-wrapper {
       margin-top: spx(28);
       @include tablet-up {
         margin-top: spx(28) * 0.75;
