@@ -5,23 +5,7 @@ import RecruitLowerPageHero from '@components/common/RecruitLowerPageHero.astro'
 import HeroImage from '@assets/images/mid-career/mid-careerpage-hero.jpg';
 import SectionFlow from '@components/common/SectionFlow.astro';
 import MidCareerpageSectionVoice from '@components/mid-career/MidCareerpageSectionVoice.astro';
-import LowerPageH2 from '@components/common/LowerPageH2.astro';
-import MessageCard from '@components/common/MessageCard.astro';
-import FlatImage from '@assets/images/mid-career/mid-careerpage-flat.png';
-import { Image } from 'astro:assets';
-const messages = [
-  {
-    image: {
-      src: 'assets/images/staff/img-staff-01.webp',
-      alt: '人事部スタッフの写真',
-      width: 400,
-      height: 400,
-    },
-    title: '「失敗できる環境で、思い切り挑む」',
-    description:
-      '西湖リゾートには、正解というものは存在しません。お客様に「また来たい」と思っていただけるようなアイデアは、どんな新人でも翌日から実践できるものです。それが私たちの文化であり、私たちが大切にしている価値観です。私たちは常に新しい発想を取り入れ、お客様の期待を超える体験を提供することを目指しています。（人事）',
-  },
-];
+import MidCareerpageSectionFlat from '@components/mid-career/MidCareerpageSectionFlat.astro';
 ---
 
 <MySiteLayout>
@@ -34,37 +18,5 @@ const messages = [
   />
   <SectionFlow variant="lower-recruit" />
   <MidCareerpageSectionVoice />
-  <section class="section-flat">
-    <LowerPageH2 title="フラットな組織文化" variant="default" position="left" />
-    <div class="section-flat__content">
-      <div class="flat-card-wrapper">
-        <MessageCard messages={messages} />
-      </div>
-      <figure class="flat-image-wrapper">
-        <Image
-          src={FlatImage}
-          alt="フラットな組織文化"
-          width={500}
-          height={333}
-          class="flat-image"
-        />
-      </figure>
-    </div>
-  </section>
+  <MidCareerpageSectionFlat />
 </MySiteLayout>
-
-<style lang="scss">
-  @import '@styles/functions.scss';
-  @import '@styles/mixins.scss';
-
-  .section-flat {
-    .section-flat__content {
-      .flat-card-wrapper {
-      }
-      .flat-image-wrapper {
-        .flat-image {
-        }
-      }
-    }
-  }
-</style>
