@@ -7,7 +7,7 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
 ---
 
 <section id="hero">
-  <h1>
+  <h1 class="hero-catchcopy">
     本気<span>で</span>遊べ<span>ば、</span><br />仕事<span>になる</span>
   </h1>
 
@@ -48,6 +48,64 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
   </div>
 
   <WaveDecoration fillColor="#E7F3F9" />
+
+  <!-- GSAP CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
+  ></script>
+  <!-- アニメーション制御 -->
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      const hero = document.querySelector('.hero-catchcopy');
+      if (!hero) return;
+
+      function wrapChars(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const chars = node.textContent.split('');
+          return chars.map((char) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.classList.add('char');
+            return span;
+          });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          // <br>はそのまま返す
+          if (node.nodeName === 'BR') {
+            return [node.cloneNode(false)];
+          }
+          const newElem = node.cloneNode(false);
+          node.childNodes.forEach((child) => {
+            wrapChars(child).forEach((c) => newElem.appendChild(c));
+          });
+          return [newElem];
+        }
+        return [];
+      }
+
+      const nodes = Array.from(hero.childNodes);
+      hero.textContent = '';
+      nodes.forEach((node) => {
+        wrapChars(node).forEach((c) => hero.appendChild(c));
+      });
+
+      gsap.set('.char', { opacity: 0, y: 20 });
+      gsap.to('.char', {
+        opacity: 1,
+        y: 0,
+        stagger: 0.07,
+        duration: 0.5,
+        ease: 'power2.out',
+        onComplete: () => {
+          gsap.to('.btn-wrapper', {
+            opacity: 1,
+            x: 0,
+            duration: 0.7,
+            ease: 'power2.out',
+          });
+        },
+      });
+      gsap.set('.btn-wrapper', { opacity: 0, x: 60 });
+    });
+  </script>
 </section>
 
 <style lang="scss">
@@ -82,7 +140,8 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
         top: ppx(107);
         left: ppx(21);
       }
-      span {
+      span,
+      .char {
         color: #fff;
         font-size: spx(34);
         font-weight: 900;
@@ -114,6 +173,8 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
       display: flex;
       flex-flow: column;
       gap: spx(20);
+      opacity: 0;
+      transform: translateX(60px);
       @include tablet-up {
         bottom: spx(88) * 0.75;
         gap: spx(20) * 0.75;
@@ -125,7 +186,7 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
         gap: ppx(20);
       }
       .item {
-        display: block; // a要素をブロック要素に
+        display: block;
         width: spx(220);
         height: spx(47);
         display: grid;
@@ -138,7 +199,7 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
         );
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
         backdrop-filter: blur(35px);
-        text-decoration: none; // リンクの下線を削除
+        text-decoration: none;
 
         @include tablet-up {
           width: spx(220) * 0.75;
