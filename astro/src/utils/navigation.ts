@@ -6,6 +6,7 @@ export function getPageTitle(segment: string): string {
     culture: '働く環境',
     jobs: '求人',
     flow: '選考フロー',
+    news: 'お知らせ',
     faq: 'よくある質問',
     new_graduate: '新卒の方',
     mid_career: '中途の方',

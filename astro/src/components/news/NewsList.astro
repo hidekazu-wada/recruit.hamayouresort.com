@@ -1,0 +1,144 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import NewsItem from './NewsItem.astro';
+
+interface Props {
+  posts: CollectionEntry<'news'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<div class="news-wrapper">
+  <ul class="news-list">
+    {posts.map((post) => (
+      <NewsItem post={post} />
+    ))}
+  </ul>
+</div>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+  .news-wrapper {
+    margin-top: spx(40);
+    @include tablet-up {
+      margin-top: spx(40) * 0.75;
+      padding: 0 10vw;
+    }
+    @include desktop-up {
+      margin-top: ppx(80);
+    }
+  }
+
+  .news-list {
+    width: 100%;
+    background: #fff;
+    box-shadow: 4px 4px 0px 0px #59a1c0;
+    padding: spx(40) spx(20);
+    display: flex;
+    flex-flow: column;
+    gap: spx(10);
+    @include tablet-up {
+      padding: spx(40) * 0.75 spx(20) * 0.75;
+      gap: spx(10) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(40) ppx(120);
+      gap: ppx(40);
+    }
+    li {
+      width: 100%;
+      .news-item {
+        display: flex;
+        flex-flow: column;
+        gap: spx(12);
+        width: 100%;
+        @include tablet-up {
+          gap: spx(12) * 0.75;
+        }
+        @include desktop-up {
+          gap: ppx(10);
+        }
+        .news-item-inner {
+          display: flex;
+          align-items: center;
+          gap: spx(28);
+          width: 100%;
+          @include tablet-up {
+            gap: spx(28) * 0.75;
+          }
+          @include desktop-up {
+            gap: ppx(40);
+          }
+          .date-wrapper {
+            time {
+              display: flex;
+              flex-flow: column;
+              align-items: center;
+              width: max-content;
+              .date {
+                color: var(--blue_6, #054965);
+                font-size: spx(12);
+                font-weight: 500;
+                line-height: 100%;
+                letter-spacing: spx(0.6);
+
+                @include tablet-up {
+                  font-size: spx(12) * 0.75;
+                  letter-spacing: spx(0.6) * 0.75;
+                }
+
+                @include desktop-up {
+                  font-size: ppx(14);
+                  letter-spacing: ppx(0.7);
+                }
+              }
+              .day {
+                font-size: spx(38);
+                font-weight: 500;
+                line-height: 100%;
+                letter-spacing: spx(1.9);
+
+                @include tablet-up {
+                  font-size: spx(38) * 0.75;
+                  letter-spacing: spx(1.9) * 0.75;
+                }
+
+                @include desktop-up {
+                  font-size: ppx(40);
+                  letter-spacing: ppx(2);
+                }
+              }
+            }
+          }
+          .text {
+            font-size: spx(14);
+            font-weight: 500;
+            line-height: 140%;
+            letter-spacing: spx(-0.7);
+            width: 100%;
+
+            @include tablet-up {
+              font-size: spx(14) * 0.75;
+              letter-spacing: spx(-0.7) * 0.75;
+              width: 64vw;
+            }
+
+            @include desktop-up {
+              font-size: ppx(18);
+              letter-spacing: ppx(-0.9);
+              width: ppx(685);
+            }
+          }
+        }
+        .line {
+          display: block;
+          width: 100%;
+          height: 2px;
+          background-color: #59a1c0;
+        }
+      }
+    }
+  }
+</style>
