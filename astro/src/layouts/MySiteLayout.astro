@@ -75,7 +75,7 @@ import '@styles/global.scss';
       });
     </script>
   </head>
-  <body>
+  <body class="page-fade">
     <Header />
     <div class="mobile-menu">
       <div class="mobile-menu-inner">
@@ -89,6 +89,11 @@ import '@styles/global.scss';
     </main>
     <Footer />
     <script src="/scripts/scroll-animate.js" is:inline></script>
+    <script is:inline>
+      window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('is-loaded');
+      });
+    </script>
   </body>
 </html>
 
