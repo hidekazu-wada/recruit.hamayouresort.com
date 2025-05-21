@@ -19,7 +19,7 @@ const { messages, variant = 'double' } = Astro.props;
 <div class={`messages ${variant}`}>
   {
     messages.map((message) => (
-      <article class="message">
+      <article class="message fadein-up">
         <figure class="message-image-wrapper">
           <img
             src={message.image.src}

@@ -16,7 +16,7 @@ const { items = [], variant = 'default' }: Props = Astro.props;
 <div class="number-list" data-variant={variant}>
   {
     items.map((item) => (
-      <div class="number-list-item">
+      <div class="number-list-item fadein-up">
         <p class="number">
           <span>{item.number}</span>
         </p>

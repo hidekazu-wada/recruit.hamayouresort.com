@@ -19,7 +19,7 @@ const { name, message, tags, id, imageUrl, alt = name } = Astro.props;
 // IDから画像パスを生成する関数は削除（imageUrlをそのまま使用）
 ---
 
-<div class="staff-card" data-staff-id={id}>
+<div class="staff-card fadein-up" data-staff-id={id}>
   <img src={imageUrl} alt={alt} class="staff-image" />
   <p class="message">{message}</p>
   <span class="line"></span>

@@ -13,7 +13,7 @@ import { featuredCulture } from '@data/cultureData';
   <div class="culture-wrapper">
     {
       featuredCulture.map((item) => (
-        <div class="culture-item">
+        <div class="culture-item fadein-up">
           <Image
             src={item.image}
             alt={item.title}
@@ -26,7 +26,7 @@ import { featuredCulture } from '@data/cultureData';
       ))
     }
   </div>
-  <div class="section-lead-wrapper">
+  <div class="section-lead-wrapper fadein-up">
     <ToppageSectionInLead
       subTitle="働く環境と福利厚生"
       title="安心と挑戦を両立させる<br class='sp'>制度・サポート"
