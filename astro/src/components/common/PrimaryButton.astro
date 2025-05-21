@@ -5,6 +5,7 @@ interface Props {
   title?: string;
   variant?: 'default' | 'white'; // バリアントを追加
   position?: 'left' | 'center';
+  width?: 'full' | 'fit';
 }
 
 // デフォルトスタイル設定
@@ -25,6 +26,7 @@ const {
   title = '',
   variant = 'default',
   position = 'left',
+  width = 'fit',
 }: Props = Astro.props;
 
 // バリアントに基づいてスタイルを設定
@@ -33,7 +35,7 @@ const buttonStyle = defaultStyles[variant] || defaultStyles.default;
 
 <a
   href={href}
-  class={`primary-btn ${variant} ${className} ${position}`}
+  class={`primary-btn ${variant} ${className} ${position} ${width}`}
   style={`--button-bg: ${buttonStyle.background}; --text-color: ${buttonStyle.textColor};`}
 >
   <span>{title}</span>
@@ -79,6 +81,12 @@ const buttonStyle = defaultStyles[variant] || defaultStyles.default;
     }
     &.center {
       margin-inline: auto;
+    }
+    &.full {
+      width: 100%;
+    }
+    &.fit {
+      width: max-content;
     }
   }
 </style>
