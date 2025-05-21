@@ -1,0 +1,123 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  category?: string;
+  Content: any;
+}
+const { title, date, category, Content } = Astro.props;
+
+const d = new Date(date);
+const year = d.getFullYear();
+const month = String(d.getMonth() + 1).padStart(2, '0');
+const day = String(d.getDate()).padStart(2, '0');
+---
+
+<article class="news-detail">
+  <header class="news-detail-header">
+    <time datetime={`${year}-${month}-${day}`} class="date">
+      <span class="year-month">{year}.{month}</span>
+      <span class="day">{day}</span>
+    </time>
+    <h1 class="title">{title}</h1>
+    {category && <span class="category">{category}</span>}
+  </header>
+  <div class="content">
+    <Content />
+  </div>
+</article>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .news-detail {
+    padding: 0 spx(20) spx(40);
+    @include tablet-up {
+      padding: 0 spx(20) * 0.75 spx(40) * 0.75;
+    }
+    @include desktop-up {
+      padding: 0 ppx(20) ppx(80);
+    }
+    .news-detail-header {
+      width: 90%;
+      margin-inline: auto;
+      @include tablet-up {
+        width: 80%;
+      }
+      @include desktop-up {
+        width: 80%;
+      }
+      .date {
+        .year-month {
+          color: var(--blue_6, #054965);
+          font-size: spx(12);
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: spx(0.6);
+
+          @include tablet-up {
+            font-size: spx(12) * 0.75;
+            letter-spacing: spx(0.6) * 0.75;
+          }
+
+          @include desktop-up {
+            font-size: ppx(16);
+            letter-spacing: ppx(0.8);
+          }
+        }
+        .day {
+        }
+      }
+      .title {
+        color: var(--blue_6, #054965);
+        font-size: spx(20);
+        font-weight: 700;
+        line-height: 140%;
+        letter-spacing: spx(-1);
+        margin-top: spx(10);
+
+        @include tablet-up {
+          font-size: spx(20) * 0.75;
+          letter-spacing: spx(-1) * 0.75;
+          margin-top: spx(10) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(32);
+          letter-spacing: ppx(-1.6);
+          margin-top: ppx(10);
+        }
+      }
+    }
+    .content {
+      background: #fff;
+      box-shadow: 4px 4px 0px 0px #59a1c0;
+      color: var(--blue_6, #054965);
+      font-size: spx(14);
+      font-weight: 400;
+      line-height: 190%;
+      letter-spacing: spx(-0.7);
+      padding: spx(20);
+      margin-top: spx(40);
+      width: 90%;
+      margin-inline: auto;
+
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+        letter-spacing: spx(-0.7) * 0.75;
+        padding: spx(20) * 0.75;
+        margin-top: spx(40) * 0.75;
+        width: 80%;
+      }
+
+      @include desktop-up {
+        font-size: ppx(18);
+        letter-spacing: ppx(-0.9);
+        padding: ppx(40);
+        margin-top: ppx(40);
+        width: 80%;
+      }
+    }
+  }
+</style>

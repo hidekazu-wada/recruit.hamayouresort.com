@@ -5,9 +5,10 @@ import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 interface Props {
   pageTitleEn: string;
   pageTitleJa: string;
+  pageName?: string;
 }
 
-const { pageTitleEn, pageTitleJa }: Props = Astro.props;
+const { pageTitleEn, pageTitleJa, pageName }: Props = Astro.props;
 ---
 
 <div class="lower-level-page-header-container">
@@ -26,7 +27,7 @@ const { pageTitleEn, pageTitleJa }: Props = Astro.props;
   </h1>
 </div>
 <div class="breadcrumbs-container">
-  <Breadcrumbs />
+  <Breadcrumbs pageName={pageName} />
 </div>
 
 <style lang="scss">

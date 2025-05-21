@@ -5,9 +5,10 @@ interface Props {
   pageName?: string;
   className?: string;
   pagePath?: string[];
+  pageTitle?: string;
 }
 
-const { pageName, className = '', pagePath = [] } = Astro.props;
+const { pageName, className = '', pagePath = [], pageTitle } = Astro.props;
 
 // インターフェースを追加
 interface BreadcrumbItem {
@@ -32,7 +33,7 @@ pathSegments.forEach((segment, index) => {
   const isLast = index === pathSegments.length - 1;
 
   breadcrumbItems.push({
-    label: pageName && isLast ? pageName : getPageTitle(segment),
+    label: pageName && isLast ? pageName : pageTitle || getPageTitle(segment),
     url: currentUrl,
     current: isLast,
   });
