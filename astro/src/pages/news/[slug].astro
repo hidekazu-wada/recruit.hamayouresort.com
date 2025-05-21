@@ -21,7 +21,11 @@ const day = String(date.getDate()).padStart(2, '0');
 ---
 
 <MySiteLayout>
-  <LowerPageHeader pageTitleEn="News" pageTitleJa="お知らせ" />
+  <LowerPageHeader
+    pageTitleEn="News"
+    pageTitleJa="お知らせ詳細"
+    pageName={post.data.title}
+  />
   <article class="news-detail">
     <div class="date-wrapper">
       <time datetime={`${year}-${month}-${day}`}>

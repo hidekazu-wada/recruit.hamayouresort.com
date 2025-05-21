@@ -1,0 +1,130 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+// ページ番号配列生成
+function getPageNumbers(current: number, total: number) {
+  const pages = [];
+  const delta = 1; // 現在ページの前後何ページ表示するか
+
+  // 1ページしかない場合
+  if (total <= 1) return [1];
+
+  // 先頭ページ
+  pages.push(1);
+
+  // 2ページ目以降
+  let left = Math.max(2, current - delta);
+  let right = Math.min(total - 1, current + delta);
+
+  if (left > 2) pages.push('...');
+  for (let i = left; i <= right; i++) {
+    pages.push(i);
+  }
+  if (right < total - 1) pages.push('...');
+
+  // 末尾ページ
+  if (total > 1) pages.push(total);
+
+  return pages;
+}
+
+const pageNumbers = getPageNumbers(currentPage, totalPages);
+---
+
+<nav class="pagination" aria-label="ページネーション">
+  <ul>
+    <li>
+      <a
+        href={currentPage > 1
+          ? `${baseUrl}?page=${currentPage - 1}`
+          : undefined}
+        aria-disabled={currentPage === 1}
+        class="arrow"
+        tabindex={currentPage === 1 ? -1 : undefined}>&#60;</a
+      >
+    </li>
+    {
+      pageNumbers.map((num) =>
+        typeof num === 'number' ? (
+          <li>
+            <a
+              href={num === 1 ? '/news/' : `${baseUrl}/${num}/`}
+              class={num === currentPage ? 'current' : ''}
+              aria-current={num === currentPage ? 'page' : undefined}
+            >
+              {num}
+            </a>
+          </li>
+        ) : (
+          <li class="dots">…</li>
+        )
+      )
+    }
+    <li>
+      <a
+        href={currentPage < totalPages
+          ? `${baseUrl}?page=${currentPage + 1}`
+          : undefined}
+        aria-disabled={currentPage === totalPages}
+        class="arrow"
+        tabindex={currentPage === totalPages ? -1 : undefined}>&#62;</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .pagination {
+    margin-top: spx(40);
+    @include tablet-up {
+      margin-top: spx(40) * 0.75;
+    }
+    @include desktop-up {
+      margin-top: ppx(60);
+    }
+
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: spx(10);
+      @include tablet-up {
+        gap: spx(10) * 0.75;
+      }
+      @include desktop-up {
+        gap: ppx(10);
+      }
+
+      li {
+        .arrow {
+          font-size: 1.5em;
+          color: #59a1c0;
+          padding: 0 spx(10);
+          opacity: 1;
+          &[aria-disabled='true'] {
+            opacity: 0.3;
+            pointer-events: none;
+          }
+        }
+        .current {
+          background-color: #59a1c0;
+          color: #fff;
+        }
+        .dots {
+          pointer-events: none;
+          color: #aaa;
+          padding: 0 spx(10);
+        }
+      }
+    }
+  }
+</style>
