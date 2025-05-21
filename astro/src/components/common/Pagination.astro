@@ -42,7 +42,9 @@ const pageNumbers = getPageNumbers(currentPage, totalPages);
     <li>
       <a
         href={currentPage > 1
-          ? `${baseUrl}?page=${currentPage - 1}`
+          ? currentPage - 1 === 1
+            ? '/news/'
+            : `${baseUrl}/${currentPage - 1}/`
           : undefined}
         aria-disabled={currentPage === 1}
         class="arrow"
@@ -69,7 +71,7 @@ const pageNumbers = getPageNumbers(currentPage, totalPages);
     <li>
       <a
         href={currentPage < totalPages
-          ? `${baseUrl}?page=${currentPage + 1}`
+          ? `${baseUrl}/${currentPage + 1}/`
           : undefined}
         aria-disabled={currentPage === totalPages}
         class="arrow"

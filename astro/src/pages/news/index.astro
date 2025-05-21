@@ -5,7 +5,7 @@ import NewsList from '@components/news/NewsList.astro';
 import Pagination from '@components/common/Pagination.astro';
 import { getCollection } from 'astro:content';
 
-const POSTS_PER_PAGE = 1;
+const POSTS_PER_PAGE = 10;
 const currentPage = 1;
 
 const allPosts = (await getCollection('news')).sort(
