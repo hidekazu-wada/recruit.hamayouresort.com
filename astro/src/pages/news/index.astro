@@ -1,0 +1,15 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import NewsList from '@components/news/NewsList.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('news')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="News" pageTitleJa="お知らせ" />
+  <NewsList posts={posts} />
+</MySiteLayout>

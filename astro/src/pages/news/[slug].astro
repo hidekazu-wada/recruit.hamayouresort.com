@@ -1,0 +1,93 @@
+---
+import MySiteLayout from '@layouts/MySiteLayout.astro';
+import LowerPageHeader from '@components/common/LowerPageHeader.astro';
+import { getCollection, getEntryBySlug } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('news');
+  return posts.map((post) => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await getEntryBySlug('news', slug);
+if (!post) {
+  throw new Error(`Post not found: ${slug}`);
+}
+const { Content } = await post.render();
+const date = new Date(post.data.date);
+const year = date.getFullYear();
+const month = String(date.getMonth() + 1).padStart(2, '0');
+const day = String(date.getDate()).padStart(2, '0');
+---
+
+<MySiteLayout>
+  <LowerPageHeader pageTitleEn="News" pageTitleJa="お知らせ" />
+  <article class="news-detail">
+    <div class="date-wrapper">
+      <time datetime={`${year}-${month}-${day}`}>
+        {year}.{month}.{day}
+      </time>
+      {post.data.category && <span class="category">{post.data.category}</span>}
+    </div>
+    <h2 class="title">{post.data.title}</h2>
+    <Content />
+  </article>
+</MySiteLayout>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+  .news-detail {
+    padding: spx(40) spx(20);
+    @include tablet-up {
+      padding: spx(40) * 0.75 spx(20) * 0.75;
+    }
+    @include desktop-up {
+      padding: ppx(100) ppx(160);
+    }
+    .date-wrapper {
+      display: flex;
+      gap: spx(12);
+      margin-bottom: spx(20);
+      @include tablet-up {
+        gap: spx(12) * 0.75;
+        margin-bottom: spx(20) * 0.75;
+      }
+      @include desktop-up {
+        gap: ppx(20);
+        margin-bottom: ppx(40);
+      }
+      time {
+        font-size: spx(14);
+        @include tablet-up {
+          font-size: spx(14) * 0.75;
+        }
+        @include desktop-up {
+          font-size: ppx(18);
+        }
+      }
+      .category {
+        font-size: spx(14);
+        @include tablet-up {
+          font-size: spx(14) * 0.75;
+        }
+        @include desktop-up {
+          font-size: ppx(18);
+        }
+      }
+    }
+    .title {
+      font-size: spx(20);
+      font-weight: 700;
+      margin-bottom: spx(20);
+      @include tablet-up {
+        font-size: spx(20) * 0.75;
+        margin-bottom: spx(20) * 0.75;
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+        margin-bottom: ppx(40);
+      }
+    }
+  }
+</style>

@@ -39,7 +39,7 @@ const limitedPosts = sortedPosts.slice(0, limit);
 
           return (
             <li>
-              <a href="#">
+              <a href={`/news/${post.slug}/`}>
                 <article class="news-item">
                   <div class="news-item-inner">
                     <div class="date-wrapper">
@@ -63,7 +63,7 @@ const limitedPosts = sortedPosts.slice(0, limit);
   </div>
 
   <div class="btn-wrapper">
-    <PrimaryButton href="#" title="お知らせ一覧" />
+    <PrimaryButton href="/news/" title="お知らせ一覧" />
   </div>
 </section>
 
