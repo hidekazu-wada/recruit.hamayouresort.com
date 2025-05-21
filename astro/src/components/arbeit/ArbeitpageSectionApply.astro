@@ -1,0 +1,63 @@
+---
+import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import PrimaryButton from '@components/common/PrimaryButton.astro';
+---
+
+<section class="section-apply">
+  <LowerPageH2 title="簡単応募方法" variant="default" position="center" />
+  <div class="apply-button-wrapper">
+    <div class="apply-button-item">
+      <PrimaryButton
+        title="電話で応募（0555-82-2922）"
+        href="#"
+        variant="default"
+        width="full"
+      />
+    </div>
+    <div class="apply-button-item">
+      <PrimaryButton
+        title="Webフォーム（1分で完了・履歴書不要）"
+        href="#"
+        variant="default"
+      />
+    </div>
+  </div>
+</section>
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .section-apply {
+    padding: spx(60) 0;
+    @include tablet-up {
+      padding: spx(60) * 0.75 0;
+    }
+    @include desktop-up {
+      padding: ppx(100) 0;
+    }
+    .apply-button-wrapper {
+      display: grid;
+      grid-template-columns: auto;
+      gap: spx(40);
+      align-items: center;
+      justify-content: center;
+      margin-top: spx(28);
+      @include tablet-up {
+        margin-top: spx(28) * 0.75;
+        gap: spx(40) * 0.75;
+      }
+      @include desktop-up {
+        margin-top: ppx(80);
+        grid-template-columns: 1fr 1fr;
+        gap: ppx(72);
+      }
+      .apply-button-item {
+        &:first-child {
+          @include desktop-up {
+            justify-self: flex-end;
+          }
+        }
+      }
+    }
+  }
+</style>
