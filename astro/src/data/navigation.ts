@@ -5,7 +5,7 @@ export const mainNavigation = [
   { label: '社員紹介', url: '/people' },
   { label: '働く環境', url: '/culture' },
   { label: '選考フロー', url: '/flow' },
-  { label: 'お知らせ', url: '/' },
+  { label: 'お知らせ', url: '/news' },
   { label: '求人', url: '/jobs' },
   { label: '新卒の方', url: '/new-graduate' },
   { label: '中途の方', url: '/mid-career' },
