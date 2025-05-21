@@ -1,13 +1,18 @@
 ---
 import MySiteLayout from '@layouts/MySiteLayout.astro';
 import LowerPageHeader from '@components/common/LowerPageHeader.astro';
-import { getEntryBySlug } from 'astro:content';
+import { getCollection } from 'astro:content';
 
-const { slug } = Astro.params;
-const post = await getEntryBySlug('news', slug);
-if (!post) {
-  throw new Error(`Post not found: ${slug}`);
+// getStaticPathsの実装
+export async function getStaticPaths() {
+  const posts = await getCollection('news');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
 }
+
+const { post } = Astro.props;
 const { Content } = await post.render();
 const date = new Date(post.data.date);
 const year = date.getFullYear();
