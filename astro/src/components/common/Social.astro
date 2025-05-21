@@ -7,7 +7,7 @@ const { className = '' } = Astro.props;
 ---
 
 <div class={`social-icons ${className}`}>
-  <a href="#">
+  <a href="https://www.facebook.com/hamayouresort" target="_blank">
     <Image
       src="/facebook.svg"
       alt="facebook"
@@ -16,7 +16,7 @@ const { className = '' } = Astro.props;
       class="social-icon"
     />
   </a>
-  <a href="#">
+  <a href="https://www.instagram.com/hamayouresort_recruit/" target="_blank">
     <Image
       src="/instagram.svg"
       alt="instagram"
@@ -24,6 +24,9 @@ const { className = '' } = Astro.props;
       height={50}
       class="social-icon"
     />
+  </a>
+  <a href="https://x.com/hamayou_recruit" target="_blank">
+    <Image src="/x.svg" alt="x" width={50} height={50} class="social-icon x" />
   </a>
 </div>
 
@@ -34,6 +37,7 @@ const { className = '' } = Astro.props;
   .social-icons {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: spx(24);
     @include tablet-up {
       gap: spx(24) * 0.75;
@@ -43,6 +47,8 @@ const { className = '' } = Astro.props;
     }
     a {
       display: block;
+      width: max-content;
+      height: max-content;
       .social-icon {
         width: spx(40);
         height: spx(40);
@@ -53,6 +59,18 @@ const { className = '' } = Astro.props;
         @include desktop-up {
           width: ppx(40);
           height: ppx(40);
+        }
+        &.x {
+          width: spx(33);
+          height: spx(33);
+          @include tablet-up {
+            width: spx(33) * 0.75;
+            height: spx(33) * 0.75;
+          }
+          @include desktop-up {
+            width: ppx(33);
+            height: ppx(33);
+          }
         }
       }
     }

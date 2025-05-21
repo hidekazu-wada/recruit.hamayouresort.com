@@ -5,12 +5,14 @@ import { Image } from 'astro:assets';
 
 <header>
   <h1>
-    <Image
-      src="/hamayou-logo.svg"
-      alt="HAMAYOUリゾート"
-      width={200}
-      height={200}
-    />
+    <a href="/">
+      <Image
+        src="/hamayou-logo.svg"
+        alt="HAMAYOUリゾート"
+        width={200}
+        height={200}
+      />
+    </a>
   </h1>
   <Navigation type="header" />
   <button class="menu-toggle" aria-label="メニューを開閉" aria-expanded="false">
