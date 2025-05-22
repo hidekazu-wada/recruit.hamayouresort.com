@@ -8,6 +8,15 @@ interface Props {
 
 const { type = 'header', className = '' } = Astro.props;
 const currentPath = Astro.url.pathname;
+
+// 現在のページ判定を改善
+function isCurrentPage(url: string) {
+  // トップページの場合
+  if (url === '/' && currentPath === '/') return true;
+  // その他のページの場合
+  if (url !== '/' && currentPath.startsWith(url)) return true;
+  return false;
+}
 ---
 
 <nav class={`navigation ${type} ${className}`}>
@@ -17,7 +26,8 @@ const currentPath = Astro.url.pathname;
         <li class="menu-item">
           <a
             href={item.url}
-            aria-current={currentPath === item.url ? 'page' : undefined}
+            aria-current={isCurrentPage(item.url) ? 'page' : undefined}
+            class={isCurrentPage(item.url) ? 'is-active' : ''}
           >
             {item.label}
           </a>
@@ -57,13 +67,14 @@ const currentPath = Astro.url.pathname;
             display: block;
             position: absolute;
             left: 0;
-            bottom: -4px; // 下線の位置を調整
+            bottom: -4px;
             width: 100%;
             height: 1px;
-            background: white; // お好みの色に
+            background: white;
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
             @include desktop-up {
               background-color: #054965;
             }
@@ -78,10 +89,13 @@ const currentPath = Astro.url.pathname;
             transform: scaleX(1);
           }
 
-          // 現在ページにも下線を常時表示
-          &[aria-current='page']::after,
-          &.is-active::after {
-            transform: scaleX(1);
+          // 現在ページの下線表示を強化
+          &[aria-current='page'],
+          &.is-active {
+            &::after {
+              transform: scaleX(1) !important;
+              opacity: 1;
+            }
           }
         }
       }
