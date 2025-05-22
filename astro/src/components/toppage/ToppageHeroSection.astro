@@ -74,9 +74,9 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
 
       // アニメーションの時間調整用変数
       const ANIMATION = {
-        TEXT_DELAY: 0, // 「本気で遊べば、」と「仕事になる」の間の時間差
-        BTN_DELAY: 0, // 「仕事になる」とbtn-wrapperの間の時間差
-        BTN_STAGGER: 0.06, // ボタン間の時間差
+        TEXT_DELAY: 0,
+        BTN_DELAY: 0,
+        BTN_STAGGER: 0.06,
       };
 
       function wrapChars(node) {
@@ -114,50 +114,72 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
 
       gsap.set('.char', { opacity: 0, y: 20 });
 
-      // 1グループ目（本気で遊べば、）
-      gsap.to(firstGroup, {
-        opacity: 1,
-        y: 0,
-        stagger: 0.08,
-        duration: 0.6,
-        ease: 'power3.out',
-        delay: 0.8,
-        onComplete: () => {
-          // 2グループ目（仕事になる）を少し遅らせて開始
-          gsap.to(secondGroup, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.08,
-            duration: 0.6,
-            delay: ANIMATION.TEXT_DELAY,
-            ease: 'power3.out',
-            onComplete: () => {
-              // btn-wrapperを表示（少し遅らせて）
-              gsap.to('.btn-hero-wrapper', {
-                opacity: 1,
-                x: 0,
-                duration: 0.1,
-                delay: ANIMATION.BTN_DELAY,
-                ease: 'power2.out',
-                onComplete: () => {
-                  // ボタンを個別にスライドイン
-                  gsap.to('.btn-hero-wrapper .item', {
-                    opacity: 1,
-                    x: 0,
-                    stagger: ANIMATION.BTN_STAGGER,
-                    duration: 0.3,
-                    ease: 'power2.out',
-                  });
-                },
-              });
-            },
-          });
-        },
-      });
-
       // 初期状態の設定
       gsap.set('.btn-hero-wrapper', { opacity: 0, x: 60 });
       gsap.set('.btn-hero-wrapper .item', { opacity: 0, x: 60 });
+
+      // アニメーション開始関数
+      function startHeroAnimation() {
+        console.log('Starting hero animation');
+        // 1グループ目（本気で遊べば、）
+        gsap.to(firstGroup, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.08,
+          duration: 0.6,
+          ease: 'power3.out',
+          delay: 0.8,
+          onComplete: () => {
+            // 2グループ目（仕事になる）を少し遅らせて開始
+            gsap.to(secondGroup, {
+              opacity: 1,
+              y: 0,
+              stagger: 0.08,
+              duration: 0.6,
+              delay: ANIMATION.TEXT_DELAY,
+              ease: 'power3.out',
+              onComplete: () => {
+                // btn-wrapperを表示（少し遅らせて）
+                gsap.to('.btn-hero-wrapper', {
+                  opacity: 1,
+                  x: 0,
+                  duration: 0.1,
+                  delay: ANIMATION.BTN_DELAY,
+                  ease: 'power2.out',
+                  onComplete: () => {
+                    // ボタンを個別にスライドイン
+                    gsap.to('.btn-hero-wrapper .item', {
+                      opacity: 1,
+                      x: 0,
+                      stagger: ANIMATION.BTN_STAGGER,
+                      duration: 0.3,
+                      ease: 'power2.out',
+                    });
+                  },
+                });
+              },
+            });
+          },
+        });
+      }
+
+      // オープニングアニメーションの完了を待つ
+      const hasVisited = sessionStorage.getItem('hasVisited');
+      console.log('Hero section - Current session state:', { hasVisited });
+
+      if (hasVisited) {
+        // 2回目以降の訪問時は即時開始
+        console.log('Hero section - Not first visit, starting immediately');
+        startHeroAnimation();
+      } else {
+        // 初回訪問時はオープニング完了を待つ
+        console.log(
+          'Hero section - First visit, waiting for opening completion'
+        );
+        document.addEventListener('openingComplete', startHeroAnimation, {
+          once: true,
+        });
+      }
     }
   </script>
 </section>
@@ -222,7 +244,7 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
           height: 140vw;
         }
         @include desktop-up {
-          height: 64vw;
+          height: 56vw;
         }
       }
     }
