@@ -17,13 +17,30 @@ import '@styles/global.scss';
     <title>Astro</title>
     <meta name="robots" content="noindex" />
 
-    <!-- Google Fonts -->
+    <!-- 事前接続 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- プリロード（CSSとして） -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
+    />
+
+    <!-- 非同期読み込み -->
     <link
       href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
