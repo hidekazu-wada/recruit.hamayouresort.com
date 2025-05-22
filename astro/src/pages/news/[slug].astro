@@ -21,7 +21,7 @@ if (!post) {
 const { Content } = await post.render();
 ---
 
-<MySiteLayout>
+<MySiteLayout pageTitle={post.data.title}>
   <LowerPageHeader
     pageTitleEn="News"
     pageTitleJa="お知らせ"
