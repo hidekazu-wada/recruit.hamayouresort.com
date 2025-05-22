@@ -6,6 +6,14 @@ import Navigation from '@components/common/Navigation.astro';
 import Social from '@components/common/Social.astro';
 import OpeningAnimation from '@components/common/OpeningAnimation.astro';
 import '@styles/global.scss';
+
+interface Props {
+  pageTitle?: string;
+}
+
+const { pageTitle } = Astro.props;
+const siteName = 'HAMAYOU-Recruit';
+const fullTitle = pageTitle ? `${siteName} │ ${pageTitle}` : siteName;
 ---
 
 <html lang="ja">
@@ -14,7 +22,7 @@ import '@styles/global.scss';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Recruit</title>
+    <title>{fullTitle}</title>
     <meta name="robots" content="noindex" />
 
     <!-- 事前接続 -->
