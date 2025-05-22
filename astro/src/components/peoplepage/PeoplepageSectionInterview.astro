@@ -40,14 +40,31 @@ import StaffModal from '@components/peoplepage/StaffModal.astro';
     };
   });
 
+  // モーダルを開く前のスクロール位置を保存
+  let lastScrollPosition = 0;
+
   // MicroModalの初期化
   MicroModal.init({
-    openTrigger: 'data-micromodal-trigger', // デフォルト: data-micromodal-trigger
-    closeTrigger: 'data-micromodal-close', // デフォルト: data-micromodal-close
-    disableFocus: false, // 最初の要素にフォーカスする
-    disableScroll: true, // モーダルオープン時にスクロールを無効化
-    awaitOpenAnimation: false, // アニメーション完了を待つ
-    awaitCloseAnimation: false, // 閉じるアニメーション完了を待つ
+    openTrigger: 'data-micromodal-trigger',
+    closeTrigger: 'data-micromodal-close',
+    disableFocus: false,
+    disableScroll: true,
+    awaitOpenAnimation: false,
+    awaitCloseAnimation: false,
+    onShow: (modal) => {
+      // モーダルを開く前にスクロール位置を保存
+      lastScrollPosition = window.scrollY;
+
+      // モーダルコンテナのスクロール位置をリセット
+      const modalContainer = modal.querySelector('.modal__container');
+      if (modalContainer) {
+        modalContainer.scrollTop = 0;
+      }
+    },
+    onClose: (modal) => {
+      // モーダルを閉じた後に元のスクロール位置に戻す
+      window.scrollTo(0, lastScrollPosition);
+    },
   });
 
   // スタッフカードにクリックイベントを追加
@@ -137,15 +154,24 @@ import StaffModal from '@components/peoplepage/StaffModal.astro';
               </div>
             `;
 
-          // スクロール位置をリセット（この位置に移動）
+          // スクロール位置をリセット
           if (modalContainer) {
             // 即時実行
             modalContainer.scrollTop = 0;
 
-            // さらに確実にするために、setTimeout内でも実行
+            // さらに確実にするために、複数のタイミングで実行
+            requestAnimationFrame(() => {
+              modalContainer.scrollTop = 0;
+            });
+
             setTimeout(() => {
               modalContainer.scrollTop = 0;
             }, 0);
+
+            // モバイル実機でのスクロール位置のリセットを確実にする
+            setTimeout(() => {
+              modalContainer.scrollTop = 0;
+            }, 100);
           }
         }
 
@@ -192,6 +218,19 @@ import StaffModal from '@components/peoplepage/StaffModal.astro';
           gap: ppx(40);
           width: 100%;
         }
+      }
+    }
+  }
+
+  .modal {
+    .modal__overlay {
+      .modal__container {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: auto;
+        overflow-anchor: none;
+        overscroll-behavior: contain; // スクロールの伝播を防ぐ
+        position: relative; // スクロール位置の制御を確実にする
       }
     }
   }

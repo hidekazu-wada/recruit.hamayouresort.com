@@ -29,6 +29,9 @@ import JobspageSectionSearch from '@components/jobspage/JobspageSectionSearch.as
     jobsDataMap[job.id] = job;
   });
 
+  // モーダルを開く前のスクロール位置を保存
+  let lastScrollPosition = 0;
+
   // MicroModalの初期化
   MicroModal.init({
     openTrigger: 'data-micromodal-trigger',
@@ -37,6 +40,20 @@ import JobspageSectionSearch from '@components/jobspage/JobspageSectionSearch.as
     disableScroll: true,
     awaitOpenAnimation: false,
     awaitCloseAnimation: false,
+    onShow: (modal) => {
+      // モーダルを開く前にスクロール位置を保存
+      lastScrollPosition = window.scrollY;
+
+      // モーダルコンテナのスクロール位置をリセット
+      const modalContainer = modal.querySelector('.modal__container');
+      if (modalContainer) {
+        modalContainer.scrollTop = 0;
+      }
+    },
+    onClose: (modal) => {
+      // モーダルを閉じた後に元のスクロール位置に戻す
+      window.scrollTo(0, lastScrollPosition);
+    },
   });
 
   // フィルタリング関数の実装
@@ -149,10 +166,22 @@ import JobspageSectionSearch from '@components/jobspage/JobspageSectionSearch.as
           updateModalContent(job);
           const modalContainer = document.querySelector('.modal__container');
           if (modalContainer) {
+            // 即時実行
             modalContainer.scrollTop = 0;
+
+            // さらに確実にするために、複数のタイミングで実行
+            requestAnimationFrame(() => {
+              modalContainer.scrollTop = 0;
+            });
+
             setTimeout(() => {
               modalContainer.scrollTop = 0;
             }, 0);
+
+            // モバイル実機でのスクロール位置のリセットを確実にする
+            setTimeout(() => {
+              modalContainer.scrollTop = 0;
+            }, 100);
           }
           MicroModal.show('modal-job');
         });
@@ -271,3 +300,18 @@ import JobspageSectionSearch from '@components/jobspage/JobspageSectionSearch.as
     attachCardClickEvents();
   });
 </script>
+
+<style lang="scss">
+  .modal {
+    .modal__overlay {
+      .modal__container {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: auto;
+        overflow-anchor: none;
+        overscroll-behavior: contain;
+        position: relative;
+      }
+    }
+  }
+</style>
