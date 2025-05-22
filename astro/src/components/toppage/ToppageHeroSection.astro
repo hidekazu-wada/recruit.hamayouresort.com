@@ -179,6 +179,8 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
 
   section#hero {
     position: relative;
+    width: 100vw;
+    overflow-x: hidden;
 
     h1 {
       color: #fff;
@@ -227,7 +229,7 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
     picture {
       img {
         display: block;
-        width: 100%;
+        width: 100vw;
         height: 188vw;
         object-fit: cover;
         @include tablet-up {
