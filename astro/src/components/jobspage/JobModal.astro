@@ -80,8 +80,8 @@
 
         .modal__close-button {
           position: absolute;
-          top: spx(10);
-          right: spx(10);
+          top: 0;
+          right: 0;
           border: none;
           cursor: pointer;
           width: spx(30);
@@ -89,19 +89,12 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255, 255, 255, 0.8);
-          border-radius: 50%;
-
           @include tablet-up {
-            top: spx(15);
-            right: spx(15);
             width: spx(30) * 0.75;
             height: spx(30) * 0.75;
           }
 
           @include desktop-up {
-            top: ppx(20);
-            right: ppx(20);
             width: ppx(30);
             height: ppx(30);
           }

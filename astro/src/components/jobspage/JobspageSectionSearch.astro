@@ -24,7 +24,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
   <nav class="job-search__filters">
     <ul>
       <li>
-        <select name="facility" id="facility">
+        <select name="facility" id="facility" class="search-select">
           <option value="">施設から選択</option>
           {
             uniqueFacilities.map((value) => (
@@ -36,7 +36,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
         </select>
       </li>
       <li>
-        <select name="jobType" id="jobType">
+        <select name="jobType" id="jobType" class="search-select">
           <option value="">職種から選択</option>
           {
             uniqueJobTypes.map((value) => (
@@ -48,7 +48,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
         </select>
       </li>
       <li>
-        <select name="employmentType" id="employmentType">
+        <select name="employmentType" id="employmentType" class="search-select">
           <option value="">形態から選択</option>
           {
             uniqueEmploymentTypes.map((value) => (
@@ -125,6 +125,7 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
           gap: ppx(20);
         }
         li {
+          text-align: center;
           select {
             background-color: #fff;
             color: #054965;
@@ -322,6 +323,34 @@ const uniqueEmploymentTypes = getUniqueValues(jobsData, 'employmentType');
       @include desktop-up {
         font-size: ppx(18);
       }
+    }
+  }
+
+  .search-select {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    text-align-last: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+
+    @media screen and (max-width: 767px) {
+      text-align: center;
+      text-align-last: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    option {
+      text-align: center;
+      padding: 10px;
     }
   }
 </style>

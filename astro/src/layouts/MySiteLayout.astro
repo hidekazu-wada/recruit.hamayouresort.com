@@ -4,7 +4,16 @@ import Footer from '@components/common/Footer.astro';
 import Header from '@components/common/Header.astro';
 import Navigation from '@components/common/Navigation.astro';
 import Social from '@components/common/Social.astro';
+import OpeningAnimation from '@components/common/OpeningAnimation.astro';
 import '@styles/global.scss';
+
+interface Props {
+  pageTitle?: string;
+}
+
+const { pageTitle } = Astro.props;
+const siteName = 'HAMAYOU-Recruit';
+const fullTitle = pageTitle ? `${siteName} │ ${pageTitle}` : siteName;
 ---
 
 <html lang="ja">
@@ -13,16 +22,33 @@ import '@styles/global.scss';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{fullTitle}</title>
     <meta name="robots" content="noindex" />
 
-    <!-- Google Fonts -->
+    <!-- 事前接続 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- プリロード（CSSとして） -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
+    />
+
+    <!-- 非同期読み込み -->
     <link
       href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
@@ -77,6 +103,7 @@ import '@styles/global.scss';
     </script>
   </head>
   <body class="page-fade">
+    <OpeningAnimation />
     <Header />
     <div class="mobile-menu">
       <div class="mobile-menu-inner">

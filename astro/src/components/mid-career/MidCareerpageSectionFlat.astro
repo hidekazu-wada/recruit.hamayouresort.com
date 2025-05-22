@@ -1,6 +1,5 @@
 ---
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
-import MessageCard from '@components/common/MessageCard.astro';
 import FlatImage from '@assets/images/mid-career/mid-careerpage-flat.png';
 import { Image } from 'astro:assets';
 const messages = [
@@ -22,7 +21,10 @@ const messages = [
   <LowerPageH2 title="フラットな組織文化" variant="default" position="left" />
   <div class="section-flat__content">
     <div class="flat-card-wrapper">
-      <MessageCard messages={messages} variant="single" />
+      <h3 class="flat-card-content__title">シンプルチャットで仕事を加速</h3>
+      <p class="flat-card-content__description">
+        当社のやり取りはチャットアプリを活用しています。最低限のルールを設け、形式的なあいさつや堅苦しい言い回しは一切不要です。これは礼儀を省くためではなく、生産性を最大化するための設計思想。役職や年次を気にせず発信でき、フラットでスマートなコミュニケーションが、あなたのアイデアをダイレクトにチームへ届かせます。
+      </p>
     </div>
     <figure class="flat-image-wrapper">
       <Image
@@ -34,45 +36,61 @@ const messages = [
       />
     </figure>
   </div>
-</section>
 
-<style lang="scss">
-  @import '@styles/functions.scss';
-  @import '@styles/mixins.scss';
+  <style lang="scss">
+    @import '@styles/functions.scss';
+    @import '@styles/mixins.scss';
 
-  .section-flat {
-    padding: spx(60) spx(20);
-    @include tablet-up {
-      padding: spx(20) * 0.75;
-    }
-    @include desktop-up {
-      padding: ppx(100) ppx(160);
-    }
-    .section-flat__content {
-      display: grid;
-      grid-template-columns: auto;
-      gap: spx(20);
-      margin-top: spx(40);
+    .section-flat {
+      padding: spx(60) spx(20);
       @include tablet-up {
-        grid-template-columns: 1fr 1fr;
-        gap: spx(20) * 0.75;
-        width: 90%;
-        margin-inline: auto;
-        margin-top: spx(40) * 0.75;
+        padding: spx(20) * 0.75;
       }
       @include desktop-up {
-        gap: ppx(40);
-        width: 80%;
-        margin-top: ppx(40);
+        padding: ppx(100) ppx(160);
       }
-      .flat-card-wrapper {
-      }
-      .flat-image-wrapper {
-        .flat-image {
-          width: 100%;
-          height: auto;
+      .section-flat__content {
+        display: grid;
+        grid-template-columns: auto;
+        gap: spx(20);
+        margin-top: spx(40);
+        @include tablet-up {
+          grid-template-columns: 1fr 1fr;
+          gap: spx(20) * 0.75;
+          width: 90%;
+          margin-inline: auto;
+          margin-top: spx(40) * 0.75;
+        }
+        @include desktop-up {
+          gap: ppx(40);
+          width: 80%;
+          margin-top: ppx(40);
+        }
+        .flat-card-wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: spx(8);
+          @include tablet-up {
+            gap: spx(8) * 0.75;
+          }
+          @include desktop-up {
+            gap: ppx(8);
+          }
+          .flat-card-content {
+            &__title {
+              font-weight: 700;
+            }
+            &__description {
+            }
+          }
+        }
+        .flat-image-wrapper {
+          .flat-image {
+            width: 100%;
+            height: auto;
+          }
         }
       }
     }
-  }
-</style>
+  </style>
+</section>

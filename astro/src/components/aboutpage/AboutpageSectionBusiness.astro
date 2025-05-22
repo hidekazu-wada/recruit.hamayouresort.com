@@ -47,8 +47,8 @@ import aboutpageBusinessImage from '@assets/images/about/aboutpage-business.png'
       padding: 0 spx(20);
       margin-top: spx(28);
       @include tablet-up {
-        padding: 0 ppx(20) * 0.75;
-        margin-top: ppx(28) * 0.75;
+        padding: 0 spx(20) * 0.75;
+        margin-top: spx(28) * 0.75;
       }
       @include desktop-up {
         padding: 0;
@@ -71,14 +71,18 @@ import aboutpageBusinessImage from '@assets/images/about/aboutpage-business.png'
       }
     }
     .aboutpage-business-image {
+      display: block;
       width: 100%;
       height: auto;
       margin-top: spx(28);
+      margin-inline: auto;
       @include tablet-up {
-        margin-top: ppx(28) * 0.75;
+        width: 80%;
+        margin-top: spx(28) * 0.75;
       }
       @include desktop-up {
         margin-top: ppx(40);
+        width: 60%;
       }
     }
   }

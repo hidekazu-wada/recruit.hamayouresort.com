@@ -1,6 +1,6 @@
 import Culture01 from '@assets/images/culture/culturepage-equipment-01.png';
-import Culture02 from '@assets/images/culture/culturepage-equipment-02.png';
-import Culture03 from '@assets/images/culture/culturepage-equipment-03.png';
+import Culture02 from '@assets/images/culture/culturepage-equipment-02.jpg';
+import Culture03 from '@assets/images/culture/culturepage-equipment-03.jpg';
 // 必要に応じて他の画像もインポート
 
 export interface CultureItem {

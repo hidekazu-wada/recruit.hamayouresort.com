@@ -21,7 +21,7 @@ if (!post) {
 const { Content } = await post.render();
 ---
 
-<MySiteLayout>
+<MySiteLayout pageTitle={post.data.title}>
   <LowerPageHeader
     pageTitleEn="News"
     pageTitleJa="お知らせ"
@@ -30,7 +30,6 @@ const { Content } = await post.render();
   <NewspageDetail
     title={post.data.title}
     date={post.data.date.toString()}
-    category={post.data.category}
     Content={Content}
   />
   <div class="news-detail-button">
