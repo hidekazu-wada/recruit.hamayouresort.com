@@ -1,8 +1,4 @@
 ---
-import HeroDesktop from '@assets/images/top-hero-desktop.png';
-import HeroTablet from '@assets/images/top-hero-tablet.png';
-import HeroMobil from '@assets/images/top-hero-mobile.png';
-import { Image } from 'astro:assets';
 import WaveDecoration from '@components/common/WaveDecoration.astro';
 ---
 
@@ -31,25 +27,18 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
   <picture>
     <!-- デスクトップ用（1024px以上） -->
     <source
-      srcset={HeroDesktop.src}
+      srcset="/top-hero-desktop.webp"
       media="(min-width: 1024px)"
-      width={HeroDesktop.width}
-      height={HeroDesktop.height}
+      type="image/webp"
     />
     <!-- タブレット用（744px以上1024px未満） -->
     <source
-      srcset={HeroTablet.src}
+      srcset="/top-hero-tablet.webp"
       media="(min-width: 744px)"
-      width={HeroTablet.width}
-      height={HeroTablet.height}
+      type="image/webp"
     />
     <!-- モバイル用（デフォルト） -->
-    <Image
-      src={HeroMobil}
-      alt="トップページのヒーロー画像"
-      format="webp"
-      class="hero-image"
-    />
+    <img src="/top-hero-mobile.webp" alt="トップページのヒーロー画像" />
   </picture>
 
   <div class="btn-wrapper btn-hero-wrapper">
@@ -237,6 +226,7 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
 
     picture {
       img {
+        display: block;
         width: 100%;
         height: 188vw;
         object-fit: cover;
