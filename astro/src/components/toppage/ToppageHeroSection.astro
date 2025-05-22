@@ -216,7 +216,14 @@ import WaveDecoration from '@components/common/WaveDecoration.astro';
     picture {
       img {
         width: 100%;
-        height: auto;
+        height: 188vw;
+        object-fit: cover;
+        @include tablet-up {
+          height: 140vw;
+        }
+        @include desktop-up {
+          height: 64vw;
+        }
       }
     }
 

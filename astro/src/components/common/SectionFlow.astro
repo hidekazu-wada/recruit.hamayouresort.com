@@ -63,10 +63,11 @@ const { variant = 'default' }: Props = Astro.props;
       picture {
         .flow-image {
           display: block;
-          width: 100%;
+          width: 80%;
           height: auto;
+          margin-inline: auto;
           @include tablet-up {
-            width: 80%;
+            width: 60%;
             margin-inline: auto;
           }
           @include desktop-up {
