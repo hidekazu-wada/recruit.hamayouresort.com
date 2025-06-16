@@ -1,0 +1,320 @@
+---
+// シフトデータの型定義
+interface ShiftSchedule {
+  name: string;
+  startHour: number;
+  endHour: number;
+  color: string;
+  bgColor: string;
+}
+
+// シフトデータ
+const shifts: ShiftSchedule[] = [
+  {
+    name: '早番',
+    startHour: 7,
+    endHour: 15,
+    color: '#59a1c0',
+    bgColor: '#e8f4f8'
+  },
+  {
+    name: '遅番', 
+    startHour: 13,
+    endHour: 21,
+    color: '#054965',
+    bgColor: '#e8f4f8'
+  }
+];
+
+// 24時間のデータ構造を生成する関数
+function create24HourData(shift: ShiftSchedule) {
+  const data: number[] = [];
+  const labels: string[] = [];
+  const colors: string[] = [];
+  
+  for (let hour = 0; hour < 24; hour++) {
+    const isWorkingHour = (hour >= shift.startHour && hour < shift.endHour);
+    
+    data.push(1); // 各時間は等しい割合
+    labels.push(`${hour}:00`);
+    colors.push(isWorkingHour ? shift.color : shift.bgColor);
+  }
+  
+  return { data, labels, colors };
+}
+
+// 各シフトの24時間データ
+const morningShiftData = create24HourData(shifts[0]);
+const eveningShiftData = create24HourData(shifts[1]);
+---
+
+<div class="shift-chart-container">
+  <h3>シフト例・勤務時間（24時間表示）</h3>
+  <div class="charts-wrapper">
+    <div class="chart-item">
+      <h4>{shifts[0].name} ({shifts[0].startHour}:00-{shifts[0].endHour}:00)</h4>
+      <div class="chart-wrapper">
+        <canvas id="morningChart" width="300" height="300"></canvas>
+      </div>
+    </div>
+    <div class="chart-item">
+      <h4>{shifts[1].name} ({shifts[1].startHour}:00-{shifts[1].endHour}:00)</h4>
+      <div class="chart-wrapper">
+        <canvas id="eveningChart" width="300" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="chart-legend">
+    <div class="legend-item">
+      <span class="legend-color" style="background-color: #59a1c0"></span>
+      <span class="legend-text">勤務時間</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color" style="background-color: #e8f4f8"></span>
+      <span class="legend-text">非勤務時間</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Chart.jsの動的インポートとチャート初期化
+  import { Chart, registerables } from 'chart.js';
+  
+  // Chart.jsコンポーネントを登録
+  Chart.register(...registerables);
+  
+  // 早番の24時間データ
+  const morningData = {
+    labels: [],
+    data: [],
+    colors: []
+  };
+  
+  // 遅番の24時間データ
+  const eveningData = {
+    labels: [],
+    data: [],
+    colors: []
+  };
+  
+  // 24時間データを作成（0時から開始して時計回りに配置）
+  for (let i = 0; i < 24; i++) {
+    // 0時から順番に配置
+    const hour = i;
+    
+    // 早番データ（7-15時が勤務時間）
+    morningData.labels.push('');
+    morningData.data.push(1);
+    morningData.colors.push((hour >= 7 && hour < 15) ? '#59a1c0' : '#e8f4f8');
+    
+    // 遅番データ（13-21時が勤務時間）
+    eveningData.labels.push('');
+    eveningData.data.push(1);
+    eveningData.colors.push((hour >= 13 && hour < 21) ? '#054965' : '#e8f4f8');
+  }
+  
+  function createTimeChart(canvasId, data, title) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          data: data.data,
+          backgroundColor: data.colors,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        rotation: 0, // 0時を真上に配置（-90度回転）
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            enabled: false
+          }
+        },
+        cutout: '70%',
+        elements: {
+          arc: {
+            borderWidth: 0
+          }
+        }
+      }
+    });
+  }
+  
+  function initCharts() {
+    createTimeChart('morningChart', morningData, '早番');
+    createTimeChart('eveningChart', eveningData, '遅番');
+  }
+  
+  // DOMが読み込まれた後にチャートを初期化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharts);
+  } else {
+    initCharts();
+  }
+</script>
+
+<style lang="scss">
+  @import '@styles/functions.scss';
+  @import '@styles/mixins.scss';
+
+  .shift-chart-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: spx(24);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    @include tablet-up {
+      padding: spx(24) * 0.75;
+    }
+    
+    @include desktop-up {
+      padding: ppx(32);
+    }
+    
+    h3 {
+      font-size: spx(18);
+      font-weight: 600;
+      color: #054965;
+      text-align: center;
+      margin-bottom: spx(24);
+      
+      @include tablet-up {
+        font-size: spx(18) * 0.75;
+        margin-bottom: spx(24) * 0.75;
+      }
+      
+      @include desktop-up {
+        font-size: ppx(20);
+        margin-bottom: ppx(32);
+      }
+    }
+  }
+  
+  .charts-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: spx(32);
+    margin-bottom: spx(24);
+    
+    @include tablet-up {
+      flex-direction: row;
+      justify-content: space-around;
+      gap: spx(24);
+      margin-bottom: spx(24) * 0.75;
+    }
+    
+    @include desktop-up {
+      gap: ppx(40);
+      margin-bottom: ppx(32);
+    }
+  }
+  
+  .chart-item {
+    text-align: center;
+    flex: 1;
+    
+    h4 {
+      font-size: spx(16);
+      font-weight: 500;
+      color: #054965;
+      margin-bottom: spx(16);
+      
+      @include tablet-up {
+        font-size: spx(16) * 0.75;
+        margin-bottom: spx(16) * 0.75;
+      }
+      
+      @include desktop-up {
+        font-size: ppx(18);
+        margin-bottom: ppx(20);
+      }
+    }
+  }
+  
+  .chart-wrapper {
+    max-width: 250px;
+    margin: 0 auto;
+    
+    @include tablet-up {
+      max-width: 200px;
+    }
+    
+    @include desktop-up {
+      max-width: 280px;
+    }
+    
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  
+  .chart-legend {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: spx(24);
+    
+    @include tablet-up {
+      gap: spx(24) * 0.75;
+    }
+    
+    @include desktop-up {
+      gap: ppx(32);
+    }
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: spx(12);
+    
+    @include tablet-up {
+      gap: spx(12) * 0.75;
+    }
+    
+    @include desktop-up {
+      gap: ppx(16);
+    }
+  }
+  
+  .legend-color {
+    width: spx(16);
+    height: spx(16);
+    border-radius: 50%;
+    flex-shrink: 0;
+    
+    @include tablet-up {
+      width: spx(16) * 0.75;
+      height: spx(16) * 0.75;
+    }
+    
+    @include desktop-up {
+      width: ppx(20);
+      height: ppx(20);
+    }
+  }
+  
+  .legend-text {
+    font-size: spx(14);
+    color: #333333;
+    line-height: 1.4;
+    
+    @include tablet-up {
+      font-size: spx(14) * 0.75;
+    }
+    
+    @include desktop-up {
+      font-size: ppx(16);
+    }
+  }
+</style>

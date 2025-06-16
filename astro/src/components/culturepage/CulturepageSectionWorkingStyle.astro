@@ -1,6 +1,7 @@
 ---
 //ローンチ時、本ページはチャートを画像で表示しています。時期を見てchart.jsなどでマークアップする予定です。
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
+import WorkingStyleShiftChart from '@components/culturepage/WorkingStyleShiftChart.astro';
 import WorkingStyleImage01 from '@assets/images/culture/culturepage-working_style01.png';
 import WorkingStyleImage02 from '@assets/images/culture/culturepage-working_style02.png';
 import WorkingStyleImage03 from '@assets/images/culture/culturepage-working_style03.png';
@@ -22,14 +23,7 @@ const optimizedImageInstitutionsBg = await getImage({
 <div class="working-style-wrapper">
   <LowerPageH2 title="勤務スタイル" variant="default" position="left" />
   <div class="working-style-wrapper-inner">
-    <Image
-      src={WorkingStyleImage01}
-      format="webp"
-      width={570}
-      height={436}
-      alt="多様な働き方を選べるシフト & 制度。"
-      class="fadein-up"
-    />
+    <WorkingStyleShiftChart />
     <Image
       src={WorkingStyleImage02}
       format="webp"

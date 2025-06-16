@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "astro": "^5.7.12",
+    "chart.js": "^4.5.0",
     "destyle.css": "^4.0.1",
     "micromodal": "^0.6.1",
     "sass": "^1.88.0",
