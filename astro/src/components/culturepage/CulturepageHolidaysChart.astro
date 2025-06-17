@@ -1,0 +1,345 @@
+---
+// 休日・休暇データ
+const holidayData = {
+  annualDays: 120,
+  paidLeaveRate: 100,
+  requestedLeaveRate: 90,
+  maxConsecutiveDays: 5,
+};
+---
+
+<div class="holidays-chart">
+  <h3 class="holidays-chart__title">休日・休暇データ</h3>
+  
+  <div class="holidays-chart__grid">
+    <!-- 年間休日 -->
+    <div class="holidays-chart__item">
+      <h4 class="holidays-chart__label">年間休日</h4>
+      <div class="holidays-chart__annual">
+        <div class="holidays-chart__annual-number">{holidayData.annualDays}</div>
+        <div class="holidays-chart__annual-unit">日</div>
+      </div>
+    </div>
+
+    <!-- 有給取得率 -->
+    <div class="holidays-chart__item">
+      <h4 class="holidays-chart__label">有給取得率</h4>
+      <div class="holidays-chart__doughnut-container">
+        <canvas id="paidLeaveChart" width="200" height="200" data-percentage={holidayData.paidLeaveRate}></canvas>
+      </div>
+    </div>
+
+    <!-- 希望休取得率 -->
+    <div class="holidays-chart__item">
+      <h4 class="holidays-chart__label">希望休取得率</h4>
+      <div class="holidays-chart__doughnut-container">
+        <canvas id="requestedLeaveChart" width="200" height="200" data-percentage={holidayData.requestedLeaveRate}></canvas>
+      </div>
+    </div>
+
+    <!-- 連休取得実績 -->
+    <div class="holidays-chart__item holidays-chart__item--full">
+      <h4 class="holidays-chart__label">連休取得実績</h4>
+      <div class="holidays-chart__consecutive">
+        <div class="holidays-chart__consecutive-max">
+          <span class="holidays-chart__consecutive-number">{holidayData.maxConsecutiveDays}</span>
+          <span class="holidays-chart__consecutive-text">連休取得例あり</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @import "@styles/functions.scss";
+  @import "@styles/mixins.scss";
+
+  .holidays-chart {
+    &__title {
+      font-size: spx(24);
+      font-weight: bold;
+      color: #1e88e5;
+      text-align: center;
+      margin-bottom: spx(32);
+
+      @include tablet-up {
+        font-size: spx(24) * 0.75;
+        margin-bottom: spx(32) * 0.75;
+      }
+      
+      @include desktop-up {
+        font-size: ppx(32);
+        margin-bottom: ppx(48);
+      }
+    }
+    
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: spx(32);
+
+      @include tablet-up {
+        display: flex;
+        flex-wrap: wrap;
+        gap: spx(32) * 0.75;
+            justify-content: center;
+      }
+
+      @include desktop-up {
+        gap: ppx(48);
+      }
+    }
+
+    &__item {
+      background: white;
+      border-radius: 12px;
+      padding: spx(24);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+      @include tablet-up {
+        padding: spx(24) * 0.75;
+      }
+      
+      @include desktop-up {
+        padding: ppx(24);
+      }
+
+      &--full {
+        @include tablet-up {
+          grid-column: 1 / -1;
+        }
+
+        @include desktop-up {
+          grid-column: 1 / -1;
+        }
+      }
+    }
+
+    &__label {
+      font-size: spx(18);
+      font-weight: bold;
+      color: #333;
+      margin-bottom: spx(16);
+      text-align: center;
+      
+      @include tablet-up {
+        font-size: spx(18) * 0.75;
+        margin-bottom: spx(16) * 0.75;
+      }
+      
+      @include desktop-up {
+        font-size: ppx(20);
+        margin-bottom: ppx(24);
+      }
+    }
+
+    /* 年間休日のスタイル */
+    &__annual {
+      text-align: center;
+    }
+
+    &__annual-number {
+      font-size: spx(48);
+      font-weight: bold;
+      color: #1e88e5;
+      display: inline-block;
+      
+      @include tablet-up {
+        font-size: spx(48) * 0.75;
+      }
+      
+      @include desktop-up {
+        font-size: ppx(64);
+      }
+    }
+
+    &__annual-unit {
+      font-size: spx(24);
+      color: #333;
+      display: inline-block;
+      margin-left: spx(8);
+      
+      @include tablet-up {
+        font-size: spx(24) * 0.75;
+        margin-left: spx(8) * 0.75;
+      }
+      
+      @include desktop-up {
+        font-size: ppx(32);
+        margin-left: ppx(8);
+      }
+    }
+
+
+    /* ドーナツチャートのコンテナ */
+    &__doughnut-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      position: relative;
+    }
+
+    /* 連休取得実績のスタイル */
+    &__consecutive {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__consecutive-max {
+      text-align: center;
+    }
+
+    &__consecutive-number {
+      font-size: spx(48);
+      font-weight: bold;
+      color: #00acc1;
+      display: block;
+      
+      @include tablet-up {
+        font-size: spx(48) * 0.75;
+      }
+      
+      @include desktop-up {
+        font-size: ppx(64);
+      }
+    }
+
+    &__consecutive-text {
+      font-size: spx(16);
+      color: #333;
+      display: block;
+      margin-top: spx(8);
+      
+      @include tablet-up {
+        font-size: spx(16) * 0.75;
+        margin-top: spx(8) * 0.75;
+      }
+      
+      @include desktop-up {
+        font-size: ppx(18);
+        margin-top: ppx(8);
+      }
+    }
+
+  }
+</style>
+
+<script>
+  import Chart from 'chart.js/auto';
+  import type { Chart as ChartType } from 'chart.js';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // 有給取得率チャート
+    const paidLeaveCtx = document.getElementById('paidLeaveChart') as HTMLCanvasElement;
+    if (paidLeaveCtx) {
+      const paidLeaveChart = new Chart(paidLeaveCtx, {
+        type: 'doughnut' as const,
+        data: {
+          datasets: [{
+            data: [Number(paidLeaveCtx.dataset.percentage), 100 - Number(paidLeaveCtx.dataset.percentage)],
+            backgroundColor: ['#1e88e5', '#e0e0e0'],
+            borderWidth: 0,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          cutout: '70%',
+          elements: {
+            arc: {
+              borderWidth: 0
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              enabled: false
+            }
+          }
+        } as any,
+        plugins: [{
+          id: 'centerText',
+          beforeDraw: (chart: ChartType) => {
+            const ctx = chart.ctx;
+            const width = chart.width;
+            const height = chart.height;
+            
+            ctx.restore();
+            const fontSize = (height / 100).toFixed(2);
+            ctx.font = `bold ${fontSize}em sans-serif`;
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#1e88e5';
+            
+            const text = paidLeaveCtx.dataset.percentage + '%';
+            const textX = Math.round(width / 2);
+            const textY = height / 2;
+            
+            ctx.fillText(text, textX, textY);
+            ctx.save();
+          }
+        }]
+      });
+    }
+
+    // 希望休取得率チャート
+    const requestedLeaveCtx = document.getElementById('requestedLeaveChart') as HTMLCanvasElement;
+    if (requestedLeaveCtx) {
+      const requestedLeaveChart = new Chart(requestedLeaveCtx, {
+        type: 'doughnut' as const,
+        data: {
+          datasets: [{
+            data: [Number(requestedLeaveCtx.dataset.percentage), 100 - Number(requestedLeaveCtx.dataset.percentage)],
+            backgroundColor: ['#00acc1', '#e0e0e0'],
+            borderWidth: 0,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          cutout: '70%',
+          elements: {
+            arc: {
+              borderWidth: 0
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              enabled: false
+            }
+          }
+        } as any,
+        plugins: [{
+          id: 'centerText',
+          beforeDraw: (chart: ChartType) => {
+            const ctx = chart.ctx;
+            const width = chart.width;
+            const height = chart.height;
+            
+            ctx.restore();
+            const fontSize = (height / 100).toFixed(2);
+            ctx.font = `bold ${fontSize}em sans-serif`;
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#00acc1';
+            
+            const text = requestedLeaveCtx.dataset.percentage + '%';
+            const textX = Math.round(width / 2);
+            const textY = height / 2;
+            
+            ctx.fillText(text, textX, textY);
+            ctx.save();
+          }
+        }]
+      });
+    }
+
+  });
+</script>

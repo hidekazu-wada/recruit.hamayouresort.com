@@ -2,6 +2,7 @@
 //ローンチ時、本ページはチャートを画像で表示しています。時期を見てchart.jsなどでマークアップする予定です。
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import WorkingStyleShiftChart from '@components/culturepage/WorkingStyleShiftChart.astro';
+import CulturepageHolidaysChart from '@components/culturepage/CulturepageHolidaysChart.astro';
 import WorkingStyleImage01 from '@assets/images/culture/culturepage-working_style01.png';
 import WorkingStyleImage02 from '@assets/images/culture/culturepage-working_style02.png';
 import WorkingStyleImage03 from '@assets/images/culture/culturepage-working_style03.png';
@@ -32,14 +33,7 @@ const optimizedImageInstitutionsBg = await getImage({
       alt="制度ピックアップ"
       class="fadein-up"
     />
-    <Image
-      src={WorkingStyleImage03}
-      format="webp"
-      width={570}
-      height={680}
-      alt="休日・休暇データ"
-      class="fadein-up"
-    />
+    <CulturepageHolidaysChart />
   </div>
 </div>
 <div class="equipment-wrapper">
@@ -202,12 +196,12 @@ const optimizedImageInstitutionsBg = await getImage({
       @include tablet-up {
         margin-top: spx(48) * 0.75;
         gap: spx(40) * 0.75;
-        width: 60%;
+        width: 100%;
       }
       @include desktop-up {
         margin-top: ppx(80);
         gap: ppx(80);
-        width: ppx(570);
+        
       }
       img {
         width: 100%;

@@ -83,15 +83,21 @@ const eveningShiftData = create24HourData(shifts[1]);
   // Chart.jsコンポーネントを登録
   Chart.register(...registerables);
   
+  interface ChartData {
+    labels: string[];
+    data: number[];
+    colors: string[];
+  }
+  
   // 早番の24時間データ
-  const morningData = {
+  const morningData: ChartData = {
     labels: [],
     data: [],
     colors: []
   };
   
   // 遅番の24時間データ
-  const eveningData = {
+  const eveningData: ChartData = {
     labels: [],
     data: [],
     colors: []
@@ -113,8 +119,8 @@ const eveningShiftData = create24HourData(shifts[1]);
     eveningData.colors.push((hour >= 13 && hour < 21) ? '#054965' : '#e8f4f8');
   }
   
-  function createTimeChart(canvasId, data, title) {
-    const ctx = document.getElementById(canvasId);
+  function createTimeChart(canvasId: string, data: ChartData, title: string) {
+    const ctx = document.getElementById(canvasId) as HTMLCanvasElement;
     if (!ctx) return;
     
     new Chart(ctx, {
