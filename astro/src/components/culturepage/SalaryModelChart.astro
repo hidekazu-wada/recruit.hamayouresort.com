@@ -1,0 +1,307 @@
+---
+// 給与モデルデータ
+const salaryData = {
+  years: ['1年目', '2年目', '3年目', '4年目', '5年目'],
+  baseSalary: [185000, 189500, 194000, 198500, 203000], // 基本給
+  jobAllowance: [20000, 22000, 24000, 26000, 28000], // 職務手当
+  housingAllowance: [30000, 30000, 30000, 30000, 30000], // 住宅手当
+  transportAllowance: [10000, 10000, 10000, 10000, 10000], // 交通費
+  chartTitle: '給与モデル（フロントスタッフ）',
+  chartColors: {
+    baseSalary: '#1e88e5',
+    jobAllowance: '#00acc1',
+    housingAllowance: '#4fc3f7',
+    transportAllowance: '#81d4fa'
+  }
+};
+
+// 合計月収を計算
+const totalSalary = salaryData.years.map((_, index) => 
+  salaryData.baseSalary[index] + 
+  salaryData.jobAllowance[index] + 
+  salaryData.housingAllowance[index] + 
+  salaryData.transportAllowance[index]
+);
+---
+
+<div class="salary-chart">
+  <h3 class="salary-chart__title">{salaryData.chartTitle}</h3>
+  
+  <div class="salary-chart__container">
+    <canvas 
+      id="salaryChart" 
+      width="400" 
+      height="300"
+      data-years={JSON.stringify(salaryData.years)}
+      data-base-salary={JSON.stringify(salaryData.baseSalary)}
+      data-job-allowance={JSON.stringify(salaryData.jobAllowance)}
+      data-housing-allowance={JSON.stringify(salaryData.housingAllowance)}
+      data-transport-allowance={JSON.stringify(salaryData.transportAllowance)}
+      data-colors={JSON.stringify(salaryData.chartColors)}
+    ></canvas>
+  </div>
+  
+  <div class="salary-chart__legend">
+    <div class="salary-chart__legend-item">
+      <span class="salary-chart__legend-color" style={`background-color: ${salaryData.chartColors.baseSalary}`}></span>
+      <span>基本給</span>
+    </div>
+    <div class="salary-chart__legend-item">
+      <span class="salary-chart__legend-color" style={`background-color: ${salaryData.chartColors.jobAllowance}`}></span>
+      <span>職務手当</span>
+    </div>
+    <div class="salary-chart__legend-item">
+      <span class="salary-chart__legend-color" style={`background-color: ${salaryData.chartColors.housingAllowance}`}></span>
+      <span>住宅手当</span>
+    </div>
+    <div class="salary-chart__legend-item">
+      <span class="salary-chart__legend-color" style={`background-color: ${salaryData.chartColors.transportAllowance}`}></span>
+      <span>交通費</span>
+    </div>
+  </div>
+  
+  <div class="salary-chart__summary">
+    <p>※ 上記は正社員（フロントスタッフ）のモデルケースです</p>
+    <p>※ 実際の給与は経験・スキルに応じて決定します</p>
+  </div>
+</div>
+
+<style lang="scss">
+  @import "@styles/functions.scss";
+  @import "@styles/mixins.scss";
+
+  .salary-chart {
+    background: white;
+    border-radius: 12px;
+    padding: spx(24);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    @include tablet-up {
+      padding: spx(24) * 0.75;
+    }
+
+    @include desktop-up {
+      padding: ppx(32);
+    }
+
+    &__title {
+      font-size: spx(24);
+      font-weight: bold;
+      color: #1e88e5;
+      text-align: center;
+      margin-bottom: spx(24);
+
+      @include tablet-up {
+        font-size: spx(24) * 0.75;
+        margin-bottom: spx(24) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(28);
+        margin-bottom: ppx(32);
+      }
+    }
+
+    &__container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto spx(24);
+      position: relative;
+      height: 300px;
+
+      @include tablet-up {
+        margin-bottom: spx(24) * 0.75;
+        height: 250px;
+      }
+
+      @include desktop-up {
+        margin-bottom: ppx(32);
+        height: 350px;
+      }
+
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+
+    &__legend {
+      display: flex;
+      justify-content: center;
+      gap: spx(16);
+      flex-wrap: wrap;
+      margin-bottom: spx(16);
+
+      @include tablet-up {
+        gap: spx(16) * 0.75;
+        margin-bottom: spx(16) * 0.75;
+      }
+
+      @include desktop-up {
+        gap: ppx(24);
+        margin-bottom: ppx(24);
+      }
+    }
+
+    &__legend-item {
+      display: flex;
+      align-items: center;
+      gap: spx(8);
+      font-size: spx(14);
+
+      @include tablet-up {
+        gap: spx(8) * 0.75;
+        font-size: spx(14) * 0.75;
+      }
+
+      @include desktop-up {
+        gap: ppx(8);
+        font-size: ppx(16);
+      }
+    }
+
+    &__legend-color {
+      width: spx(16);
+      height: spx(16);
+      border-radius: 2px;
+
+      @include tablet-up {
+        width: spx(16) * 0.75;
+        height: spx(16) * 0.75;
+      }
+
+      @include desktop-up {
+        width: ppx(16);
+        height: ppx(16);
+      }
+    }
+
+    &__summary {
+      margin-top: spx(16);
+      text-align: center;
+      
+      p {
+        font-size: spx(12);
+        color: #666;
+        line-height: 1.5;
+
+        @include tablet-up {
+          font-size: spx(12) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(14);
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import Chart from 'chart.js/auto';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('salaryChart') as HTMLCanvasElement;
+    
+    if (ctx) {
+      // データ属性から値を取得
+      const years = JSON.parse(ctx.dataset.years || '[]');
+      const baseSalary = JSON.parse(ctx.dataset.baseSalary || '[]');
+      const jobAllowance = JSON.parse(ctx.dataset.jobAllowance || '[]');
+      const housingAllowance = JSON.parse(ctx.dataset.housingAllowance || '[]');
+      const transportAllowance = JSON.parse(ctx.dataset.transportAllowance || '[]');
+      const colors = JSON.parse(ctx.dataset.colors || '{}');
+      
+      const salaryChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: years,
+          datasets: [
+            {
+              label: '基本給',
+              data: baseSalary,
+              backgroundColor: colors.baseSalary || '#1e88e5',
+              borderWidth: 0,
+            },
+            {
+              label: '職務手当',
+              data: jobAllowance,
+              backgroundColor: colors.jobAllowance || '#00acc1',
+              borderWidth: 0,
+            },
+            {
+              label: '住宅手当',
+              data: housingAllowance,
+              backgroundColor: colors.housingAllowance || '#4fc3f7',
+              borderWidth: 0,
+            },
+            {
+              label: '交通費',
+              data: transportAllowance,
+              backgroundColor: colors.transportAllowance || '#81d4fa',
+              borderWidth: 0,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              stacked: true,
+              grid: {
+                display: false
+              },
+              ticks: {
+                font: {
+                  size: 12
+                }
+              }
+            },
+            y: {
+              stacked: true,
+              grid: {
+                borderDash: [5, 5]
+              },
+              ticks: {
+                callback: function(value) {
+                  return '¥' + value.toLocaleString();
+                },
+                font: {
+                  size: 12
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false // カスタムレジェンドを使用するため非表示
+            },
+            tooltip: {
+              callbacks: {
+                title: function(context) {
+                  return context[0].label;
+                },
+                label: function(context) {
+                  const label = context.dataset.label || '';
+                  const value = '¥' + context.parsed.y.toLocaleString();
+                  return label + ': ' + value;
+                },
+                footer: function(tooltipItems) {
+                  let sum = 0;
+                  tooltipItems.forEach(function(tooltipItem) {
+                    const datasets = tooltipItem.chart.data.datasets;
+                    datasets.forEach(function(dataset) {
+                      sum += dataset.data[tooltipItem.dataIndex] as number;
+                    });
+                  });
+                  return '合計: ¥' + sum.toLocaleString();
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>

@@ -3,11 +3,9 @@
 import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import WorkingStyleShiftChart from '@components/culturepage/WorkingStyleShiftChart.astro';
 import CulturepageHolidaysChart from '@components/culturepage/CulturepageHolidaysChart.astro';
-import WorkingStyleImage01 from '@assets/images/culture/culturepage-working_style01.png';
+import SalaryModelChart from '@components/culturepage/SalaryModelChart.astro';
 import WorkingStyleImage02 from '@assets/images/culture/culturepage-working_style02.png';
-import WorkingStyleImage03 from '@assets/images/culture/culturepage-working_style03.png';
 import EmploymentImage01 from '@assets/images/culture/culturepage-employment01.png';
-import EmploymentImage02 from '@assets/images/culture/culturepage-employment02.png';
 import EmploymentImage03 from '@assets/images/culture/culturepage-employment03.png';
 import EmploymentImage04 from '@assets/images/culture/culturepage-employment04.png';
 import InstitutionsBg from '@assets/images/culture/culturepage-institutions-bg.jpg';
@@ -70,14 +68,7 @@ const optimizedImageInstitutionsBg = await getImage({
       alt="数字でわかる働きやすさ"
       class="fadein-up"
     />
-    <Image
-      src={EmploymentImage02}
-      format="webp"
-      width={641}
-      height={367}
-      alt="給与モデル（例）"
-      class="fadein-up"
-    />
+    <SalaryModelChart class="fadein-up" />
     <div class="equipment-wrapper-inner-column">
       <Image
         src={EmploymentImage03}
