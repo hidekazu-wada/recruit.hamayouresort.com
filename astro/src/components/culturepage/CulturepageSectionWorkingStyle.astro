@@ -4,10 +4,10 @@ import LowerPageH2 from '@components/common/LowerPageH2.astro';
 import WorkingStyleShiftChart from '@components/culturepage/WorkingStyleShiftChart.astro';
 import CulturepageHolidaysChart from '@components/culturepage/CulturepageHolidaysChart.astro';
 import SalaryModelChart from '@components/culturepage/SalaryModelChart.astro';
+import WorkEnvironmentStats from '@components/culturepage/WorkEnvironmentStats.astro';
+import EmployeeDataChart from '@components/culturepage/EmployeeDataChart.astro';
+import CustomerDataChart from '@components/culturepage/CustomerDataChart.astro';
 import WorkingStyleImage02 from '@assets/images/culture/culturepage-working_style02.png';
-import EmploymentImage01 from '@assets/images/culture/culturepage-employment01.png';
-import EmploymentImage03 from '@assets/images/culture/culturepage-employment03.png';
-import EmploymentImage04 from '@assets/images/culture/culturepage-employment04.png';
 import InstitutionsBg from '@assets/images/culture/culturepage-institutions-bg.jpg';
 import { Image } from 'astro:assets';
 import { getImage } from 'astro:assets';
@@ -23,14 +23,6 @@ const optimizedImageInstitutionsBg = await getImage({
   <LowerPageH2 title="勤務スタイル" variant="default" position="left" />
   <div class="working-style-wrapper-inner">
     <WorkingStyleShiftChart />
-    <Image
-      src={WorkingStyleImage02}
-      format="webp"
-      width={570}
-      height={382}
-      alt="制度ピックアップ"
-      class="fadein-up"
-    />
     <CulturepageHolidaysChart />
   </div>
 </div>
@@ -60,32 +52,11 @@ const optimizedImageInstitutionsBg = await getImage({
     </ul>
   </section>
   <div class="equipment-wrapper-inner">
-    <Image
-      src={EmploymentImage01}
-      format="webp"
-      width={570}
-      height={298}
-      alt="数字でわかる働きやすさ"
-      class="fadein-up"
-    />
+    <WorkEnvironmentStats class="fadein-up" />
     <SalaryModelChart class="fadein-up" />
     <div class="equipment-wrapper-inner-column">
-      <Image
-        src={EmploymentImage03}
-        format="webp"
-        width={450}
-        height={513}
-        alt="社員データ"
-        class="employee-data fadein-up"
-      />
-      <Image
-        src={EmploymentImage04}
-        format="webp"
-        width={344}
-        height={513}
-        alt="顧客データ（2024年度）"
-        class="fadein-up"
-      />
+      <EmployeeDataChart class="employee-data fadein-up" />
+      <CustomerDataChart class="fadein-up" />
     </div>
   </div>
 </div>
