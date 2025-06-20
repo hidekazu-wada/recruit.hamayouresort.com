@@ -261,7 +261,8 @@ const totalSalary = salaryData.years.map((_, index) =>
             y: {
               stacked: true,
               grid: {
-                borderDash: [5, 5]
+                color: 'rgba(0, 0, 0, 0.1)',
+                drawTicks: false
               },
               ticks: {
                 callback: function(value) {
