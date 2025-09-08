@@ -1,0 +1,275 @@
+---
+// 顧客データ
+const customerData = {
+  totalGuests: 101212, // 年間ゲスト総数
+  segments: [
+    { label: '小学生', count: 11237, color: '#1e88e5' },
+    { label: '中学生', count: 9031, color: '#00acc1' },
+    { label: '高校生', count: 11609, color: '#4fc3f7' },
+    { label: '学習塾', count: 5200, color: '#81d4fa' },
+    { label: '企業研修', count: 4548, color: '#b3e5fc' },
+    { label: 'その他', count: 59587, color: '#e1f5fe' }
+  ]
+};
+
+// パーセンテージ計算
+const segmentsWithPercentage = customerData.segments.map(segment => ({
+  ...segment,
+  percentage: ((segment.count / customerData.totalGuests) * 100).toFixed(1)
+}));
+---
+
+<div class="customer-data">
+  <h3 class="customer-data__title">顧客データ（2024年度）</h3>
+  
+  <!-- 年間ゲスト総数 -->
+  <div class="customer-data__total">
+    <span class="customer-data__total-number">{customerData.totalGuests.toLocaleString()}</span>
+    <span class="customer-data__total-label">名</span>
+    <span class="customer-data__total-description">年間ゲスト総数</span>
+  </div>
+  
+  <!-- 顧客セグメントチャート -->
+  <div class="customer-data__chart-container">
+    <canvas 
+      id="customerChart" 
+      width="300" 
+      height="300"
+      data-segments={JSON.stringify(segmentsWithPercentage)}
+    ></canvas>
+  </div>
+  
+  <!-- レジェンド -->
+  <div class="customer-data__legend">
+    {segmentsWithPercentage.map((segment) => (
+      <div class="customer-data__legend-item">
+        <span 
+          class="customer-data__legend-color" 
+          style={`background-color: ${segment.color}`}
+        ></span>
+        <span class="customer-data__legend-label">{segment.label}</span>
+        <span class="customer-data__legend-value">{segment.percentage}%</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style lang="scss">
+  @import "@styles/functions.scss";
+  @import "@styles/mixins.scss";
+
+  .customer-data {
+    background: white;
+    border-radius: 12px;
+    padding: spx(24);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    @include tablet-up {
+      padding: spx(24) * 0.75;
+    }
+
+    @include desktop-up {
+      padding: ppx(32);
+    }
+
+    &__title {
+      font-size: spx(24);
+      font-weight: bold;
+      color: #1e88e5;
+      text-align: center;
+      margin-bottom: spx(24);
+
+      @include tablet-up {
+        font-size: spx(24) * 0.75;
+        margin-bottom: spx(24) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(28);
+        margin-bottom: ppx(32);
+      }
+    }
+
+    &__total {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: spx(4);
+      margin-bottom: spx(24);
+
+      @include tablet-up {
+        gap: spx(4) * 0.75;
+        margin-bottom: spx(24) * 0.75;
+      }
+
+      @include desktop-up {
+        gap: ppx(4);
+        margin-bottom: ppx(32);
+      }
+    }
+
+    &__total-number {
+      font-size: spx(36);
+      font-weight: bold;
+      color: #1e88e5;
+
+      @include tablet-up {
+        font-size: spx(36) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(48);
+      }
+    }
+
+    &__total-label {
+      font-size: spx(20);
+      color: #1e88e5;
+
+      @include tablet-up {
+        font-size: spx(20) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(24);
+      }
+    }
+
+    &__total-description {
+      font-size: spx(14);
+      color: #666;
+      margin-left: spx(8);
+
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+        margin-left: spx(8) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(16);
+        margin-left: ppx(12);
+      }
+    }
+
+    &__chart-container {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto spx(24);
+      position: relative;
+
+      @include tablet-up {
+        margin-bottom: spx(24) * 0.75;
+      }
+
+      @include desktop-up {
+        margin-bottom: ppx(32);
+      }
+
+      canvas {
+        width: 100% !important;
+        height: auto !important;
+      }
+    }
+
+    &__legend {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: spx(12);
+
+      @include tablet-up {
+        gap: spx(12) * 0.75;
+      }
+
+      @include desktop-up {
+        grid-template-columns: repeat(3, 1fr);
+        gap: ppx(16);
+      }
+    }
+
+    &__legend-item {
+      display: flex;
+      align-items: center;
+      gap: spx(8);
+      font-size: spx(14);
+
+      @include tablet-up {
+        gap: spx(8) * 0.75;
+        font-size: spx(14) * 0.75;
+      }
+
+      @include desktop-up {
+        gap: ppx(8);
+        font-size: ppx(16);
+      }
+    }
+
+    &__legend-color {
+      width: spx(12);
+      height: spx(12);
+      border-radius: 2px;
+      flex-shrink: 0;
+
+      @include tablet-up {
+        width: spx(12) * 0.75;
+        height: spx(12) * 0.75;
+      }
+
+      @include desktop-up {
+        width: ppx(14);
+        height: ppx(14);
+      }
+    }
+
+    &__legend-label {
+      color: #333;
+      flex: 1;
+    }
+
+    &__legend-value {
+      color: #666;
+      font-weight: bold;
+    }
+  }
+</style>
+
+<script>
+  import Chart from 'chart.js/auto';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('customerChart') as HTMLCanvasElement;
+    
+    if (ctx) {
+      const segments = JSON.parse(ctx.dataset.segments || '[]');
+      
+      const customerChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: segments.map((item: any) => item.label),
+          datasets: [{
+            data: segments.map((item: any) => item.count),
+            backgroundColor: segments.map((item: any) => item.color),
+            borderWidth: 0,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          cutout: '50%',
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const segment = segments[context.dataIndex];
+                  return `${segment.label}: ${segment.count.toLocaleString()}名 (${segment.percentage}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>

@@ -1,0 +1,264 @@
+---
+// 働きやすさ指標データ
+const workStats = {
+  overtimeHours: 3, // 月平均残業時間
+  paidLeaveRate: 100, // 有給取得率
+  requestedLeaveRate: 90, // 希望休取得率
+  maxConsecutiveDays: 5 // 最大連休
+};
+---
+
+<div class="work-stats">
+  <h3 class="work-stats__title">数字でわかる働きやすさ</h3>
+  
+  <div class="work-stats__grid">
+    <!-- 平均残業時間 -->
+    <div class="work-stats__card">
+      <div class="work-stats__icon">⏰</div>
+      <div class="work-stats__content">
+        <div class="work-stats__value">
+          <span class="work-stats__number">月{workStats.overtimeHours}</span>
+          <span class="work-stats__unit">時間</span>
+        </div>
+        <div class="work-stats__label">平均残業時間</div>
+      </div>
+    </div>
+    
+    <!-- 有給取得率 -->
+    <div class="work-stats__card">
+      <div class="work-stats__icon">✅</div>
+      <div class="work-stats__content">
+        <div class="work-stats__value">
+          <span class="work-stats__number">{workStats.paidLeaveRate}</span>
+          <span class="work-stats__unit">%</span>
+        </div>
+        <div class="work-stats__label">有給取得率</div>
+      </div>
+    </div>
+    
+    <!-- 希望休取得率 -->
+    <div class="work-stats__card">
+      <div class="work-stats__icon">📅</div>
+      <div class="work-stats__content">
+        <div class="work-stats__value">
+          <span class="work-stats__number">{workStats.requestedLeaveRate}</span>
+          <span class="work-stats__unit">%</span>
+        </div>
+        <div class="work-stats__label">希望休取得率</div>
+      </div>
+    </div>
+    
+    <!-- 最大連休 -->
+    <div class="work-stats__card">
+      <div class="work-stats__icon">🏖️</div>
+      <div class="work-stats__content">
+        <div class="work-stats__value">
+          <span class="work-stats__number">最大{workStats.maxConsecutiveDays}</span>
+          <span class="work-stats__unit">連休</span>
+        </div>
+        <div class="work-stats__label">閑散期の連休例</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="work-stats__note">
+    <p>※ 残業時間は部署・時期により変動があります</p>
+    <p>※ 連休は閑散期（繁忙期以外）の取得例です</p>
+  </div>
+</div>
+
+<style lang="scss">
+  @import "@styles/functions.scss";
+  @import "@styles/mixins.scss";
+
+  .work-stats {
+    background: white;
+    border-radius: 12px;
+    padding: spx(24);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    @include tablet-up {
+      padding: spx(24) * 0.75;
+    }
+
+    @include desktop-up {
+      padding: ppx(32);
+    }
+
+    &__title {
+      font-size: spx(24);
+      font-weight: bold;
+      color: #1e88e5;
+      text-align: center;
+      margin-bottom: spx(24);
+
+      @include tablet-up {
+        font-size: spx(24) * 0.75;
+        margin-bottom: spx(24) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(28);
+        margin-bottom: ppx(32);
+      }
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: spx(16);
+      margin-bottom: spx(24);
+
+      @include tablet-up {
+        grid-template-columns: repeat(2, 1fr);
+        gap: spx(16) * 0.75;
+        margin-bottom: spx(24) * 0.75;
+      }
+
+      @include desktop-up {
+        grid-template-columns: repeat(4, 1fr);
+        gap: ppx(24);
+        margin-bottom: ppx(32);
+      }
+    }
+
+    &__card {
+      background: linear-gradient(135deg, #f5f9ff 0%, #e8f2ff 100%);
+      border-radius: 12px;
+      padding: spx(20);
+      display: flex;
+      align-items: center;
+      gap: spx(16);
+      transition: transform 0.2s ease;
+
+      @include tablet-up {
+        padding: spx(20) * 0.75;
+        gap: spx(16) * 0.75;
+      }
+
+      @include desktop-up {
+        padding: ppx(24);
+        gap: ppx(20);
+        flex-direction: column;
+        text-align: center;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    &__icon {
+      font-size: spx(32);
+      flex-shrink: 0;
+
+      @include tablet-up {
+        font-size: spx(32) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(40);
+      }
+    }
+
+    &__content {
+      flex: 1;
+    }
+
+    &__value {
+      display: flex;
+      align-items: baseline;
+      gap: spx(4);
+      margin-bottom: spx(4);
+
+      @include tablet-up {
+        gap: spx(4) * 0.75;
+        margin-bottom: spx(4) * 0.75;
+      }
+
+      @include desktop-up {
+        gap: ppx(4);
+        margin-bottom: ppx(8);
+        justify-content: center;
+      }
+    }
+
+    &__number {
+      font-size: spx(28);
+      font-weight: bold;
+      color: #1e88e5;
+      line-height: 1;
+
+      @include tablet-up {
+        font-size: spx(28) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(36);
+      }
+    }
+
+    &__unit {
+      font-size: spx(16);
+      color: #1e88e5;
+      font-weight: bold;
+
+      @include tablet-up {
+        font-size: spx(16) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(20);
+      }
+    }
+
+    &__label {
+      font-size: spx(14);
+      color: #666;
+      line-height: 1.2;
+
+      @include tablet-up {
+        font-size: spx(14) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(16);
+      }
+    }
+
+    &__note {
+      border-top: 1px solid #e0e0e0;
+      padding-top: spx(16);
+      text-align: center;
+
+      @include tablet-up {
+        padding-top: spx(16) * 0.75;
+      }
+
+      @include desktop-up {
+        padding-top: ppx(20);
+      }
+
+      p {
+        font-size: spx(12);
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: spx(4);
+
+        @include tablet-up {
+          font-size: spx(12) * 0.75;
+          margin-bottom: spx(4) * 0.75;
+        }
+
+        @include desktop-up {
+          font-size: ppx(14);
+          margin-bottom: ppx(4);
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+</style>

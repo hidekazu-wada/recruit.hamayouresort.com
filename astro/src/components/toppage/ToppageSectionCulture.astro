@@ -2,7 +2,7 @@
 import PrimaryButton from '@components/common/PrimaryButton.astro';
 import ToppageSectionInTitle from '@components/toppage/ToppageSectionInTitle.astro';
 import ToppageSectionInLead from '@components/toppage/ToppageSectionInLead.astro';
-import Image from 'astro/components/Image.astro';
+import { Image } from 'astro:assets';
 import { featuredCulture } from '@data/cultureData';
 ---
 
@@ -17,8 +17,8 @@ import { featuredCulture } from '@data/cultureData';
           <Image
             src={item.image}
             alt={item.title}
-            width={item.image.width}
-            height={item.image.height}
+            width={350}
+            height={262}
             format="webp"
           />
           <p>{item.title}</p>

@@ -1,0 +1,274 @@
+---
+// 従業員データ
+const employeeData = {
+  total: 39, // 総従業員数
+  averageAge: 43, // 平均年齢
+  genderRatio: '1:1', // 男女比
+  composition: [
+    { label: '正社員', count: 19, color: '#1e88e5' },
+    { label: 'パート', count: 13, color: '#00acc1' },
+    { label: '特定技能実習生', count: 4, color: '#4fc3f7' },
+    { label: '技能実習生', count: 2, color: '#81d4fa' },
+    { label: '契約社員', count: 1, color: '#b3e5fc' }
+  ]
+};
+
+// パーセンテージ計算
+const compositionWithPercentage = employeeData.composition.map(item => ({
+  ...item,
+  percentage: Math.round((item.count / employeeData.total) * 100)
+}));
+---
+
+<div class="employee-data">
+  <h3 class="employee-data__title">社員データ</h3>
+  
+  <!-- 統計カード -->
+  <div class="employee-data__stats">
+    <div class="employee-data__stat-card">
+      <span class="employee-data__stat-number">{employeeData.total}</span>
+      <span class="employee-data__stat-label">名</span>
+      <span class="employee-data__stat-description">総従業員数</span>
+    </div>
+    <div class="employee-data__stat-card">
+      <span class="employee-data__stat-number">{employeeData.averageAge}</span>
+      <span class="employee-data__stat-label">歳</span>
+      <span class="employee-data__stat-description">平均年齢</span>
+    </div>
+    <div class="employee-data__stat-card">
+      <span class="employee-data__stat-number">{employeeData.genderRatio}</span>
+      <span class="employee-data__stat-label"></span>
+      <span class="employee-data__stat-description">男女比</span>
+    </div>
+  </div>
+  
+  <!-- 雇用形態別グラフ -->
+  <div class="employee-data__chart-container">
+    <h4 class="employee-data__subtitle">雇用形態別構成</h4>
+    <canvas 
+      id="employeeChart" 
+      width="400" 
+      height="200"
+      data-composition={JSON.stringify(compositionWithPercentage)}
+    ></canvas>
+  </div>
+</div>
+
+<style lang="scss">
+  @import "@styles/functions.scss";
+  @import "@styles/mixins.scss";
+
+  .employee-data {
+    background: white;
+    border-radius: 12px;
+    padding: spx(24);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    @include tablet-up {
+      padding: spx(24) * 0.75;
+    }
+
+    @include desktop-up {
+      padding: ppx(32);
+    }
+
+    &__title {
+      font-size: spx(24);
+      font-weight: bold;
+      color: #1e88e5;
+      text-align: center;
+      margin-bottom: spx(24);
+
+      @include tablet-up {
+        font-size: spx(24) * 0.75;
+        margin-bottom: spx(24) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(28);
+        margin-bottom: ppx(32);
+      }
+    }
+
+    &__stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: spx(16);
+      margin-bottom: spx(32);
+
+      @include tablet-up {
+        gap: spx(16) * 0.75;
+        margin-bottom: spx(32) * 0.75;
+      }
+
+      @include desktop-up {
+        gap: ppx(24);
+        margin-bottom: ppx(48);
+      }
+    }
+
+    &__stat-card {
+      background: #f5f9ff;
+      border-radius: 8px;
+      padding: spx(16) spx(8);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @include tablet-up {
+        padding: spx(16) * 0.75 spx(8) * 0.75;
+      }
+
+      @include desktop-up {
+        padding: ppx(20) ppx(16);
+      }
+    }
+
+    &__stat-number {
+      font-size: spx(32);
+      font-weight: bold;
+      color: #1e88e5;
+      line-height: 1;
+
+      @include tablet-up {
+        font-size: spx(32) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(40);
+      }
+    }
+
+    &__stat-label {
+      font-size: spx(16);
+      color: #1e88e5;
+      margin-bottom: spx(4);
+
+      @include tablet-up {
+        font-size: spx(16) * 0.75;
+        margin-bottom: spx(4) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(18);
+        margin-bottom: ppx(8);
+      }
+    }
+
+    &__stat-description {
+      font-size: spx(12);
+      color: #666;
+      margin-top: spx(4);
+
+      @include tablet-up {
+        font-size: spx(12) * 0.75;
+        margin-top: spx(4) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(14);
+        margin-top: ppx(4);
+      }
+    }
+
+    &__chart-container {
+      position: relative;
+      height: 200px;
+
+      @include tablet-up {
+        height: 180px;
+      }
+
+      @include desktop-up {
+        height: 220px;
+      }
+
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+
+    &__subtitle {
+      font-size: spx(18);
+      font-weight: bold;
+      color: #333;
+      margin-bottom: spx(16);
+      text-align: center;
+
+      @include tablet-up {
+        font-size: spx(18) * 0.75;
+        margin-bottom: spx(16) * 0.75;
+      }
+
+      @include desktop-up {
+        font-size: ppx(20);
+        margin-bottom: ppx(24);
+      }
+    }
+  }
+</style>
+
+<script>
+  import Chart from 'chart.js/auto';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('employeeChart') as HTMLCanvasElement;
+    
+    if (ctx) {
+      // データ属性がケバブケースになるため、正しく取得
+      const compositionData = ctx.getAttribute('data-composition');
+      const composition = JSON.parse(compositionData || '[]');
+      
+      const employeeChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: composition.map((item: any) => item.label),
+          datasets: [{
+            data: composition.map((item: any) => item.count),
+            backgroundColor: composition.map((item: any) => item.color),
+            borderWidth: 0,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const item = composition[context.dataIndex];
+                  return `${item.count}名 (${item.percentage}%)`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              grid: {
+                borderDash: [5, 5]
+              },
+              ticks: {
+                stepSize: 5,
+                callback: function(value) {
+                  return value + '名';
+                }
+              }
+            },
+            y: {
+              grid: {
+                display: false
+              }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>
